@@ -1,0 +1,29 @@
+
+true
+false
+
+x = 1 : int
+x = 4
+
+x = 5 + y
+
+if x > 5 do
+
+end
+
+while x<4 do
+	
+end
+
+
+do
+
+while x < 5
+
+
+def foo(arg : int, test : int)
+	test += 1
+	return arg
+end
+
+read(x,y,z,f,g,e)
