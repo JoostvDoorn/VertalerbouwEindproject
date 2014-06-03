@@ -1,0 +1,39 @@
+program = statements;
+statements = (statement)*;
+statement = assignment (\n | ";") |
+			if end |
+			while end |
+			func_def |
+			print (\n | ";") |
+			read (\n | ";");
+
+expr = identifier |
+	   number |
+	   boolean |
+	   read |
+	   print |
+	   arth_expr |
+	   func |
+	   "(" expr ")";
+
+
+assignment = (identifier "=")+ expr (: type)?;
+
+arth_expr = expr OP expr;
+
+while = WHILE expr DO statements END;
+
+if = IF expr DO statements (ELSEIF expr DO statements)* (ELSE statements)? END;
+
+print = READ "(" exprlist ")";
+read = READ "(" varlist ")";
+
+varlist = var (COMMA var)*;
+
+exprlist = expr (COMMA expr)*;
+
+func_def = DEF identifier "("  ")" statements END;
+
+func = identifier "(" exprlist ")";
+
+
