@@ -23,22 +23,42 @@ tokens {
     
     // comp. operators
     GT          =   '>'     ;
-    GTEQ        =   '>='    ;
+    GE          =   '>='    ;
     LT          =   '<'     ;
-    LTEQ        =   '<='    ;
+    LE     	    =   '<='    ;
     EQ          =   '=='    ;
-    NEQ         =   '!='    ;
+    NQ          =   '!='    ;
+    
+    
+    AND  		=   'and'    ;
+    AND_ALT    	=   '&&'    ;
+    OR     		=   'or'    ;
+    OR_ALT     	=   '||'    ;
+    NOT         =   '!'    ;
+    MOD         =   '%'    ;
+    
+    // types
+    INT    		=   'int';
+    BOOL    	=   'boolean';
+    CHAR    	=   'char';
+    STRING    	=   'string';
 
     // keywords
     PROGRAM     =   'program'   ;
     PRINT       =   'print'     ;
+    READ        =   'read'     ;
     IF     		=   'if'   ;
     ELSE     	=   'else'   ;
     ELSEIF		= 	'elseif'  ;
     DO          =   'do'        ;
+    END         =   'end'        ;
     WHILE       =   'while'     ;
     TRUE		=   'true'    ;
     FALSE		=   'false'    ;
+    DEF         =   'def'        ;
+    
+    FUNC        =   'func' ;
+    EXPR_LIST   =   'exprlist';
 }
 
 @lexer::header {
@@ -51,47 +71,63 @@ package alia;
 
 
 
-program = (declaration | statement)*;
-declaration = func_def;
-statements = (statement)*;
-statement = assignment (\n | ";") |
-			expr  (\n | ";") |
-			while;
+program : (declaration | statement | NEWLINE!)*;
+declaration : func_def;
+statements : (statement | NEWLINE!)*;
+statement : expr_assignment (COLON type)? end_statement |
+			while_stmnt;
+			
+end_statement : NEWLINE! | SEMICOLON! | EOF!;
 
-expr : expr1 (OR expr1)*;
-expr1 : expr2 (AND expr2)*;
-expr2 : expr3 ((GT | GE | LT | LE | EQ | NQ) expr3)*;
-expr3 : expr4 ((PLUS | MINUS) expr4)*;
-expr4 : expr5 ((TIMES | DIV | MOD) expr5)*;
-expr5 : (NOT | PLUS | MINUS) operand
+// Syntactic predicate to recognize assignments
+// Syntactic predicates can be easily left out if we do not allow expr as statements
+expr_assignment : (IDENTIFIER BECOMES) => (IDENTIFIER BECOMES^) expr_assignment |
+			expr ;
+
+expr : expr1 ((OR | OR_ALT)^ expr1)*;
+expr1 : expr2 ((AND | AND_ALT)^ expr2)*;
+expr2 : expr3 ((GT | GE | LT | LE | EQ | NQ)^ expr3)*;
+expr3 : expr4 ((PLUS | MINUS)^ expr4)*;
+expr4 : expr5 ((TIMES | DIV | MOD)^ expr5)*;
+expr5 : (NOT | PLUS | MINUS)^ operand | operand;
 operand : read |
 	   	  print |
-	   	  func |
-	   	  if |
-	   	  LPAREN expr RPAREN |
+	   	  if_stmnt |
+	   	  LPAREN! expr RPAREN! |
 	   	  NUMBER |
-	   	  BOOLEAN |
-	   	  IDENTIFIER;
+	   	  boolean_expr |
+	   	  func_identifier;
 
-assignment = (identifier BECOMES)+ expr (: type)?;
 
-while = WHILE expr DO statements END;
+func_identifier : IDENTIFIER 
+				(LPAREN^ exprlist? RPAREN)?;
+//
 
-if = IF expr DO statements (ELSEIF expr DO statements)* (ELSE statements)? END;
 
-print = PRINT LPAREN exprlist ")";
-read = READ LPAREN varlist ")";
+while_stmnt : WHILE^ expr DO statements END;
 
-varlist = var (COMMA var)*;
+if_stmnt : IF^ expr DO! statements (ELSEIF expr DO! statements)* (ELSE statements)? END!;
 
-exprlist = expr (COMMA expr)*;
+print : PRINT^ LPAREN! exprlist RPAREN!;
+read : READ^ LPAREN! varlist RPAREN!;
 
-func_def = DEF identifier LPAREN  RPAREN statements END;
+varlist : IDENTIFIER (COMMA IDENTIFIER)*;
 
-func = identifier LPAREN exprlist RPAREN;
+exprlist : expr (COMMA expr)*;
+
+func_def : DEF IDENTIFIER LPAREN!  RPAREN! statements END;
+
+
+
 
 
 // Lexer rules
+
+
+boolean_expr : TRUE | FALSE;
+
+type : STRING | INT | BOOL;
+
 
 IDENTIFIER
     :   LETTER (LETTER | DIGIT)*
@@ -100,15 +136,16 @@ IDENTIFIER
 NUMBER
     :   DIGIT+
     ;
-BOOLEAN = TRUE | FALSE;
+
 
 COMMENT
-    :   '//' .* '\n' 
+    :   ('//' .* '\n' | '/*' .* '*/')
             { $channel=HIDDEN; }
+        
     ;
 
 WS
-    :   (' ' | '\t' | '\f' | '\r' | '\n')+
+    :   (' ' | '\t' | '\f' | '\r')+
             { $channel=HIDDEN; }
     ;
 
