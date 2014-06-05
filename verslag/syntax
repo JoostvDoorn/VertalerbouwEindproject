@@ -1,31 +1,32 @@
-program = statements;
+program = (declaration | statement)*;
+declaration = func_def;
 statements = (statement)*;
 statement = assignment (\n | ";") |
-			if end |
-			while end |
-			func_def |
-			print (\n | ";") |
-			read (\n | ";");
+			expr  (\n | ";") |
+			while;
 
-expr = identifier |
-	   number |
-	   boolean |
-	   read |
-	   print |
-	   arth_expr |
-	   func |
-	   "(" expr ")";
-
+expr : expr1 (OR expr1)*;
+expr1 : expr2 (AND expr2)*;
+expr2 : expr3 ((GT | GE | LT | LE | EQ | NQ) expr3)*;
+expr3 : expr4 ((PLUS | MINUS) expr4)*;
+expr4 : expr5 ((TIMES | DIV | MOD) expr5)*;
+expr5 : (NOT | PLUS | MINUS) operand
+operand : read |
+	   	  print |
+	   	  boolean |
+	   	  number |
+	   	  func |
+	   	  if |
+	   	  "(" expr ")" |
+	   	  IDENTIFIER;
 
 assignment = (identifier "=")+ expr (: type)?;
-
-arth_expr = expr OP expr;
 
 while = WHILE expr DO statements END;
 
 if = IF expr DO statements (ELSEIF expr DO statements)* (ELSE statements)? END;
 
-print = READ "(" exprlist ")";
+print = PRINT "(" exprlist ")";
 read = READ "(" varlist ")";
 
 varlist = var (COMMA var)*;
@@ -35,5 +36,3 @@ exprlist = expr (COMMA expr)*;
 func_def = DEF identifier "("  ")" statements END;
 
 func = identifier "(" exprlist ")";
-
-
