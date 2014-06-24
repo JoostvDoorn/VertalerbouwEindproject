@@ -1,4 +1,4 @@
-// $ANTLR 3.5.2 src\\alia\\Alia.g 2014-06-18 14:59:08
+// $ANTLR 3.5.2 src\\alia\\Alia.g 2014-06-24 14:53:48
 
 package alia;
 
@@ -41,25 +41,28 @@ public class AliaLexer extends Lexer {
 	public static final int LPAREN=31;
 	public static final int LT=32;
 	public static final int MINUS=33;
-	public static final int MOD=34;
-	public static final int NEWLINE=35;
-	public static final int NOT=36;
-	public static final int NQ=37;
-	public static final int NUMBER=38;
-	public static final int OR=39;
-	public static final int OR_ALT=40;
-	public static final int PLUS=41;
-	public static final int PRINT=42;
-	public static final int PROGRAM=43;
-	public static final int READ=44;
-	public static final int RPAREN=45;
-	public static final int SEMICOLON=46;
-	public static final int STRING=47;
-	public static final int TIMES=48;
-	public static final int TRUE=49;
-	public static final int UPPER=50;
-	public static final int WHILE=51;
-	public static final int WS=52;
+	public static final int MINUS_OP=34;
+	public static final int MOD=35;
+	public static final int NEWLINE=36;
+	public static final int NOT=37;
+	public static final int NQ=38;
+	public static final int NUMBER=39;
+	public static final int OR=40;
+	public static final int OR_ALT=41;
+	public static final int PLUS=42;
+	public static final int PLUS_OP=43;
+	public static final int PRINT=44;
+	public static final int PROGRAM=45;
+	public static final int READ=46;
+	public static final int RPAREN=47;
+	public static final int SEMICOLON=48;
+	public static final int SQUOTE=49;
+	public static final int STRING=50;
+	public static final int TIMES=51;
+	public static final int TRUE=52;
+	public static final int UPPER=53;
+	public static final int WHILE=54;
+	public static final int WS=55;
 
 	// delegates
 	// delegators
@@ -593,13 +596,34 @@ public class AliaLexer extends Lexer {
 	}
 	// $ANTLR end "MINUS"
 
+	// $ANTLR start "MINUS_OP"
+	public final void mMINUS_OP() throws RecognitionException {
+		try {
+			int _type = MINUS_OP;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// src\\alia\\Alia.g:36:10: ( 'minop' )
+			// src\\alia\\Alia.g:36:12: 'minop'
+			{
+			match("minop"); 
+
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "MINUS_OP"
+
 	// $ANTLR start "MOD"
 	public final void mMOD() throws RecognitionException {
 		try {
 			int _type = MOD;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:36:5: ( '%' )
-			// src\\alia\\Alia.g:36:7: '%'
+			// src\\alia\\Alia.g:37:5: ( '%' )
+			// src\\alia\\Alia.g:37:7: '%'
 			{
 			match('%'); 
 			}
@@ -618,8 +642,8 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = NEWLINE;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:37:9: ( '\\n' )
-			// src\\alia\\Alia.g:37:11: '\\n'
+			// src\\alia\\Alia.g:38:9: ( '\\n' )
+			// src\\alia\\Alia.g:38:11: '\\n'
 			{
 			match('\n'); 
 			}
@@ -638,8 +662,8 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = NOT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:38:5: ( '!' )
-			// src\\alia\\Alia.g:38:7: '!'
+			// src\\alia\\Alia.g:39:5: ( '!' )
+			// src\\alia\\Alia.g:39:7: '!'
 			{
 			match('!'); 
 			}
@@ -658,8 +682,8 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = NQ;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:39:4: ( '!=' )
-			// src\\alia\\Alia.g:39:6: '!='
+			// src\\alia\\Alia.g:40:4: ( '!=' )
+			// src\\alia\\Alia.g:40:6: '!='
 			{
 			match("!="); 
 
@@ -679,8 +703,8 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = OR;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:40:4: ( 'or' )
-			// src\\alia\\Alia.g:40:6: 'or'
+			// src\\alia\\Alia.g:41:4: ( 'or' )
+			// src\\alia\\Alia.g:41:6: 'or'
 			{
 			match("or"); 
 
@@ -700,8 +724,8 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = OR_ALT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:41:8: ( '||' )
-			// src\\alia\\Alia.g:41:10: '||'
+			// src\\alia\\Alia.g:42:8: ( '||' )
+			// src\\alia\\Alia.g:42:10: '||'
 			{
 			match("||"); 
 
@@ -721,8 +745,8 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = PLUS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:42:6: ( '+' )
-			// src\\alia\\Alia.g:42:8: '+'
+			// src\\alia\\Alia.g:43:6: ( '+' )
+			// src\\alia\\Alia.g:43:8: '+'
 			{
 			match('+'); 
 			}
@@ -736,13 +760,34 @@ public class AliaLexer extends Lexer {
 	}
 	// $ANTLR end "PLUS"
 
+	// $ANTLR start "PLUS_OP"
+	public final void mPLUS_OP() throws RecognitionException {
+		try {
+			int _type = PLUS_OP;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// src\\alia\\Alia.g:44:9: ( 'plusop' )
+			// src\\alia\\Alia.g:44:11: 'plusop'
+			{
+			match("plusop"); 
+
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "PLUS_OP"
+
 	// $ANTLR start "PRINT"
 	public final void mPRINT() throws RecognitionException {
 		try {
 			int _type = PRINT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:43:7: ( 'print' )
-			// src\\alia\\Alia.g:43:9: 'print'
+			// src\\alia\\Alia.g:45:7: ( 'print' )
+			// src\\alia\\Alia.g:45:9: 'print'
 			{
 			match("print"); 
 
@@ -762,8 +807,8 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = PROGRAM;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:44:9: ( 'program' )
-			// src\\alia\\Alia.g:44:11: 'program'
+			// src\\alia\\Alia.g:46:9: ( 'program' )
+			// src\\alia\\Alia.g:46:11: 'program'
 			{
 			match("program"); 
 
@@ -783,8 +828,8 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = READ;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:45:6: ( 'read' )
-			// src\\alia\\Alia.g:45:8: 'read'
+			// src\\alia\\Alia.g:47:6: ( 'read' )
+			// src\\alia\\Alia.g:47:8: 'read'
 			{
 			match("read"); 
 
@@ -804,8 +849,8 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = RPAREN;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:46:8: ( ')' )
-			// src\\alia\\Alia.g:46:10: ')'
+			// src\\alia\\Alia.g:48:8: ( ')' )
+			// src\\alia\\Alia.g:48:10: ')'
 			{
 			match(')'); 
 			}
@@ -824,8 +869,8 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = SEMICOLON;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:47:11: ( ';' )
-			// src\\alia\\Alia.g:47:13: ';'
+			// src\\alia\\Alia.g:49:11: ( ';' )
+			// src\\alia\\Alia.g:49:13: ';'
 			{
 			match(';'); 
 			}
@@ -839,13 +884,33 @@ public class AliaLexer extends Lexer {
 	}
 	// $ANTLR end "SEMICOLON"
 
+	// $ANTLR start "SQUOTE"
+	public final void mSQUOTE() throws RecognitionException {
+		try {
+			int _type = SQUOTE;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// src\\alia\\Alia.g:50:8: ( '\\'' )
+			// src\\alia\\Alia.g:50:10: '\\''
+			{
+			match('\''); 
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "SQUOTE"
+
 	// $ANTLR start "STRING"
 	public final void mSTRING() throws RecognitionException {
 		try {
 			int _type = STRING;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:48:8: ( 'string' )
-			// src\\alia\\Alia.g:48:10: 'string'
+			// src\\alia\\Alia.g:51:8: ( 'string' )
+			// src\\alia\\Alia.g:51:10: 'string'
 			{
 			match("string"); 
 
@@ -865,8 +930,8 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = TIMES;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:49:7: ( '*' )
-			// src\\alia\\Alia.g:49:9: '*'
+			// src\\alia\\Alia.g:52:7: ( '*' )
+			// src\\alia\\Alia.g:52:9: '*'
 			{
 			match('*'); 
 			}
@@ -885,8 +950,8 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = TRUE;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:50:6: ( 'true' )
-			// src\\alia\\Alia.g:50:8: 'true'
+			// src\\alia\\Alia.g:53:6: ( 'true' )
+			// src\\alia\\Alia.g:53:8: 'true'
 			{
 			match("true"); 
 
@@ -906,8 +971,8 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = WHILE;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:51:7: ( 'while' )
-			// src\\alia\\Alia.g:51:9: 'while'
+			// src\\alia\\Alia.g:54:7: ( 'while' )
+			// src\\alia\\Alia.g:54:9: 'while'
 			{
 			match("while"); 
 
@@ -927,12 +992,12 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = IDENTIFIER;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:133:5: ( LETTER ( LETTER | DIGIT )* )
-			// src\\alia\\Alia.g:133:9: LETTER ( LETTER | DIGIT )*
+			// src\\alia\\Alia.g:140:5: ( LETTER ( LETTER | DIGIT )* )
+			// src\\alia\\Alia.g:140:9: LETTER ( LETTER | DIGIT )*
 			{
 			mLETTER(); 
 
-			// src\\alia\\Alia.g:133:16: ( LETTER | DIGIT )*
+			// src\\alia\\Alia.g:140:16: ( LETTER | DIGIT )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -977,10 +1042,10 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = NUMBER;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:137:5: ( ( DIGIT )+ )
-			// src\\alia\\Alia.g:137:9: ( DIGIT )+
+			// src\\alia\\Alia.g:144:5: ( ( DIGIT )+ )
+			// src\\alia\\Alia.g:144:9: ( DIGIT )+
 			{
-			// src\\alia\\Alia.g:137:9: ( DIGIT )+
+			// src\\alia\\Alia.g:144:9: ( DIGIT )+
 			int cnt2=0;
 			loop2:
 			while (true) {
@@ -1029,10 +1094,10 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:142:5: ( ( '//' ( . )* '\\n' | '/*' ( . )* '*/' ) )
-			// src\\alia\\Alia.g:142:9: ( '//' ( . )* '\\n' | '/*' ( . )* '*/' )
+			// src\\alia\\Alia.g:149:5: ( ( '//' ( . )* '\\n' | '/*' ( . )* '*/' ) )
+			// src\\alia\\Alia.g:149:9: ( '//' ( . )* '\\n' | '/*' ( . )* '*/' )
 			{
-			// src\\alia\\Alia.g:142:9: ( '//' ( . )* '\\n' | '/*' ( . )* '*/' )
+			// src\\alia\\Alia.g:149:9: ( '//' ( . )* '\\n' | '/*' ( . )* '*/' )
 			int alt5=2;
 			int LA5_0 = input.LA(1);
 			if ( (LA5_0=='/') ) {
@@ -1066,11 +1131,11 @@ public class AliaLexer extends Lexer {
 
 			switch (alt5) {
 				case 1 :
-					// src\\alia\\Alia.g:142:10: '//' ( . )* '\\n'
+					// src\\alia\\Alia.g:149:10: '//' ( . )* '\\n'
 					{
 					match("//"); 
 
-					// src\\alia\\Alia.g:142:15: ( . )*
+					// src\\alia\\Alia.g:149:15: ( . )*
 					loop3:
 					while (true) {
 						int alt3=2;
@@ -1084,7 +1149,7 @@ public class AliaLexer extends Lexer {
 
 						switch (alt3) {
 						case 1 :
-							// src\\alia\\Alia.g:142:15: .
+							// src\\alia\\Alia.g:149:15: .
 							{
 							matchAny(); 
 							}
@@ -1099,11 +1164,11 @@ public class AliaLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// src\\alia\\Alia.g:142:25: '/*' ( . )* '*/'
+					// src\\alia\\Alia.g:149:25: '/*' ( . )* '*/'
 					{
 					match("/*"); 
 
-					// src\\alia\\Alia.g:142:30: ( . )*
+					// src\\alia\\Alia.g:149:30: ( . )*
 					loop4:
 					while (true) {
 						int alt4=2;
@@ -1124,7 +1189,7 @@ public class AliaLexer extends Lexer {
 
 						switch (alt4) {
 						case 1 :
-							// src\\alia\\Alia.g:142:30: .
+							// src\\alia\\Alia.g:149:30: .
 							{
 							matchAny(); 
 							}
@@ -1159,10 +1224,10 @@ public class AliaLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// src\\alia\\Alia.g:148:5: ( ( ' ' | '\\t' | '\\f' | '\\r' )+ )
-			// src\\alia\\Alia.g:148:9: ( ' ' | '\\t' | '\\f' | '\\r' )+
+			// src\\alia\\Alia.g:155:5: ( ( ' ' | '\\t' | '\\f' | '\\r' )+ )
+			// src\\alia\\Alia.g:155:9: ( ' ' | '\\t' | '\\f' | '\\r' )+
 			{
-			// src\\alia\\Alia.g:148:9: ( ' ' | '\\t' | '\\f' | '\\r' )+
+			// src\\alia\\Alia.g:155:9: ( ' ' | '\\t' | '\\f' | '\\r' )+
 			int cnt6=0;
 			loop6:
 			while (true) {
@@ -1210,7 +1275,7 @@ public class AliaLexer extends Lexer {
 	// $ANTLR start "DIGIT"
 	public final void mDIGIT() throws RecognitionException {
 		try {
-			// src\\alia\\Alia.g:152:17: ( ( '0' .. '9' ) )
+			// src\\alia\\Alia.g:159:17: ( ( '0' .. '9' ) )
 			// src\\alia\\Alia.g:
 			{
 			if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -1233,7 +1298,7 @@ public class AliaLexer extends Lexer {
 	// $ANTLR start "LOWER"
 	public final void mLOWER() throws RecognitionException {
 		try {
-			// src\\alia\\Alia.g:153:17: ( ( 'a' .. 'z' ) )
+			// src\\alia\\Alia.g:160:17: ( ( 'a' .. 'z' ) )
 			// src\\alia\\Alia.g:
 			{
 			if ( (input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
@@ -1256,7 +1321,7 @@ public class AliaLexer extends Lexer {
 	// $ANTLR start "UPPER"
 	public final void mUPPER() throws RecognitionException {
 		try {
-			// src\\alia\\Alia.g:154:17: ( ( 'A' .. 'Z' ) )
+			// src\\alia\\Alia.g:161:17: ( ( 'A' .. 'Z' ) )
 			// src\\alia\\Alia.g:
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z') ) {
@@ -1279,7 +1344,7 @@ public class AliaLexer extends Lexer {
 	// $ANTLR start "LETTER"
 	public final void mLETTER() throws RecognitionException {
 		try {
-			// src\\alia\\Alia.g:155:17: ( LOWER | UPPER )
+			// src\\alia\\Alia.g:162:17: ( LOWER | UPPER )
 			// src\\alia\\Alia.g:
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
@@ -1301,8 +1366,8 @@ public class AliaLexer extends Lexer {
 
 	@Override
 	public void mTokens() throws RecognitionException {
-		// src\\alia\\Alia.g:1:8: ( AND | AND_ALT | BECOMES | BOOL | CHAR | COLON | COMMA | DEF | DIV | DO | ELSE | ELSEIF | END | EQ | EXPR_LIST | FALSE | FUNC | GE | GT | IF | INT | LE | LPAREN | LT | MINUS | MOD | NEWLINE | NOT | NQ | OR | OR_ALT | PLUS | PRINT | PROGRAM | READ | RPAREN | SEMICOLON | STRING | TIMES | TRUE | WHILE | IDENTIFIER | NUMBER | COMMENT | WS )
-		int alt7=45;
+		// src\\alia\\Alia.g:1:8: ( AND | AND_ALT | BECOMES | BOOL | CHAR | COLON | COMMA | DEF | DIV | DO | ELSE | ELSEIF | END | EQ | EXPR_LIST | FALSE | FUNC | GE | GT | IF | INT | LE | LPAREN | LT | MINUS | MINUS_OP | MOD | NEWLINE | NOT | NQ | OR | OR_ALT | PLUS | PLUS_OP | PRINT | PROGRAM | READ | RPAREN | SEMICOLON | SQUOTE | STRING | TIMES | TRUE | WHILE | IDENTIFIER | NUMBER | COMMENT | WS )
+		int alt7=48;
 		alt7 = dfa7.predict(input);
 		switch (alt7) {
 			case 1 :
@@ -1481,140 +1546,161 @@ public class AliaLexer extends Lexer {
 				}
 				break;
 			case 26 :
-				// src\\alia\\Alia.g:1:135: MOD
+				// src\\alia\\Alia.g:1:135: MINUS_OP
+				{
+				mMINUS_OP(); 
+
+				}
+				break;
+			case 27 :
+				// src\\alia\\Alia.g:1:144: MOD
 				{
 				mMOD(); 
 
 				}
 				break;
-			case 27 :
-				// src\\alia\\Alia.g:1:139: NEWLINE
+			case 28 :
+				// src\\alia\\Alia.g:1:148: NEWLINE
 				{
 				mNEWLINE(); 
 
 				}
 				break;
-			case 28 :
-				// src\\alia\\Alia.g:1:147: NOT
+			case 29 :
+				// src\\alia\\Alia.g:1:156: NOT
 				{
 				mNOT(); 
 
 				}
 				break;
-			case 29 :
-				// src\\alia\\Alia.g:1:151: NQ
+			case 30 :
+				// src\\alia\\Alia.g:1:160: NQ
 				{
 				mNQ(); 
 
 				}
 				break;
-			case 30 :
-				// src\\alia\\Alia.g:1:154: OR
+			case 31 :
+				// src\\alia\\Alia.g:1:163: OR
 				{
 				mOR(); 
 
 				}
 				break;
-			case 31 :
-				// src\\alia\\Alia.g:1:157: OR_ALT
+			case 32 :
+				// src\\alia\\Alia.g:1:166: OR_ALT
 				{
 				mOR_ALT(); 
 
 				}
 				break;
-			case 32 :
-				// src\\alia\\Alia.g:1:164: PLUS
+			case 33 :
+				// src\\alia\\Alia.g:1:173: PLUS
 				{
 				mPLUS(); 
 
 				}
 				break;
-			case 33 :
-				// src\\alia\\Alia.g:1:169: PRINT
+			case 34 :
+				// src\\alia\\Alia.g:1:178: PLUS_OP
+				{
+				mPLUS_OP(); 
+
+				}
+				break;
+			case 35 :
+				// src\\alia\\Alia.g:1:186: PRINT
 				{
 				mPRINT(); 
 
 				}
 				break;
-			case 34 :
-				// src\\alia\\Alia.g:1:175: PROGRAM
+			case 36 :
+				// src\\alia\\Alia.g:1:192: PROGRAM
 				{
 				mPROGRAM(); 
 
 				}
 				break;
-			case 35 :
-				// src\\alia\\Alia.g:1:183: READ
+			case 37 :
+				// src\\alia\\Alia.g:1:200: READ
 				{
 				mREAD(); 
 
 				}
 				break;
-			case 36 :
-				// src\\alia\\Alia.g:1:188: RPAREN
+			case 38 :
+				// src\\alia\\Alia.g:1:205: RPAREN
 				{
 				mRPAREN(); 
 
 				}
 				break;
-			case 37 :
-				// src\\alia\\Alia.g:1:195: SEMICOLON
+			case 39 :
+				// src\\alia\\Alia.g:1:212: SEMICOLON
 				{
 				mSEMICOLON(); 
 
 				}
 				break;
-			case 38 :
-				// src\\alia\\Alia.g:1:205: STRING
+			case 40 :
+				// src\\alia\\Alia.g:1:222: SQUOTE
+				{
+				mSQUOTE(); 
+
+				}
+				break;
+			case 41 :
+				// src\\alia\\Alia.g:1:229: STRING
 				{
 				mSTRING(); 
 
 				}
 				break;
-			case 39 :
-				// src\\alia\\Alia.g:1:212: TIMES
+			case 42 :
+				// src\\alia\\Alia.g:1:236: TIMES
 				{
 				mTIMES(); 
 
 				}
 				break;
-			case 40 :
-				// src\\alia\\Alia.g:1:218: TRUE
+			case 43 :
+				// src\\alia\\Alia.g:1:242: TRUE
 				{
 				mTRUE(); 
 
 				}
 				break;
-			case 41 :
-				// src\\alia\\Alia.g:1:223: WHILE
+			case 44 :
+				// src\\alia\\Alia.g:1:247: WHILE
 				{
 				mWHILE(); 
 
 				}
 				break;
-			case 42 :
-				// src\\alia\\Alia.g:1:229: IDENTIFIER
+			case 45 :
+				// src\\alia\\Alia.g:1:253: IDENTIFIER
 				{
 				mIDENTIFIER(); 
 
 				}
 				break;
-			case 43 :
-				// src\\alia\\Alia.g:1:240: NUMBER
+			case 46 :
+				// src\\alia\\Alia.g:1:264: NUMBER
 				{
 				mNUMBER(); 
 
 				}
 				break;
-			case 44 :
-				// src\\alia\\Alia.g:1:247: COMMENT
+			case 47 :
+				// src\\alia\\Alia.g:1:271: COMMENT
 				{
 				mCOMMENT(); 
 
 				}
 				break;
-			case 45 :
-				// src\\alia\\Alia.g:1:255: WS
+			case 48 :
+				// src\\alia\\Alia.g:1:279: WS
 				{
 				mWS(); 
 
@@ -1627,178 +1713,195 @@ public class AliaLexer extends Lexer {
 
 	protected DFA7 dfa7 = new DFA7(this);
 	static final String DFA7_eotS =
-		"\1\uffff\1\37\1\uffff\1\44\2\37\2\uffff\1\37\1\52\2\37\1\61\1\37\1\65"+
-		"\4\uffff\1\67\1\37\2\uffff\2\37\2\uffff\1\37\1\uffff\2\37\3\uffff\1\37"+
-		"\2\uffff\3\37\1\102\2\uffff\5\37\2\uffff\1\110\1\37\4\uffff\1\112\5\37"+
-		"\1\121\2\37\1\124\1\uffff\1\37\1\126\3\37\1\uffff\1\132\1\uffff\6\37\1"+
-		"\uffff\1\37\1\142\1\uffff\1\144\1\uffff\2\37\1\147\1\uffff\2\37\1\152"+
-		"\1\37\1\154\2\37\1\uffff\1\37\1\uffff\1\37\1\161\1\uffff\1\162\1\37\1"+
-		"\uffff\1\37\1\uffff\1\165\1\37\1\167\1\37\2\uffff\1\37\1\172\1\uffff\1"+
-		"\173\1\uffff\1\37\1\175\2\uffff\1\176\2\uffff";
+		"\1\uffff\1\41\1\uffff\1\46\2\41\2\uffff\1\41\1\54\2\41\1\63\1\41\1\67"+
+		"\2\uffff\1\41\2\uffff\1\72\1\41\2\uffff\2\41\3\uffff\1\41\1\uffff\2\41"+
+		"\3\uffff\1\41\2\uffff\3\41\1\106\2\uffff\5\41\2\uffff\1\114\1\41\2\uffff"+
+		"\1\41\2\uffff\1\117\6\41\1\127\2\41\1\132\1\uffff\1\41\1\134\3\41\1\uffff"+
+		"\1\140\1\41\1\uffff\7\41\1\uffff\1\41\1\152\1\uffff\1\154\1\uffff\2\41"+
+		"\1\157\1\uffff\4\41\1\164\1\41\1\166\2\41\1\uffff\1\41\1\uffff\1\41\1"+
+		"\173\1\uffff\1\174\1\41\1\176\1\41\1\uffff\1\41\1\uffff\1\u0081\1\41\1"+
+		"\u0083\1\41\2\uffff\1\u0085\1\uffff\1\41\1\u0087\1\uffff\1\u0088\1\uffff"+
+		"\1\41\1\uffff\1\u008a\2\uffff\1\u008b\2\uffff";
 	static final String DFA7_eofS =
-		"\177\uffff";
+		"\u008c\uffff";
 	static final String DFA7_minS =
 		"\1\11\1\156\1\uffff\1\75\1\157\1\150\2\uffff\1\145\1\52\1\154\1\141\1"+
-		"\75\1\146\1\75\4\uffff\1\75\1\162\2\uffff\1\162\1\145\2\uffff\1\164\1"+
-		"\uffff\1\162\1\150\3\uffff\1\144\2\uffff\1\157\1\141\1\146\1\60\2\uffff"+
-		"\1\163\1\144\1\160\1\154\1\156\2\uffff\1\60\1\164\4\uffff\1\60\1\151\1"+
-		"\141\1\162\1\165\1\151\1\60\1\154\1\162\1\60\1\uffff\1\145\1\60\1\162"+
-		"\1\163\1\143\1\uffff\1\60\1\uffff\1\156\1\147\1\144\1\151\1\145\1\154"+
-		"\1\uffff\1\145\1\60\1\uffff\1\60\1\uffff\1\154\1\145\1\60\1\uffff\1\164"+
-		"\1\162\1\60\1\156\1\60\1\145\1\141\1\uffff\1\146\1\uffff\1\151\1\60\1"+
-		"\uffff\1\60\1\141\1\uffff\1\147\1\uffff\1\60\1\156\1\60\1\163\2\uffff"+
-		"\1\155\1\60\1\uffff\1\60\1\uffff\1\164\1\60\2\uffff\1\60\2\uffff";
+		"\75\1\146\1\75\2\uffff\1\151\2\uffff\1\75\1\162\2\uffff\1\154\1\145\3"+
+		"\uffff\1\164\1\uffff\1\162\1\150\3\uffff\1\144\2\uffff\1\157\1\141\1\146"+
+		"\1\60\2\uffff\1\163\1\144\1\160\1\154\1\156\2\uffff\1\60\1\164\2\uffff"+
+		"\1\156\2\uffff\1\60\1\165\1\151\1\141\1\162\1\165\1\151\1\60\1\154\1\162"+
+		"\1\60\1\uffff\1\145\1\60\1\162\1\163\1\143\1\uffff\1\60\1\157\1\uffff"+
+		"\1\163\1\156\1\147\1\144\1\151\1\145\1\154\1\uffff\1\145\1\60\1\uffff"+
+		"\1\60\1\uffff\1\154\1\145\1\60\1\uffff\1\160\1\157\1\164\1\162\1\60\1"+
+		"\156\1\60\1\145\1\141\1\uffff\1\146\1\uffff\1\151\1\60\1\uffff\1\60\1"+
+		"\160\1\60\1\141\1\uffff\1\147\1\uffff\1\60\1\156\1\60\1\163\2\uffff\1"+
+		"\60\1\uffff\1\155\1\60\1\uffff\1\60\1\uffff\1\164\1\uffff\1\60\2\uffff"+
+		"\1\60\2\uffff";
 	static final String DFA7_maxS =
 		"\1\174\1\156\1\uffff\1\75\1\157\1\150\2\uffff\1\157\1\57\1\170\1\165\1"+
-		"\75\1\156\1\75\4\uffff\1\75\1\162\2\uffff\1\162\1\145\2\uffff\1\164\1"+
-		"\uffff\1\162\1\150\3\uffff\1\144\2\uffff\1\157\1\141\1\146\1\172\2\uffff"+
-		"\1\163\1\144\1\160\1\154\1\156\2\uffff\1\172\1\164\4\uffff\1\172\1\157"+
-		"\1\141\1\162\1\165\1\151\1\172\1\154\1\162\1\172\1\uffff\1\145\1\172\1"+
-		"\162\1\163\1\143\1\uffff\1\172\1\uffff\1\156\1\147\1\144\1\151\1\145\1"+
-		"\154\1\uffff\1\145\1\172\1\uffff\1\172\1\uffff\1\154\1\145\1\172\1\uffff"+
-		"\1\164\1\162\1\172\1\156\1\172\1\145\1\141\1\uffff\1\146\1\uffff\1\151"+
-		"\1\172\1\uffff\1\172\1\141\1\uffff\1\147\1\uffff\1\172\1\156\1\172\1\163"+
-		"\2\uffff\1\155\1\172\1\uffff\1\172\1\uffff\1\164\1\172\2\uffff\1\172\2"+
-		"\uffff";
+		"\75\1\156\1\75\2\uffff\1\151\2\uffff\1\75\1\162\2\uffff\1\162\1\145\3"+
+		"\uffff\1\164\1\uffff\1\162\1\150\3\uffff\1\144\2\uffff\1\157\1\141\1\146"+
+		"\1\172\2\uffff\1\163\1\144\1\160\1\154\1\156\2\uffff\1\172\1\164\2\uffff"+
+		"\1\156\2\uffff\1\172\1\165\1\157\1\141\1\162\1\165\1\151\1\172\1\154\1"+
+		"\162\1\172\1\uffff\1\145\1\172\1\162\1\163\1\143\1\uffff\1\172\1\157\1"+
+		"\uffff\1\163\1\156\1\147\1\144\1\151\1\145\1\154\1\uffff\1\145\1\172\1"+
+		"\uffff\1\172\1\uffff\1\154\1\145\1\172\1\uffff\1\160\1\157\1\164\1\162"+
+		"\1\172\1\156\1\172\1\145\1\141\1\uffff\1\146\1\uffff\1\151\1\172\1\uffff"+
+		"\1\172\1\160\1\172\1\141\1\uffff\1\147\1\uffff\1\172\1\156\1\172\1\163"+
+		"\2\uffff\1\172\1\uffff\1\155\1\172\1\uffff\1\172\1\uffff\1\164\1\uffff"+
+		"\1\172\2\uffff\1\172\2\uffff";
 	static final String DFA7_acceptS =
-		"\2\uffff\1\2\3\uffff\1\6\1\7\7\uffff\1\27\1\31\1\32\1\33\2\uffff\1\37"+
-		"\1\40\2\uffff\1\44\1\45\1\uffff\1\47\2\uffff\1\52\1\53\1\55\1\uffff\1"+
-		"\16\1\3\4\uffff\1\54\1\11\5\uffff\1\22\1\23\2\uffff\1\26\1\30\1\35\1\34"+
-		"\12\uffff\1\12\5\uffff\1\24\1\uffff\1\36\6\uffff\1\1\2\uffff\1\10\1\uffff"+
-		"\1\15\3\uffff\1\25\7\uffff\1\5\1\uffff\1\13\2\uffff\1\21\2\uffff\1\43"+
-		"\1\uffff\1\50\4\uffff\1\20\1\41\2\uffff\1\51\1\uffff\1\14\2\uffff\1\46"+
-		"\1\4\1\uffff\1\42\1\17";
+		"\2\uffff\1\2\3\uffff\1\6\1\7\7\uffff\1\27\1\31\1\uffff\1\33\1\34\2\uffff"+
+		"\1\40\1\41\2\uffff\1\46\1\47\1\50\1\uffff\1\52\2\uffff\1\55\1\56\1\60"+
+		"\1\uffff\1\16\1\3\4\uffff\1\57\1\11\5\uffff\1\22\1\23\2\uffff\1\26\1\30"+
+		"\1\uffff\1\36\1\35\13\uffff\1\12\5\uffff\1\24\2\uffff\1\37\7\uffff\1\1"+
+		"\2\uffff\1\10\1\uffff\1\15\3\uffff\1\25\11\uffff\1\5\1\uffff\1\13\2\uffff"+
+		"\1\21\4\uffff\1\45\1\uffff\1\53\4\uffff\1\20\1\32\1\uffff\1\43\2\uffff"+
+		"\1\54\1\uffff\1\14\1\uffff\1\42\1\uffff\1\51\1\4\1\uffff\1\44\1\17";
 	static final String DFA7_specialS =
-		"\177\uffff}>";
+		"\u008c\uffff}>";
 	static final String[] DFA7_transitionS = {
-			"\1\41\1\22\1\uffff\2\41\22\uffff\1\41\1\23\3\uffff\1\21\1\2\1\uffff\1"+
-			"\17\1\31\1\34\1\26\1\7\1\20\1\uffff\1\11\12\40\1\6\1\32\1\16\1\3\1\14"+
-			"\2\uffff\32\37\6\uffff\1\1\1\4\1\5\1\10\1\12\1\13\2\37\1\15\5\37\1\24"+
-			"\1\27\1\37\1\30\1\33\1\35\2\37\1\36\3\37\1\uffff\1\25",
-			"\1\42",
+			"\1\43\1\23\1\uffff\2\43\22\uffff\1\43\1\24\3\uffff\1\22\1\2\1\34\1\17"+
+			"\1\32\1\36\1\27\1\7\1\20\1\uffff\1\11\12\42\1\6\1\33\1\16\1\3\1\14\2"+
+			"\uffff\32\41\6\uffff\1\1\1\4\1\5\1\10\1\12\1\13\2\41\1\15\3\41\1\21\1"+
+			"\41\1\25\1\30\1\41\1\31\1\35\1\37\2\41\1\40\3\41\1\uffff\1\26",
+			"\1\44",
 			"",
-			"\1\43",
 			"\1\45",
-			"\1\46",
+			"\1\47",
+			"\1\50",
 			"",
 			"",
-			"\1\47\11\uffff\1\50",
-			"\1\51\4\uffff\1\51",
-			"\1\53\1\uffff\1\54\11\uffff\1\55",
-			"\1\56\23\uffff\1\57",
-			"\1\60",
-			"\1\62\7\uffff\1\63",
-			"\1\64",
-			"",
-			"",
-			"",
-			"",
+			"\1\51\11\uffff\1\52",
+			"\1\53\4\uffff\1\53",
+			"\1\55\1\uffff\1\56\11\uffff\1\57",
+			"\1\60\23\uffff\1\61",
+			"\1\62",
+			"\1\64\7\uffff\1\65",
 			"\1\66",
+			"",
+			"",
 			"\1\70",
 			"",
 			"",
 			"\1\71",
-			"\1\72",
-			"",
-			"",
 			"\1\73",
 			"",
-			"\1\74",
-			"\1\75",
 			"",
-			"",
-			"",
+			"\1\74\5\uffff\1\75",
 			"\1\76",
 			"",
 			"",
+			"",
 			"\1\77",
+			"",
 			"\1\100",
 			"\1\101",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
+			"",
+			"",
+			"",
+			"\1\102",
 			"",
 			"",
 			"\1\103",
 			"\1\104",
 			"\1\105",
-			"\1\106",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
+			"",
+			"",
 			"\1\107",
-			"",
-			"",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
+			"\1\110",
 			"\1\111",
+			"\1\112",
+			"\1\113",
 			"",
 			"",
-			"",
-			"",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
-			"\1\113\5\uffff\1\114",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
 			"\1\115",
-			"\1\116",
-			"\1\117",
-			"\1\120",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
-			"\1\122",
-			"\1\123",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
 			"",
+			"",
+			"\1\116",
+			"",
+			"",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
+			"\1\120",
+			"\1\121\5\uffff\1\122",
+			"\1\123",
+			"\1\124",
 			"\1\125",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
-			"\1\127",
+			"\1\126",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
 			"\1\130",
 			"\1\131",
-			"",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
 			"",
 			"\1\133",
-			"\1\134",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
 			"\1\135",
 			"\1\136",
 			"\1\137",
-			"\1\140",
 			"",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
 			"\1\141",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
 			"",
-			"\12\37\7\uffff\32\37\6\uffff\10\37\1\143\21\37",
-			"",
+			"\1\142",
+			"\1\143",
+			"\1\144",
 			"\1\145",
 			"\1\146",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
-			"",
+			"\1\147",
 			"\1\150",
+			"",
 			"\1\151",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
-			"\1\153",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
+			"",
+			"\12\41\7\uffff\32\41\6\uffff\10\41\1\153\21\41",
+			"",
 			"\1\155",
 			"\1\156",
-			"",
-			"\1\157",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
 			"",
 			"\1\160",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
-			"",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
+			"\1\161",
+			"\1\162",
 			"\1\163",
-			"",
-			"\1\164",
-			"",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
-			"\1\166",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
+			"\1\165",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
+			"\1\167",
 			"\1\170",
 			"",
-			"",
 			"\1\171",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
 			"",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
+			"\1\172",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
 			"",
-			"\1\174",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
+			"\1\175",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
+			"\1\177",
+			"",
+			"\1\u0080",
+			"",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
+			"\1\u0082",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
+			"\1\u0084",
 			"",
 			"",
-			"\12\37\7\uffff\32\37\6\uffff\32\37",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
+			"",
+			"\1\u0086",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
+			"",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
+			"",
+			"\1\u0089",
+			"",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
+			"",
+			"",
+			"\12\41\7\uffff\32\41\6\uffff\32\41",
 			"",
 			""
 	};
@@ -1834,7 +1937,7 @@ public class AliaLexer extends Lexer {
 		}
 		@Override
 		public String getDescription() {
-			return "1:1: Tokens : ( AND | AND_ALT | BECOMES | BOOL | CHAR | COLON | COMMA | DEF | DIV | DO | ELSE | ELSEIF | END | EQ | EXPR_LIST | FALSE | FUNC | GE | GT | IF | INT | LE | LPAREN | LT | MINUS | MOD | NEWLINE | NOT | NQ | OR | OR_ALT | PLUS | PRINT | PROGRAM | READ | RPAREN | SEMICOLON | STRING | TIMES | TRUE | WHILE | IDENTIFIER | NUMBER | COMMENT | WS );";
+			return "1:1: Tokens : ( AND | AND_ALT | BECOMES | BOOL | CHAR | COLON | COMMA | DEF | DIV | DO | ELSE | ELSEIF | END | EQ | EXPR_LIST | FALSE | FUNC | GE | GT | IF | INT | LE | LPAREN | LT | MINUS | MINUS_OP | MOD | NEWLINE | NOT | NQ | OR | OR_ALT | PLUS | PLUS_OP | PRINT | PROGRAM | READ | RPAREN | SEMICOLON | SQUOTE | STRING | TIMES | TRUE | WHILE | IDENTIFIER | NUMBER | COMMENT | WS );";
 		}
 	}
 

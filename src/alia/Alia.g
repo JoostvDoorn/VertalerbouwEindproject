@@ -13,11 +13,14 @@ tokens {
     SEMICOLON   =   ';'     ;
     LPAREN      =   '('     ;
     RPAREN      =   ')'     ;
+    SQUOTE      =   '\''     ;
 
     // operators
     BECOMES     =   '='    ;
     PLUS        =   '+'     ;
+    PLUS_OP     =   'plusop'     ;
     MINUS       =   '-'     ;
+    MINUS_OP    =   'minop'     ;
     TIMES       =   '*'     ;
     DIV         =   '/'     ;
     
@@ -89,15 +92,19 @@ expr1 : expr2 ((AND | AND_ALT)^ expr2)*;
 expr2 : expr3 ((GT | GE | LT | LE | EQ | NQ)^ expr3)*;
 expr3 : expr4 ((PLUS | MINUS)^ expr4)*;
 expr4 : expr5 ((TIMES | DIV | MOD)^ expr5)*;
-expr5 : (NOT | PLUS | MINUS)^ operand | operand;
+expr5 : NOT^ operand | operand | expr_minus | expr_plus;
+expr_minus : MINUS operand -> ^(MINUS_OP operand);
+expr_plus : PLUS operand -> ^(PLUS_OP operand);
 operand : read |
 	   	  print |
 	   	  if_stmnt |
 	   	  LPAREN! expr RPAREN! |
 	   	  NUMBER |
+	   	  char_expr |
 	   	  boolean_expr |
 	   	  func_identifier;
 
+char_expr : SQUOTE! LETTER SQUOTE!;
 
 func_identifier : IDENTIFIER 
 				(LPAREN^ exprlist? RPAREN)?;
@@ -126,7 +133,7 @@ func_def : DEF IDENTIFIER LPAREN!  RPAREN! statements END;
 
 boolean_expr : TRUE | FALSE;
 
-type : STRING | INT | BOOL;
+type : CHAR | INT | BOOL;
 
 
 IDENTIFIER
