@@ -160,3 +160,7 @@ fragment DIGIT  :   ('0'..'9') ;
 fragment LOWER  :   ('a'..'z') ;
 fragment UPPER  :   ('A'..'Z') ;
 fragment LETTER :   LOWER | UPPER ;
+
+
+//TODO: Constanten
+//TODO: Compound expressions

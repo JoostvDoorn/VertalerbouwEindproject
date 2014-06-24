@@ -37,14 +37,12 @@ program
 
 statements returns [_Type type = new _Void()]
 	: (t=statement
-		{ $type = new _Void();
-		//TODO: Fix for statement that is an expression
-		 }
+		{ $type = $t.type; }
 	)*;
     
 statement returns [_Type type = new _Void()]
-    :   ^(WHILE expr DO statements END)
-    	// TODO: implement while checker
+    :   ^(WHILE t=expr DO statements END)
+    { checkBoolType($t.type); }
     |   t=expr
 	{ $type = $t.type; }
     ; 
