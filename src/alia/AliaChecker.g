@@ -12,6 +12,7 @@ import alia.types.*;
 import alia.symtab.SymbolTable;
 import alia.symtab.IdEntry;
 import java.util.Set;
+import java.util.HashSet;
 }
 
 // Alter code generation so catch-clauses get replaced with this action. 
@@ -34,13 +35,18 @@ program
     :   ^(PROGRAM (statement)+)
     ;
 
-statements : statement*;
+statements returns [_Type type = new _Void()]
+	: (t=statement
+		{ $type = new _Void();
+		//TODO: Fix for statement that is an expression
+		 }
+	)*;
     
-statement returns [_Type type = new _Void();]
+statement returns [_Type type = new _Void()]
     :   ^(WHILE expr DO statements END)
     	// TODO: implement while checker
     |   t=expr
-	{ $type = t; }
+	{ $type = $t.type; }
     ; 
     
 expr returns [_Type type]
@@ -48,43 +54,42 @@ expr returns [_Type type]
     |   t=expr_comp
     |   t=expr_math)
     	{
-    		$type = t;
+    		$type = $t.type;
         }
    	|   ^(IF t=expr ts=statements
 	   		{
-	   			types = new ArrayList();
-		   		types.add(ts);
-	   			checkBoolType(t);
+	   			List<_Type> types = new ArrayList();
+		   		types.add($ts.type);
+	   			checkBoolType($t.type);
 	   		}
    			(ELSEIF t=expr DO! ts=statements
 		   		{
-		   			types.add(ts);
-		   			checkBoolType(t);
+		   			types.add($ts.type);
+		   			checkBoolType($t.type);
 		   		}
 		   	)*
    			(ELSE ts=statements
 		   		{
-		   			types.add(ts);
+		   			types.add($ts.type);
 		   		}
 		   	)?
    		)
    		{
-   			checkBoolType(t);
-   			$type = checkTypesIf(types);
+   			checkBoolType($t.type);
+   			$type = checkTypesIf($types.type);
    		}
    		
    	|   ^(BECOMES id=IDENTIFIER t=expr)
         {   
-        	declare($id.text, t);
-        	// HERE
-    		type = t;
+        	declare($id.text, $t.type);
+    		$type = $t.type;
         }
     ;
     
 expr_op returns [_Type type]
 	:   (t=operand
 	|	^((NOT | PLUS_OP | MINUS_OP) t=operand))
-	{ $type = t; }
+	{ $type = $t.type; }
 	;
 expr_comp returns [_Type type]
 	:   (^(OR t1=expr t2=expr)
@@ -98,8 +103,8 @@ expr_comp returns [_Type type]
    	|   ^(GT t1=expr t2=expr)
    	|   ^(LT t1=expr t2=expr))
    	{
-   	  checkEqualType(t1,t2);
-   	  $type = t1;
+   	  checkEqualType($t1.type, $t2.type);
+   	  $type = $t1.type;
    	}
    	;
 
@@ -109,7 +114,7 @@ expr_math returns [_Type type]
     |   ^(TIMES t1=expr t2=expr)
     |   ^(DIV t1=expr t2=expr))
     { 
-    	checkMathType(t1,t2);
+    	checkMathType($t1.type, $t2.type);
     	$type = new _Int();
     }
     ;
@@ -131,7 +136,7 @@ operand_special returns [_Type type]
     
     |	^(READ t=varlist))
     {
-    	$type = t;
+    	$type = $t.type;
     };
 
 varlist returns [_Type type] 
@@ -148,12 +153,12 @@ varlist returns [_Type type]
 exprlist returns [_Type type]
     : t=expr
 		{
-			checkNotVoid(t1);
-			$type = t1;
+			checkNotVoid($t.type);
+			$type = $t.type;
 		}
 		(COMMA t=expr
 			{
-				checkNotVoid(t);
+				checkNotVoid($t.type);
 				$type = new _Void();
 			}
 		)*
