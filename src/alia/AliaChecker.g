@@ -52,12 +52,13 @@ statement
     
 expr 
     :   operand
-    (OR | OR_ALT)^ expr1)*;
-expr1 : expr2 ((AND | AND_ALT)^ expr2)*;
-expr2 : expr3 ((GT | GE | LT | LE | EQ | NQ)^ expr3)*;
-expr3 : expr4 ((PLUS | MINUS)^ expr4)*;
-expr4 : expr5 ((TIMES | DIV | MOD)^ expr5)*;
-expr5 : (NOT | PLUS | MINUS)^ operand | operand;
+	|	^(NOT operand)
+	|	^(PLUS operand)
+	|	^(MINUS operand)
+    |   ^(OR expr)
+    |   ^(OR_ALT expr)
+    |   ^(AND expr)
+    |   ^(AND_ALT expr)
     |   ^(PLUS expr expr)
     |   ^(MINUS expr expr)
     |   ^(TIMES expr expr)
