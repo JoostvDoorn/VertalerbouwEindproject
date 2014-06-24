@@ -1,4 +1,4 @@
-// $ANTLR 3.5.2 src\\alia\\AliaChecker.g 2014-06-24 16:40:45
+// $ANTLR 3.5.2 src\\alia\\AliaChecker.g 2014-06-24 17:06:49
 
 package alia;
 import alia.types.*;
@@ -14,72 +14,73 @@ import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
-
 @SuppressWarnings("all")
 public class AliaChecker extends TreeParser {
 	public static final String[] tokenNames = new String[] {
-		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "AND", "AND_ALT", "BECOMES", "BOOL", 
-		"CHAR", "COLON", "COMMA", "COMMENT", "DEF", "DIGIT", "DIV", "DO", "ELSE", 
-		"ELSEIF", "END", "EQ", "EXPR_LIST", "FALSE", "FUNC", "GE", "GT", "IDENTIFIER", 
-		"IF", "INT", "LE", "LETTER", "LOWER", "LPAREN", "LT", "MINUS", "MINUS_OP", 
-		"MOD", "NEWLINE", "NOT", "NQ", "NUMBER", "OR", "OR_ALT", "PLUS", "PLUS_OP", 
-		"PRINT", "PROGRAM", "READ", "RPAREN", "SEMICOLON", "SQUOTE", "STRING", 
-		"TIMES", "TRUE", "UPPER", "WHILE", "WS", "INTEGER"
+		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "AND", "AND_ALT", "BECOMES", "BEGIN", 
+		"BOOL", "CHAR", "COLON", "COMMA", "COMMENT", "COMPOUND", "DEF", "DIGIT", 
+		"DIV", "DO", "ELSE", "ELSEIF", "END", "EQ", "EXPR_LIST", "FALSE", "FUNC", 
+		"GE", "GT", "IDENTIFIER", "IF", "INT", "LE", "LETTER", "LOWER", "LPAREN", 
+		"LT", "MINUS", "MINUS_OP", "MOD", "NEWLINE", "NOT", "NQ", "NUMBER", "OR", 
+		"OR_ALT", "PLUS", "PLUS_OP", "PRINT", "PROGRAM", "READ", "RPAREN", "SEMICOLON", 
+		"SQUOTE", "STRING", "TIMES", "TRUE", "UPPER", "WHILE", "WS", "INTEGER"
 	};
 	public static final int EOF=-1;
 	public static final int AND=4;
 	public static final int AND_ALT=5;
 	public static final int BECOMES=6;
-	public static final int BOOL=7;
-	public static final int CHAR=8;
-	public static final int COLON=9;
-	public static final int COMMA=10;
-	public static final int COMMENT=11;
-	public static final int DEF=12;
-	public static final int DIGIT=13;
-	public static final int DIV=14;
-	public static final int DO=15;
-	public static final int ELSE=16;
-	public static final int ELSEIF=17;
-	public static final int END=18;
-	public static final int EQ=19;
-	public static final int EXPR_LIST=20;
-	public static final int FALSE=21;
-	public static final int FUNC=22;
-	public static final int GE=23;
-	public static final int GT=24;
-	public static final int IDENTIFIER=25;
-	public static final int IF=26;
-	public static final int INT=27;
-	public static final int LE=28;
-	public static final int LETTER=29;
-	public static final int LOWER=30;
-	public static final int LPAREN=31;
-	public static final int LT=32;
-	public static final int MINUS=33;
-	public static final int MINUS_OP=34;
-	public static final int MOD=35;
-	public static final int NEWLINE=36;
-	public static final int NOT=37;
-	public static final int NQ=38;
-	public static final int NUMBER=39;
-	public static final int OR=40;
-	public static final int OR_ALT=41;
-	public static final int PLUS=42;
-	public static final int PLUS_OP=43;
-	public static final int PRINT=44;
-	public static final int PROGRAM=45;
-	public static final int READ=46;
-	public static final int RPAREN=47;
-	public static final int SEMICOLON=48;
-	public static final int SQUOTE=49;
-	public static final int STRING=50;
-	public static final int TIMES=51;
-	public static final int TRUE=52;
-	public static final int UPPER=53;
-	public static final int WHILE=54;
-	public static final int WS=55;
-	public static final int INTEGER=56;
+	public static final int BEGIN=7;
+	public static final int BOOL=8;
+	public static final int CHAR=9;
+	public static final int COLON=10;
+	public static final int COMMA=11;
+	public static final int COMMENT=12;
+	public static final int COMPOUND=13;
+	public static final int DEF=14;
+	public static final int DIGIT=15;
+	public static final int DIV=16;
+	public static final int DO=17;
+	public static final int ELSE=18;
+	public static final int ELSEIF=19;
+	public static final int END=20;
+	public static final int EQ=21;
+	public static final int EXPR_LIST=22;
+	public static final int FALSE=23;
+	public static final int FUNC=24;
+	public static final int GE=25;
+	public static final int GT=26;
+	public static final int IDENTIFIER=27;
+	public static final int IF=28;
+	public static final int INT=29;
+	public static final int LE=30;
+	public static final int LETTER=31;
+	public static final int LOWER=32;
+	public static final int LPAREN=33;
+	public static final int LT=34;
+	public static final int MINUS=35;
+	public static final int MINUS_OP=36;
+	public static final int MOD=37;
+	public static final int NEWLINE=38;
+	public static final int NOT=39;
+	public static final int NQ=40;
+	public static final int NUMBER=41;
+	public static final int OR=42;
+	public static final int OR_ALT=43;
+	public static final int PLUS=44;
+	public static final int PLUS_OP=45;
+	public static final int PRINT=46;
+	public static final int PROGRAM=47;
+	public static final int READ=48;
+	public static final int RPAREN=49;
+	public static final int SEMICOLON=50;
+	public static final int SQUOTE=51;
+	public static final int STRING=52;
+	public static final int TIMES=53;
+	public static final int TRUE=54;
+	public static final int UPPER=55;
+	public static final int WHILE=56;
+	public static final int WS=57;
+	public static final int INTEGER=58;
 
 	// delegates
 	public TreeParser[] getDelegates() {
@@ -96,14 +97,6 @@ public class AliaChecker extends TreeParser {
 		super(input, state);
 	}
 
-	protected TreeAdaptor adaptor = new CommonTreeAdaptor();
-
-	public void setTreeAdaptor(TreeAdaptor adaptor) {
-		this.adaptor = adaptor;
-	}
-	public TreeAdaptor getTreeAdaptor() {
-		return adaptor;
-	}
 	@Override public String[] getTokenNames() { return AliaChecker.tokenNames; }
 	@Override public String getGrammarFileName() { return "src\\alia\\AliaChecker.g"; }
 
@@ -115,49 +108,15 @@ public class AliaChecker extends TreeParser {
 	    public void     declare(String s)        { idset.add(s);             }
 
 
-	public static class program_return extends TreeRuleReturnScope {
-		CommonTree tree;
-		@Override
-		public CommonTree getTree() { return tree; }
-	};
-
 
 	// $ANTLR start "program"
 	// src\\alia\\AliaChecker.g:34:1: program : ^( PROGRAM ( statement )+ ) ;
-	public final AliaChecker.program_return program() throws RecognitionException {
-		AliaChecker.program_return retval = new AliaChecker.program_return();
-		retval.start = input.LT(1);
-
-		CommonTree root_0 = null;
-
-		CommonTree _first_0 = null;
-		CommonTree _last = null;
-
-
-		CommonTree PROGRAM1=null;
-		TreeRuleReturnScope statement2 =null;
-
-		CommonTree PROGRAM1_tree=null;
-
+	public final void program() throws RecognitionException {
 		try {
 			// src\\alia\\AliaChecker.g:35:5: ( ^( PROGRAM ( statement )+ ) )
 			// src\\alia\\AliaChecker.g:35:9: ^( PROGRAM ( statement )+ )
 			{
-			root_0 = (CommonTree)adaptor.nil();
-
-
-			_last = (CommonTree)input.LT(1);
-			{
-			CommonTree _save_last_1 = _last;
-			CommonTree _first_1 = null;
-			CommonTree root_1 = (CommonTree)adaptor.nil();
-			_last = (CommonTree)input.LT(1);
-			PROGRAM1=(CommonTree)match(input,PROGRAM,FOLLOW_PROGRAM_in_program135); 
-			PROGRAM1_tree = (CommonTree)adaptor.dupNode(PROGRAM1);
-
-
-			root_1 = (CommonTree)adaptor.becomeRoot(PROGRAM1_tree, root_1);
-
+			match(input,PROGRAM,FOLLOW_PROGRAM_in_program135); 
 			match(input, Token.DOWN, null); 
 			// src\\alia\\AliaChecker.g:35:19: ( statement )+
 			int cnt1=0;
@@ -165,7 +124,7 @@ public class AliaChecker extends TreeParser {
 			while (true) {
 				int alt1=2;
 				int LA1_0 = input.LA(1);
-				if ( ((LA1_0 >= AND && LA1_0 <= BECOMES)||LA1_0==DIV||LA1_0==EQ||LA1_0==FALSE||(LA1_0 >= GE && LA1_0 <= IF)||(LA1_0 >= LE && LA1_0 <= LETTER)||(LA1_0 >= LT && LA1_0 <= MINUS_OP)||(LA1_0 >= NOT && LA1_0 <= PLUS_OP)||(LA1_0 >= TIMES && LA1_0 <= TRUE)||LA1_0==WHILE) ) {
+				if ( ((LA1_0 >= AND && LA1_0 <= BECOMES)||LA1_0==COMPOUND||LA1_0==DIV||LA1_0==EQ||LA1_0==FALSE||(LA1_0 >= GE && LA1_0 <= IF)||(LA1_0 >= LE && LA1_0 <= LETTER)||(LA1_0 >= LT && LA1_0 <= MINUS_OP)||(LA1_0 >= NOT && LA1_0 <= PLUS_OP)||(LA1_0 >= TIMES && LA1_0 <= TRUE)||LA1_0==WHILE) ) {
 					alt1=1;
 				}
 
@@ -173,12 +132,9 @@ public class AliaChecker extends TreeParser {
 				case 1 :
 					// src\\alia\\AliaChecker.g:35:20: statement
 					{
-					_last = (CommonTree)input.LT(1);
 					pushFollow(FOLLOW_statement_in_program138);
-					statement2=statement();
+					statement();
 					state._fsp--;
-
-					adaptor.addChild(root_1, statement2.getTree());
 
 					}
 					break;
@@ -192,14 +148,8 @@ public class AliaChecker extends TreeParser {
 			}
 
 			match(input, Token.UP, null); 
-			adaptor.addChild(root_0, root_1);
-			_last = _save_last_1;
-			}
-
 
 			}
-
-			retval.tree = (CommonTree)adaptor.rulePostProcessing(root_0);
 
 		}
 		 
@@ -210,47 +160,29 @@ public class AliaChecker extends TreeParser {
 		finally {
 			// do for sure before leaving
 		}
-		return retval;
 	}
 	// $ANTLR end "program"
 
 
-	public static class statements_return extends TreeRuleReturnScope {
-		public _Type type = new _Void();
-		CommonTree tree;
-		@Override
-		public CommonTree getTree() { return tree; }
-	};
-
 
 	// $ANTLR start "statements"
 	// src\\alia\\AliaChecker.g:38:1: statements returns [_Type type = new _Void()] : (t= statement )* ;
-	public final AliaChecker.statements_return statements() throws RecognitionException {
-		AliaChecker.statements_return retval = new AliaChecker.statements_return();
-		retval.start = input.LT(1);
-
-		CommonTree root_0 = null;
-
-		CommonTree _first_0 = null;
-		CommonTree _last = null;
+	public final _Type statements() throws RecognitionException {
+		_Type type =  new _Void();
 
 
-		TreeRuleReturnScope t =null;
-
+		_Type t =null;
 
 		try {
 			// src\\alia\\AliaChecker.g:39:2: ( (t= statement )* )
 			// src\\alia\\AliaChecker.g:39:4: (t= statement )*
 			{
-			root_0 = (CommonTree)adaptor.nil();
-
-
 			// src\\alia\\AliaChecker.g:39:4: (t= statement )*
 			loop2:
 			while (true) {
 				int alt2=2;
 				int LA2_0 = input.LA(1);
-				if ( ((LA2_0 >= AND && LA2_0 <= BECOMES)||LA2_0==DIV||LA2_0==EQ||LA2_0==FALSE||(LA2_0 >= GE && LA2_0 <= IF)||(LA2_0 >= LE && LA2_0 <= LETTER)||(LA2_0 >= LT && LA2_0 <= MINUS_OP)||(LA2_0 >= NOT && LA2_0 <= PLUS_OP)||(LA2_0 >= TIMES && LA2_0 <= TRUE)||LA2_0==WHILE) ) {
+				if ( ((LA2_0 >= AND && LA2_0 <= BECOMES)||LA2_0==COMPOUND||LA2_0==DIV||LA2_0==EQ||LA2_0==FALSE||(LA2_0 >= GE && LA2_0 <= IF)||(LA2_0 >= LE && LA2_0 <= LETTER)||(LA2_0 >= LT && LA2_0 <= MINUS_OP)||(LA2_0 >= NOT && LA2_0 <= PLUS_OP)||(LA2_0 >= TIMES && LA2_0 <= TRUE)||LA2_0==WHILE) ) {
 					alt2=1;
 				}
 
@@ -258,14 +190,11 @@ public class AliaChecker extends TreeParser {
 				case 1 :
 					// src\\alia\\AliaChecker.g:39:5: t= statement
 					{
-					_last = (CommonTree)input.LT(1);
 					pushFollow(FOLLOW_statement_in_statements162);
 					t=statement();
 					state._fsp--;
 
-					adaptor.addChild(root_0, t.getTree());
-
-					 retval.type = (t!=null?((AliaChecker.statement_return)t).type:null); 
+					 type = t; 
 					}
 					break;
 
@@ -276,8 +205,6 @@ public class AliaChecker extends TreeParser {
 
 			}
 
-			retval.tree = (CommonTree)adaptor.rulePostProcessing(root_0);
-
 		}
 		 
 		    catch (RecognitionException e) { 
@@ -287,40 +214,19 @@ public class AliaChecker extends TreeParser {
 		finally {
 			// do for sure before leaving
 		}
-		return retval;
+		return type;
 	}
 	// $ANTLR end "statements"
 
 
-	public static class statement_return extends TreeRuleReturnScope {
-		public _Type type = new _Void();
-		CommonTree tree;
-		@Override
-		public CommonTree getTree() { return tree; }
-	};
-
 
 	// $ANTLR start "statement"
 	// src\\alia\\AliaChecker.g:43:1: statement returns [_Type type = new _Void()] : ( ^( WHILE t= expr DO statements END ) |t= expr );
-	public final AliaChecker.statement_return statement() throws RecognitionException {
-		AliaChecker.statement_return retval = new AliaChecker.statement_return();
-		retval.start = input.LT(1);
-
-		CommonTree root_0 = null;
-
-		CommonTree _first_0 = null;
-		CommonTree _last = null;
+	public final _Type statement() throws RecognitionException {
+		_Type type =  new _Void();
 
 
-		CommonTree WHILE3=null;
-		CommonTree DO4=null;
-		CommonTree END6=null;
-		TreeRuleReturnScope t =null;
-		TreeRuleReturnScope statements5 =null;
-
-		CommonTree WHILE3_tree=null;
-		CommonTree DO4_tree=null;
-		CommonTree END6_tree=null;
+		_Type t =null;
 
 		try {
 			// src\\alia\\AliaChecker.g:44:5: ( ^( WHILE t= expr DO statements END ) |t= expr )
@@ -329,7 +235,7 @@ public class AliaChecker extends TreeParser {
 			if ( (LA3_0==WHILE) ) {
 				alt3=1;
 			}
-			else if ( ((LA3_0 >= AND && LA3_0 <= BECOMES)||LA3_0==DIV||LA3_0==EQ||LA3_0==FALSE||(LA3_0 >= GE && LA3_0 <= IF)||(LA3_0 >= LE && LA3_0 <= LETTER)||(LA3_0 >= LT && LA3_0 <= MINUS_OP)||(LA3_0 >= NOT && LA3_0 <= PLUS_OP)||(LA3_0 >= TIMES && LA3_0 <= TRUE)) ) {
+			else if ( ((LA3_0 >= AND && LA3_0 <= BECOMES)||LA3_0==COMPOUND||LA3_0==DIV||LA3_0==EQ||LA3_0==FALSE||(LA3_0 >= GE && LA3_0 <= IF)||(LA3_0 >= LE && LA3_0 <= LETTER)||(LA3_0 >= LT && LA3_0 <= MINUS_OP)||(LA3_0 >= NOT && LA3_0 <= PLUS_OP)||(LA3_0 >= TIMES && LA3_0 <= TRUE)) ) {
 				alt3=2;
 			}
 
@@ -343,79 +249,35 @@ public class AliaChecker extends TreeParser {
 				case 1 :
 					// src\\alia\\AliaChecker.g:44:9: ^( WHILE t= expr DO statements END )
 					{
-					root_0 = (CommonTree)adaptor.nil();
-
-
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					WHILE3=(CommonTree)match(input,WHILE,FOLLOW_WHILE_in_statement193); 
-					WHILE3_tree = (CommonTree)adaptor.dupNode(WHILE3);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(WHILE3_tree, root_1);
-
+					match(input,WHILE,FOLLOW_WHILE_in_statement193); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
 					pushFollow(FOLLOW_expr_in_statement197);
 					t=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					DO4=(CommonTree)match(input,DO,FOLLOW_DO_in_statement199); 
-					DO4_tree = (CommonTree)adaptor.dupNode(DO4);
-
-
-					adaptor.addChild(root_1, DO4_tree);
-
-					_last = (CommonTree)input.LT(1);
+					match(input,DO,FOLLOW_DO_in_statement199); 
 					pushFollow(FOLLOW_statements_in_statement201);
-					statements5=statements();
+					statements();
 					state._fsp--;
 
-					adaptor.addChild(root_1, statements5.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					END6=(CommonTree)match(input,END,FOLLOW_END_in_statement203); 
-					END6_tree = (CommonTree)adaptor.dupNode(END6);
-
-
-					adaptor.addChild(root_1, END6_tree);
-
+					match(input,END,FOLLOW_END_in_statement203); 
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
 
-
-					 checkBoolType((t!=null?((AliaChecker.expr_return)t).type:null)); 
+					 checkBoolType(t); 
 					}
 					break;
 				case 2 :
 					// src\\alia\\AliaChecker.g:46:9: t= expr
 					{
-					root_0 = (CommonTree)adaptor.nil();
-
-
-					_last = (CommonTree)input.LT(1);
 					pushFollow(FOLLOW_expr_in_statement222);
 					t=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_0, t.getTree());
-
-					 retval.type = (t!=null?((AliaChecker.expr_return)t).type:null); 
+					 type = t; 
 					}
 					break;
 
 			}
-			retval.tree = (CommonTree)adaptor.rulePostProcessing(root_0);
-
 		}
 		 
 		    catch (RecognitionException e) { 
@@ -425,50 +287,25 @@ public class AliaChecker extends TreeParser {
 		finally {
 			// do for sure before leaving
 		}
-		return retval;
+		return type;
 	}
 	// $ANTLR end "statement"
 
 
-	public static class expr_return extends TreeRuleReturnScope {
-		public _Type type;
-		CommonTree tree;
-		@Override
-		public CommonTree getTree() { return tree; }
-	};
-
 
 	// $ANTLR start "expr"
-	// src\\alia\\AliaChecker.g:50:1: expr returns [_Type type] : ( (t= expr_op |t= expr_comp |t= expr_math ) | ^( IF t= expr ts= statements ( ELSEIF t= expr DO !ts= statements )* ( ELSE ts= statements )? ) | ^( BECOMES id= IDENTIFIER t= expr ) );
-	public final AliaChecker.expr_return expr() throws RecognitionException {
-		AliaChecker.expr_return retval = new AliaChecker.expr_return();
-		retval.start = input.LT(1);
-
-		CommonTree root_0 = null;
-
-		CommonTree _first_0 = null;
-		CommonTree _last = null;
+	// src\\alia\\AliaChecker.g:50:1: expr returns [_Type type] : ( (t= expr_op |t= expr_comp |t= expr_math ) | ^( IF t= expr ts= statements ( ELSEIF t= expr DO ts= statements )* ( ELSE ts= statements )? ) | ^( BECOMES id= IDENTIFIER t= expr ) | ^( COMPOUND t= statements ) );
+	public final _Type expr() throws RecognitionException {
+		_Type type = null;
 
 
 		CommonTree id=null;
-		CommonTree IF7=null;
-		CommonTree ELSEIF8=null;
-		CommonTree DO9=null;
-		CommonTree ELSE10=null;
-		CommonTree BECOMES11=null;
-		TreeRuleReturnScope t =null;
-		TreeRuleReturnScope ts =null;
-
-		CommonTree id_tree=null;
-		CommonTree IF7_tree=null;
-		CommonTree ELSEIF8_tree=null;
-		CommonTree DO9_tree=null;
-		CommonTree ELSE10_tree=null;
-		CommonTree BECOMES11_tree=null;
+		_Type t =null;
+		_Type ts =null;
 
 		try {
-			// src\\alia\\AliaChecker.g:51:5: ( (t= expr_op |t= expr_comp |t= expr_math ) | ^( IF t= expr ts= statements ( ELSEIF t= expr DO !ts= statements )* ( ELSE ts= statements )? ) | ^( BECOMES id= IDENTIFIER t= expr ) )
-			int alt7=3;
+			// src\\alia\\AliaChecker.g:51:5: ( (t= expr_op |t= expr_comp |t= expr_math ) | ^( IF t= expr ts= statements ( ELSEIF t= expr DO ts= statements )* ( ELSE ts= statements )? ) | ^( BECOMES id= IDENTIFIER t= expr ) | ^( COMPOUND t= statements ) )
+			int alt7=4;
 			switch ( input.LA(1) ) {
 			case AND:
 			case AND_ALT:
@@ -506,6 +343,11 @@ public class AliaChecker extends TreeParser {
 				alt7=3;
 				}
 				break;
+			case COMPOUND:
+				{
+				alt7=4;
+				}
+				break;
 			default:
 				NoViableAltException nvae =
 					new NoViableAltException("", 7, 0, input);
@@ -515,9 +357,6 @@ public class AliaChecker extends TreeParser {
 				case 1 :
 					// src\\alia\\AliaChecker.g:51:9: (t= expr_op |t= expr_comp |t= expr_math )
 					{
-					root_0 = (CommonTree)adaptor.nil();
-
-
 					// src\\alia\\AliaChecker.g:51:9: (t= expr_op |t= expr_comp |t= expr_math )
 					int alt4=3;
 					switch ( input.LA(1) ) {
@@ -564,36 +403,27 @@ public class AliaChecker extends TreeParser {
 						case 1 :
 							// src\\alia\\AliaChecker.g:51:10: t= expr_op
 							{
-							_last = (CommonTree)input.LT(1);
 							pushFollow(FOLLOW_expr_op_in_expr256);
 							t=expr_op();
 							state._fsp--;
-
-							adaptor.addChild(root_0, t.getTree());
 
 							}
 							break;
 						case 2 :
 							// src\\alia\\AliaChecker.g:52:9: t= expr_comp
 							{
-							_last = (CommonTree)input.LT(1);
 							pushFollow(FOLLOW_expr_comp_in_expr268);
 							t=expr_comp();
 							state._fsp--;
-
-							adaptor.addChild(root_0, t.getTree());
 
 							}
 							break;
 						case 3 :
 							// src\\alia\\AliaChecker.g:53:9: t= expr_math
 							{
-							_last = (CommonTree)input.LT(1);
 							pushFollow(FOLLOW_expr_math_in_expr280);
 							t=expr_math();
 							state._fsp--;
-
-							adaptor.addChild(root_0, t.getTree());
 
 							}
 							break;
@@ -601,49 +431,29 @@ public class AliaChecker extends TreeParser {
 					}
 
 
-					    		retval.type = (t!=null?((AliaChecker.expr_return)t).type:null);
+					    		type = t;
 					        
 					}
 					break;
 				case 2 :
-					// src\\alia\\AliaChecker.g:57:9: ^( IF t= expr ts= statements ( ELSEIF t= expr DO !ts= statements )* ( ELSE ts= statements )? )
+					// src\\alia\\AliaChecker.g:57:9: ^( IF t= expr ts= statements ( ELSEIF t= expr DO ts= statements )* ( ELSE ts= statements )? )
 					{
-					root_0 = (CommonTree)adaptor.nil();
-
-
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					IF7=(CommonTree)match(input,IF,FOLLOW_IF_in_expr299); 
-					IF7_tree = (CommonTree)adaptor.dupNode(IF7);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(IF7_tree, root_1);
-
+					match(input,IF,FOLLOW_IF_in_expr299); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
 					pushFollow(FOLLOW_expr_in_expr303);
 					t=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t.getTree());
-
-					_last = (CommonTree)input.LT(1);
 					pushFollow(FOLLOW_statements_in_expr307);
 					ts=statements();
 					state._fsp--;
 
-					adaptor.addChild(root_1, ts.getTree());
-
 
 						   			List<_Type> types = new ArrayList();
-							   		types.add((ts!=null?((AliaChecker.statements_return)ts).type:null));
-						   			checkBoolType((t!=null?((AliaChecker.expr_return)t).type:null));
+							   		types.add(ts);
+						   			checkBoolType(t);
 						   		
-					// src\\alia\\AliaChecker.g:63:7: ( ELSEIF t= expr DO !ts= statements )*
+					// src\\alia\\AliaChecker.g:63:7: ( ELSEIF t= expr DO ts= statements )*
 					loop5:
 					while (true) {
 						int alt5=2;
@@ -654,35 +464,21 @@ public class AliaChecker extends TreeParser {
 
 						switch (alt5) {
 						case 1 :
-							// src\\alia\\AliaChecker.g:63:8: ELSEIF t= expr DO !ts= statements
+							// src\\alia\\AliaChecker.g:63:8: ELSEIF t= expr DO ts= statements
 							{
-							_last = (CommonTree)input.LT(1);
-							ELSEIF8=(CommonTree)match(input,ELSEIF,FOLLOW_ELSEIF_in_expr324); 
-							ELSEIF8_tree = (CommonTree)adaptor.dupNode(ELSEIF8);
-
-
-							adaptor.addChild(root_1, ELSEIF8_tree);
-
-							_last = (CommonTree)input.LT(1);
+							match(input,ELSEIF,FOLLOW_ELSEIF_in_expr324); 
 							pushFollow(FOLLOW_expr_in_expr328);
 							t=expr();
 							state._fsp--;
 
-							adaptor.addChild(root_1, t.getTree());
-
-							_last = (CommonTree)input.LT(1);
-							DO9=(CommonTree)match(input,DO,FOLLOW_DO_in_expr330); 
-
-							_last = (CommonTree)input.LT(1);
-							pushFollow(FOLLOW_statements_in_expr335);
+							match(input,DO,FOLLOW_DO_in_expr330); 
+							pushFollow(FOLLOW_statements_in_expr334);
 							ts=statements();
 							state._fsp--;
 
-							adaptor.addChild(root_1, ts.getTree());
 
-
-									   			types.add((ts!=null?((AliaChecker.statements_return)ts).type:null));
-									   			checkBoolType((t!=null?((AliaChecker.expr_return)t).type:null));
+									   			types.add(ts);
+									   			checkBoolType(t);
 									   		
 							}
 							break;
@@ -702,22 +498,13 @@ public class AliaChecker extends TreeParser {
 						case 1 :
 							// src\\alia\\AliaChecker.g:69:8: ELSE ts= statements
 							{
-							_last = (CommonTree)input.LT(1);
-							ELSE10=(CommonTree)match(input,ELSE,FOLLOW_ELSE_in_expr362); 
-							ELSE10_tree = (CommonTree)adaptor.dupNode(ELSE10);
-
-
-							adaptor.addChild(root_1, ELSE10_tree);
-
-							_last = (CommonTree)input.LT(1);
-							pushFollow(FOLLOW_statements_in_expr366);
+							match(input,ELSE,FOLLOW_ELSE_in_expr361); 
+							pushFollow(FOLLOW_statements_in_expr365);
 							ts=statements();
 							state._fsp--;
 
-							adaptor.addChild(root_1, ts.getTree());
 
-
-									   			types.add((ts!=null?((AliaChecker.statements_return)ts).type:null));
+									   			types.add(ts);
 									   		
 							}
 							break;
@@ -725,66 +512,54 @@ public class AliaChecker extends TreeParser {
 					}
 
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
 
 
-
-					   			checkBoolType((t!=null?((AliaChecker.expr_return)t).type:null));
-					   			retval.type = checkTypesIf($types.type);
+					   			checkBoolType(t);
+					   			type = checkTypesIf($types.type);
 					   		
 					}
 					break;
 				case 3 :
 					// src\\alia\\AliaChecker.g:80:9: ^( BECOMES id= IDENTIFIER t= expr )
 					{
-					root_0 = (CommonTree)adaptor.nil();
-
-
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					BECOMES11=(CommonTree)match(input,BECOMES,FOLLOW_BECOMES_in_expr415); 
-					BECOMES11_tree = (CommonTree)adaptor.dupNode(BECOMES11);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(BECOMES11_tree, root_1);
-
+					match(input,BECOMES,FOLLOW_BECOMES_in_expr414); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_expr419); 
-					id_tree = (CommonTree)adaptor.dupNode(id);
-
-
-					adaptor.addChild(root_1, id_tree);
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr423);
+					id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_expr418); 
+					pushFollow(FOLLOW_expr_in_expr422);
 					t=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
+
+					   
+					        	declare((id!=null?id.getText():null), t);
+					    		type = t;
+					        
+					}
+					break;
+				case 4 :
+					// src\\alia\\AliaChecker.g:85:9: ^( COMPOUND t= statements )
+					{
+					match(input,COMPOUND,FOLLOW_COMPOUND_in_expr444); 
+					 // Openscope
+					   		
+					if ( input.LA(1)==Token.DOWN ) {
+						match(input, Token.DOWN, null); 
+						pushFollow(FOLLOW_statements_in_expr460);
+						t=statements();
+						state._fsp--;
+
+						match(input, Token.UP, null); 
 					}
 
 
-					   
-					        	declare((id!=null?id.getText():null), (t!=null?((AliaChecker.expr_return)t).type:null));
-					    		retval.type = (t!=null?((AliaChecker.expr_return)t).type:null);
+					        	// Closescope
+					    		type = t;
 					        
 					}
 					break;
 
 			}
-			retval.tree = (CommonTree)adaptor.rulePostProcessing(root_0);
-
 		}
 		 
 		    catch (RecognitionException e) { 
@@ -794,44 +569,25 @@ public class AliaChecker extends TreeParser {
 		finally {
 			// do for sure before leaving
 		}
-		return retval;
+		return type;
 	}
 	// $ANTLR end "expr"
 
 
-	public static class expr_op_return extends TreeRuleReturnScope {
-		public _Type type;
-		CommonTree tree;
-		@Override
-		public CommonTree getTree() { return tree; }
-	};
-
 
 	// $ANTLR start "expr_op"
-	// src\\alia\\AliaChecker.g:87:1: expr_op returns [_Type type] : (t= operand | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) ) ;
-	public final AliaChecker.expr_op_return expr_op() throws RecognitionException {
-		AliaChecker.expr_op_return retval = new AliaChecker.expr_op_return();
-		retval.start = input.LT(1);
-
-		CommonTree root_0 = null;
-
-		CommonTree _first_0 = null;
-		CommonTree _last = null;
+	// src\\alia\\AliaChecker.g:95:1: expr_op returns [_Type type] : (t= operand | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) ) ;
+	public final _Type expr_op() throws RecognitionException {
+		_Type type = null;
 
 
-		CommonTree set12=null;
-		TreeRuleReturnScope t =null;
-
-		CommonTree set12_tree=null;
+		_Type t =null;
 
 		try {
-			// src\\alia\\AliaChecker.g:88:2: ( (t= operand | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) ) )
-			// src\\alia\\AliaChecker.g:88:6: (t= operand | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) )
+			// src\\alia\\AliaChecker.g:96:2: ( (t= operand | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) ) )
+			// src\\alia\\AliaChecker.g:96:6: (t= operand | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) )
 			{
-			root_0 = (CommonTree)adaptor.nil();
-
-
-			// src\\alia\\AliaChecker.g:88:6: (t= operand | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) )
+			// src\\alia\\AliaChecker.g:96:6: (t= operand | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) )
 			int alt8=2;
 			int LA8_0 = input.LA(1);
 			if ( (LA8_0==FALSE||LA8_0==IDENTIFIER||LA8_0==LETTER||LA8_0==NUMBER||LA8_0==TRUE) ) {
@@ -849,63 +605,39 @@ public class AliaChecker extends TreeParser {
 
 			switch (alt8) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:88:7: t= operand
+					// src\\alia\\AliaChecker.g:96:7: t= operand
 					{
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_operand_in_expr_op461);
+					pushFollow(FOLLOW_operand_in_expr_op498);
 					t=operand();
 					state._fsp--;
-
-					adaptor.addChild(root_0, t.getTree());
 
 					}
 					break;
 				case 2 :
-					// src\\alia\\AliaChecker.g:89:4: ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand )
+					// src\\alia\\AliaChecker.g:97:4: ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					set12=(CommonTree)input.LT(1);
 					if ( input.LA(1)==MINUS_OP||input.LA(1)==NOT||input.LA(1)==PLUS_OP ) {
 						input.consume();
-						set12_tree = (CommonTree)adaptor.dupNode(set12);
-
-
-						root_1 = (CommonTree)adaptor.becomeRoot(set12_tree, root_1);
-
 						state.errorRecovery=false;
 					}
 					else {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_operand_in_expr_op481);
+					pushFollow(FOLLOW_operand_in_expr_op518);
 					t=operand();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 
 			}
 
-			 retval.type = (t!=null?((AliaChecker.operand_return)t).type:null); 
+			 type = t; 
 			}
-
-			retval.tree = (CommonTree)adaptor.rulePostProcessing(root_0);
 
 		}
 		 
@@ -916,63 +648,26 @@ public class AliaChecker extends TreeParser {
 		finally {
 			// do for sure before leaving
 		}
-		return retval;
+		return type;
 	}
 	// $ANTLR end "expr_op"
 
 
-	public static class expr_comp_return extends TreeRuleReturnScope {
-		public _Type type;
-		CommonTree tree;
-		@Override
-		public CommonTree getTree() { return tree; }
-	};
-
 
 	// $ANTLR start "expr_comp"
-	// src\\alia\\AliaChecker.g:92:1: expr_comp returns [_Type type] : ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) ) ;
-	public final AliaChecker.expr_comp_return expr_comp() throws RecognitionException {
-		AliaChecker.expr_comp_return retval = new AliaChecker.expr_comp_return();
-		retval.start = input.LT(1);
-
-		CommonTree root_0 = null;
-
-		CommonTree _first_0 = null;
-		CommonTree _last = null;
+	// src\\alia\\AliaChecker.g:100:1: expr_comp returns [_Type type] : ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) ) ;
+	public final _Type expr_comp() throws RecognitionException {
+		_Type type = null;
 
 
-		CommonTree OR13=null;
-		CommonTree OR_ALT14=null;
-		CommonTree AND15=null;
-		CommonTree AND_ALT16=null;
-		CommonTree EQ17=null;
-		CommonTree NQ18=null;
-		CommonTree LE19=null;
-		CommonTree GE20=null;
-		CommonTree GT21=null;
-		CommonTree LT22=null;
-		TreeRuleReturnScope t1 =null;
-		TreeRuleReturnScope t2 =null;
-
-		CommonTree OR13_tree=null;
-		CommonTree OR_ALT14_tree=null;
-		CommonTree AND15_tree=null;
-		CommonTree AND_ALT16_tree=null;
-		CommonTree EQ17_tree=null;
-		CommonTree NQ18_tree=null;
-		CommonTree LE19_tree=null;
-		CommonTree GE20_tree=null;
-		CommonTree GT21_tree=null;
-		CommonTree LT22_tree=null;
+		_Type t1 =null;
+		_Type t2 =null;
 
 		try {
-			// src\\alia\\AliaChecker.g:93:2: ( ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) ) )
-			// src\\alia\\AliaChecker.g:93:6: ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) )
+			// src\\alia\\AliaChecker.g:101:2: ( ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) ) )
+			// src\\alia\\AliaChecker.g:101:6: ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) )
 			{
-			root_0 = (CommonTree)adaptor.nil();
-
-
-			// src\\alia\\AliaChecker.g:93:6: ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) )
+			// src\\alia\\AliaChecker.g:101:6: ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) )
 			int alt9=10;
 			switch ( input.LA(1) ) {
 			case OR:
@@ -1032,382 +727,172 @@ public class AliaChecker extends TreeParser {
 			}
 			switch (alt9) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:93:7: ^( OR t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:101:7: ^( OR t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					OR13=(CommonTree)match(input,OR,FOLLOW_OR_in_expr_comp504); 
-					OR13_tree = (CommonTree)adaptor.dupNode(OR13);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(OR13_tree, root_1);
-
+					match(input,OR,FOLLOW_OR_in_expr_comp541); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp508);
+					pushFollow(FOLLOW_expr_in_expr_comp545);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp512);
+					pushFollow(FOLLOW_expr_in_expr_comp549);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 				case 2 :
-					// src\\alia\\AliaChecker.g:94:9: ^( OR_ALT t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:102:9: ^( OR_ALT t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					OR_ALT14=(CommonTree)match(input,OR_ALT,FOLLOW_OR_ALT_in_expr_comp524); 
-					OR_ALT14_tree = (CommonTree)adaptor.dupNode(OR_ALT14);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(OR_ALT14_tree, root_1);
-
+					match(input,OR_ALT,FOLLOW_OR_ALT_in_expr_comp561); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp528);
+					pushFollow(FOLLOW_expr_in_expr_comp565);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp532);
+					pushFollow(FOLLOW_expr_in_expr_comp569);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 				case 3 :
-					// src\\alia\\AliaChecker.g:95:9: ^( AND t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:103:9: ^( AND t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					AND15=(CommonTree)match(input,AND,FOLLOW_AND_in_expr_comp544); 
-					AND15_tree = (CommonTree)adaptor.dupNode(AND15);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(AND15_tree, root_1);
-
+					match(input,AND,FOLLOW_AND_in_expr_comp581); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp548);
+					pushFollow(FOLLOW_expr_in_expr_comp585);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp552);
+					pushFollow(FOLLOW_expr_in_expr_comp589);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 				case 4 :
-					// src\\alia\\AliaChecker.g:96:9: ^( AND_ALT t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:104:9: ^( AND_ALT t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					AND_ALT16=(CommonTree)match(input,AND_ALT,FOLLOW_AND_ALT_in_expr_comp564); 
-					AND_ALT16_tree = (CommonTree)adaptor.dupNode(AND_ALT16);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(AND_ALT16_tree, root_1);
-
+					match(input,AND_ALT,FOLLOW_AND_ALT_in_expr_comp601); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp568);
+					pushFollow(FOLLOW_expr_in_expr_comp605);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp572);
+					pushFollow(FOLLOW_expr_in_expr_comp609);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 				case 5 :
-					// src\\alia\\AliaChecker.g:97:9: ^( EQ t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:105:9: ^( EQ t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					EQ17=(CommonTree)match(input,EQ,FOLLOW_EQ_in_expr_comp584); 
-					EQ17_tree = (CommonTree)adaptor.dupNode(EQ17);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(EQ17_tree, root_1);
-
+					match(input,EQ,FOLLOW_EQ_in_expr_comp621); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp588);
+					pushFollow(FOLLOW_expr_in_expr_comp625);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp592);
+					pushFollow(FOLLOW_expr_in_expr_comp629);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 				case 6 :
-					// src\\alia\\AliaChecker.g:98:9: ^( NQ t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:106:9: ^( NQ t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					NQ18=(CommonTree)match(input,NQ,FOLLOW_NQ_in_expr_comp604); 
-					NQ18_tree = (CommonTree)adaptor.dupNode(NQ18);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(NQ18_tree, root_1);
-
+					match(input,NQ,FOLLOW_NQ_in_expr_comp641); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp608);
+					pushFollow(FOLLOW_expr_in_expr_comp645);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp612);
+					pushFollow(FOLLOW_expr_in_expr_comp649);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 				case 7 :
-					// src\\alia\\AliaChecker.g:99:9: ^( LE t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:107:9: ^( LE t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					LE19=(CommonTree)match(input,LE,FOLLOW_LE_in_expr_comp624); 
-					LE19_tree = (CommonTree)adaptor.dupNode(LE19);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(LE19_tree, root_1);
-
+					match(input,LE,FOLLOW_LE_in_expr_comp661); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp628);
+					pushFollow(FOLLOW_expr_in_expr_comp665);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp632);
+					pushFollow(FOLLOW_expr_in_expr_comp669);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 				case 8 :
-					// src\\alia\\AliaChecker.g:100:9: ^( GE t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:108:9: ^( GE t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					GE20=(CommonTree)match(input,GE,FOLLOW_GE_in_expr_comp644); 
-					GE20_tree = (CommonTree)adaptor.dupNode(GE20);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(GE20_tree, root_1);
-
+					match(input,GE,FOLLOW_GE_in_expr_comp681); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp648);
+					pushFollow(FOLLOW_expr_in_expr_comp685);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp652);
+					pushFollow(FOLLOW_expr_in_expr_comp689);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 				case 9 :
-					// src\\alia\\AliaChecker.g:101:9: ^( GT t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:109:9: ^( GT t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					GT21=(CommonTree)match(input,GT,FOLLOW_GT_in_expr_comp664); 
-					GT21_tree = (CommonTree)adaptor.dupNode(GT21);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(GT21_tree, root_1);
-
+					match(input,GT,FOLLOW_GT_in_expr_comp701); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp668);
+					pushFollow(FOLLOW_expr_in_expr_comp705);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp672);
+					pushFollow(FOLLOW_expr_in_expr_comp709);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 				case 10 :
-					// src\\alia\\AliaChecker.g:102:9: ^( LT t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:110:9: ^( LT t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					LT22=(CommonTree)match(input,LT,FOLLOW_LT_in_expr_comp684); 
-					LT22_tree = (CommonTree)adaptor.dupNode(LT22);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(LT22_tree, root_1);
-
+					match(input,LT,FOLLOW_LT_in_expr_comp721); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp688);
+					pushFollow(FOLLOW_expr_in_expr_comp725);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_comp692);
+					pushFollow(FOLLOW_expr_in_expr_comp729);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
@@ -1415,12 +900,10 @@ public class AliaChecker extends TreeParser {
 			}
 
 
-			   	  checkEqualType((t1!=null?((AliaChecker.expr_return)t1).type:null), (t2!=null?((AliaChecker.expr_return)t2).type:null));
-			   	  retval.type = (t1!=null?((AliaChecker.expr_return)t1).type:null);
+			   	  checkEqualType(t1, t2);
+			   	  type = t1;
 			   	
 			}
-
-			retval.tree = (CommonTree)adaptor.rulePostProcessing(root_0);
 
 		}
 		 
@@ -1431,51 +914,26 @@ public class AliaChecker extends TreeParser {
 		finally {
 			// do for sure before leaving
 		}
-		return retval;
+		return type;
 	}
 	// $ANTLR end "expr_comp"
 
 
-	public static class expr_math_return extends TreeRuleReturnScope {
-		public _Type type;
-		CommonTree tree;
-		@Override
-		public CommonTree getTree() { return tree; }
-	};
-
 
 	// $ANTLR start "expr_math"
-	// src\\alia\\AliaChecker.g:109:1: expr_math returns [_Type type] : ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) ) ;
-	public final AliaChecker.expr_math_return expr_math() throws RecognitionException {
-		AliaChecker.expr_math_return retval = new AliaChecker.expr_math_return();
-		retval.start = input.LT(1);
-
-		CommonTree root_0 = null;
-
-		CommonTree _first_0 = null;
-		CommonTree _last = null;
+	// src\\alia\\AliaChecker.g:117:1: expr_math returns [_Type type] : ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) ) ;
+	public final _Type expr_math() throws RecognitionException {
+		_Type type = null;
 
 
-		CommonTree PLUS23=null;
-		CommonTree MINUS24=null;
-		CommonTree TIMES25=null;
-		CommonTree DIV26=null;
-		TreeRuleReturnScope t1 =null;
-		TreeRuleReturnScope t2 =null;
-
-		CommonTree PLUS23_tree=null;
-		CommonTree MINUS24_tree=null;
-		CommonTree TIMES25_tree=null;
-		CommonTree DIV26_tree=null;
+		_Type t1 =null;
+		_Type t2 =null;
 
 		try {
-			// src\\alia\\AliaChecker.g:110:5: ( ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) ) )
-			// src\\alia\\AliaChecker.g:110:9: ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) )
+			// src\\alia\\AliaChecker.g:118:5: ( ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) ) )
+			// src\\alia\\AliaChecker.g:118:9: ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) )
 			{
-			root_0 = (CommonTree)adaptor.nil();
-
-
-			// src\\alia\\AliaChecker.g:110:9: ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) )
+			// src\\alia\\AliaChecker.g:118:9: ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) )
 			int alt10=4;
 			switch ( input.LA(1) ) {
 			case PLUS:
@@ -1505,154 +963,70 @@ public class AliaChecker extends TreeParser {
 			}
 			switch (alt10) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:110:10: ^( PLUS t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:118:10: ^( PLUS t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					PLUS23=(CommonTree)match(input,PLUS,FOLLOW_PLUS_in_expr_math725); 
-					PLUS23_tree = (CommonTree)adaptor.dupNode(PLUS23);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(PLUS23_tree, root_1);
-
+					match(input,PLUS,FOLLOW_PLUS_in_expr_math762); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_math729);
+					pushFollow(FOLLOW_expr_in_expr_math766);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_math733);
+					pushFollow(FOLLOW_expr_in_expr_math770);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 				case 2 :
-					// src\\alia\\AliaChecker.g:111:9: ^( MINUS t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:119:9: ^( MINUS t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					MINUS24=(CommonTree)match(input,MINUS,FOLLOW_MINUS_in_expr_math745); 
-					MINUS24_tree = (CommonTree)adaptor.dupNode(MINUS24);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(MINUS24_tree, root_1);
-
+					match(input,MINUS,FOLLOW_MINUS_in_expr_math782); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_math749);
+					pushFollow(FOLLOW_expr_in_expr_math786);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_math753);
+					pushFollow(FOLLOW_expr_in_expr_math790);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 				case 3 :
-					// src\\alia\\AliaChecker.g:112:9: ^( TIMES t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:120:9: ^( TIMES t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					TIMES25=(CommonTree)match(input,TIMES,FOLLOW_TIMES_in_expr_math765); 
-					TIMES25_tree = (CommonTree)adaptor.dupNode(TIMES25);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(TIMES25_tree, root_1);
-
+					match(input,TIMES,FOLLOW_TIMES_in_expr_math802); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_math769);
+					pushFollow(FOLLOW_expr_in_expr_math806);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_math773);
+					pushFollow(FOLLOW_expr_in_expr_math810);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 				case 4 :
-					// src\\alia\\AliaChecker.g:113:9: ^( DIV t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:121:9: ^( DIV t1= expr t2= expr )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					DIV26=(CommonTree)match(input,DIV,FOLLOW_DIV_in_expr_math785); 
-					DIV26_tree = (CommonTree)adaptor.dupNode(DIV26);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(DIV26_tree, root_1);
-
+					match(input,DIV,FOLLOW_DIV_in_expr_math822); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_math789);
+					pushFollow(FOLLOW_expr_in_expr_math826);
 					t1=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t1.getTree());
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_expr_math793);
+					pushFollow(FOLLOW_expr_in_expr_math830);
 					t2=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t2.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
@@ -1660,12 +1034,10 @@ public class AliaChecker extends TreeParser {
 			}
 
 			 
-			    	checkMathType((t1!=null?((AliaChecker.expr_return)t1).type:null), (t2!=null?((AliaChecker.expr_return)t2).type:null));
-			    	retval.type = new _Int();
+			    	checkMathType(t1, t2);
+			    	type = new _Int();
 			    
 			}
-
-			retval.tree = (CommonTree)adaptor.rulePostProcessing(root_0);
 
 		}
 		 
@@ -1676,29 +1048,16 @@ public class AliaChecker extends TreeParser {
 		finally {
 			// do for sure before leaving
 		}
-		return retval;
+		return type;
 	}
 	// $ANTLR end "expr_math"
 
 
-	public static class operand_return extends TreeRuleReturnScope {
-		public _Type type;
-		CommonTree tree;
-		@Override
-		public CommonTree getTree() { return tree; }
-	};
-
 
 	// $ANTLR start "operand"
-	// src\\alia\\AliaChecker.g:119:1: operand returns [_Type type] : (id= IDENTIFIER |n= NUMBER |c= LETTER |b= ( TRUE | FALSE ) );
-	public final AliaChecker.operand_return operand() throws RecognitionException {
-		AliaChecker.operand_return retval = new AliaChecker.operand_return();
-		retval.start = input.LT(1);
-
-		CommonTree root_0 = null;
-
-		CommonTree _first_0 = null;
-		CommonTree _last = null;
+	// src\\alia\\AliaChecker.g:127:1: operand returns [_Type type] : (id= IDENTIFIER |n= NUMBER |c= LETTER |b= ( TRUE | FALSE ) );
+	public final _Type operand() throws RecognitionException {
+		_Type type = null;
 
 
 		CommonTree id=null;
@@ -1706,13 +1065,8 @@ public class AliaChecker extends TreeParser {
 		CommonTree c=null;
 		CommonTree b=null;
 
-		CommonTree id_tree=null;
-		CommonTree n_tree=null;
-		CommonTree c_tree=null;
-		CommonTree b_tree=null;
-
 		try {
-			// src\\alia\\AliaChecker.g:120:5: (id= IDENTIFIER |n= NUMBER |c= LETTER |b= ( TRUE | FALSE ) )
+			// src\\alia\\AliaChecker.g:128:5: (id= IDENTIFIER |n= NUMBER |c= LETTER |b= ( TRUE | FALSE ) )
 			int alt11=4;
 			switch ( input.LA(1) ) {
 			case IDENTIFIER:
@@ -1743,84 +1097,45 @@ public class AliaChecker extends TreeParser {
 			}
 			switch (alt11) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:120:9: id= IDENTIFIER
+					// src\\alia\\AliaChecker.g:128:9: id= IDENTIFIER
 					{
-					root_0 = (CommonTree)adaptor.nil();
-
-
-					_last = (CommonTree)input.LT(1);
-					id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_operand825); 
-					id_tree = (CommonTree)adaptor.dupNode(id);
-
-
-					adaptor.addChild(root_0, id_tree);
-
-					 retval.type = getType((id!=null?id.getText():null));
+					id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_operand862); 
+					 type = getType((id!=null?id.getText():null));
 					        	// TODO: In functions type inference should also be included here. Example function test(x) x = x + 1
 					         
 					}
 					break;
 				case 2 :
-					// src\\alia\\AliaChecker.g:124:9: n= NUMBER
+					// src\\alia\\AliaChecker.g:132:9: n= NUMBER
 					{
-					root_0 = (CommonTree)adaptor.nil();
-
-
-					_last = (CommonTree)input.LT(1);
-					n=(CommonTree)match(input,NUMBER,FOLLOW_NUMBER_in_operand848); 
-					n_tree = (CommonTree)adaptor.dupNode(n);
-
-
-					adaptor.addChild(root_0, n_tree);
-
-					 retval.type = new _Int(); 
+					n=(CommonTree)match(input,NUMBER,FOLLOW_NUMBER_in_operand885); 
+					 type = new _Int(); 
 					}
 					break;
 				case 3 :
-					// src\\alia\\AliaChecker.g:126:9: c= LETTER
+					// src\\alia\\AliaChecker.g:134:9: c= LETTER
 					{
-					root_0 = (CommonTree)adaptor.nil();
-
-
-					_last = (CommonTree)input.LT(1);
-					c=(CommonTree)match(input,LETTER,FOLLOW_LETTER_in_operand868); 
-					c_tree = (CommonTree)adaptor.dupNode(c);
-
-
-					adaptor.addChild(root_0, c_tree);
-
-					 retval.type = new _Char(); 
+					c=(CommonTree)match(input,LETTER,FOLLOW_LETTER_in_operand905); 
+					 type = new _Char(); 
 					}
 					break;
 				case 4 :
-					// src\\alia\\AliaChecker.g:128:9: b= ( TRUE | FALSE )
+					// src\\alia\\AliaChecker.g:136:9: b= ( TRUE | FALSE )
 					{
-					root_0 = (CommonTree)adaptor.nil();
-
-
-					_last = (CommonTree)input.LT(1);
 					b=(CommonTree)input.LT(1);
 					if ( input.LA(1)==FALSE||input.LA(1)==TRUE ) {
 						input.consume();
-						b_tree = (CommonTree)adaptor.dupNode(b);
-
-
-						adaptor.addChild(root_0, b_tree);
-
 						state.errorRecovery=false;
 					}
 					else {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-
-					 retval.type = new _Bool(); 
+					 type = new _Bool(); 
 					}
 					break;
 
 			}
-			retval.tree = (CommonTree)adaptor.rulePostProcessing(root_0);
-
 		}
 		 
 		    catch (RecognitionException e) { 
@@ -1830,46 +1145,25 @@ public class AliaChecker extends TreeParser {
 		finally {
 			// do for sure before leaving
 		}
-		return retval;
+		return type;
 	}
 	// $ANTLR end "operand"
 
 
-	public static class operand_special_return extends TreeRuleReturnScope {
-		public _Type type;
-		CommonTree tree;
-		@Override
-		public CommonTree getTree() { return tree; }
-	};
-
 
 	// $ANTLR start "operand_special"
-	// src\\alia\\AliaChecker.g:132:1: operand_special returns [_Type type] : ( ^( PRINT t= exprlist ) | ^( READ t= varlist ) ) ;
-	public final AliaChecker.operand_special_return operand_special() throws RecognitionException {
-		AliaChecker.operand_special_return retval = new AliaChecker.operand_special_return();
-		retval.start = input.LT(1);
-
-		CommonTree root_0 = null;
-
-		CommonTree _first_0 = null;
-		CommonTree _last = null;
+	// src\\alia\\AliaChecker.g:140:1: operand_special returns [_Type type] : ( ^( PRINT t= exprlist ) | ^( READ t= varlist ) ) ;
+	public final _Type operand_special() throws RecognitionException {
+		_Type type = null;
 
 
-		CommonTree PRINT27=null;
-		CommonTree READ28=null;
-		TreeRuleReturnScope t =null;
-
-		CommonTree PRINT27_tree=null;
-		CommonTree READ28_tree=null;
+		_Type t =null;
 
 		try {
-			// src\\alia\\AliaChecker.g:133:5: ( ( ^( PRINT t= exprlist ) | ^( READ t= varlist ) ) )
-			// src\\alia\\AliaChecker.g:133:9: ( ^( PRINT t= exprlist ) | ^( READ t= varlist ) )
+			// src\\alia\\AliaChecker.g:141:5: ( ( ^( PRINT t= exprlist ) | ^( READ t= varlist ) ) )
+			// src\\alia\\AliaChecker.g:141:9: ( ^( PRINT t= exprlist ) | ^( READ t= varlist ) )
 			{
-			root_0 = (CommonTree)adaptor.nil();
-
-
-			// src\\alia\\AliaChecker.g:133:9: ( ^( PRINT t= exprlist ) | ^( READ t= varlist ) )
+			// src\\alia\\AliaChecker.g:141:9: ( ^( PRINT t= exprlist ) | ^( READ t= varlist ) )
 			int alt12=2;
 			int LA12_0 = input.LA(1);
 			if ( (LA12_0==PRINT) ) {
@@ -1887,64 +1181,28 @@ public class AliaChecker extends TreeParser {
 
 			switch (alt12) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:133:10: ^( PRINT t= exprlist )
+					// src\\alia\\AliaChecker.g:141:10: ^( PRINT t= exprlist )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					PRINT27=(CommonTree)match(input,PRINT,FOLLOW_PRINT_in_operand_special925); 
-					PRINT27_tree = (CommonTree)adaptor.dupNode(PRINT27);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(PRINT27_tree, root_1);
-
+					match(input,PRINT,FOLLOW_PRINT_in_operand_special962); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_exprlist_in_operand_special929);
+					pushFollow(FOLLOW_exprlist_in_operand_special966);
 					t=exprlist();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
 				case 2 :
-					// src\\alia\\AliaChecker.g:135:7: ^( READ t= varlist )
+					// src\\alia\\AliaChecker.g:143:7: ^( READ t= varlist )
 					{
-					_last = (CommonTree)input.LT(1);
-					{
-					CommonTree _save_last_1 = _last;
-					CommonTree _first_1 = null;
-					CommonTree root_1 = (CommonTree)adaptor.nil();
-					_last = (CommonTree)input.LT(1);
-					READ28=(CommonTree)match(input,READ,FOLLOW_READ_in_operand_special944); 
-					READ28_tree = (CommonTree)adaptor.dupNode(READ28);
-
-
-					root_1 = (CommonTree)adaptor.becomeRoot(READ28_tree, root_1);
-
+					match(input,READ,FOLLOW_READ_in_operand_special981); 
 					match(input, Token.DOWN, null); 
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_varlist_in_operand_special948);
+					pushFollow(FOLLOW_varlist_in_operand_special985);
 					t=varlist();
 					state._fsp--;
 
-					adaptor.addChild(root_1, t.getTree());
-
 					match(input, Token.UP, null); 
-					adaptor.addChild(root_0, root_1);
-					_last = _save_last_1;
-					}
-
 
 					}
 					break;
@@ -1952,11 +1210,9 @@ public class AliaChecker extends TreeParser {
 			}
 
 
-			    	retval.type = (t!=null?((AliaChecker.varlist_return)t).type:null);
+			    	type = t;
 			    
 			}
-
-			retval.tree = (CommonTree)adaptor.rulePostProcessing(root_0);
 
 		}
 		 
@@ -1967,57 +1223,29 @@ public class AliaChecker extends TreeParser {
 		finally {
 			// do for sure before leaving
 		}
-		return retval;
+		return type;
 	}
 	// $ANTLR end "operand_special"
 
 
-	public static class varlist_return extends TreeRuleReturnScope {
-		public _Type type;
-		CommonTree tree;
-		@Override
-		public CommonTree getTree() { return tree; }
-	};
-
 
 	// $ANTLR start "varlist"
-	// src\\alia\\AliaChecker.g:140:1: varlist returns [_Type type] : id= IDENTIFIER ( COMMA IDENTIFIER )* ;
-	public final AliaChecker.varlist_return varlist() throws RecognitionException {
-		AliaChecker.varlist_return retval = new AliaChecker.varlist_return();
-		retval.start = input.LT(1);
-
-		CommonTree root_0 = null;
-
-		CommonTree _first_0 = null;
-		CommonTree _last = null;
+	// src\\alia\\AliaChecker.g:148:1: varlist returns [_Type type] : id= IDENTIFIER ( COMMA IDENTIFIER )* ;
+	public final _Type varlist() throws RecognitionException {
+		_Type type = null;
 
 
 		CommonTree id=null;
-		CommonTree COMMA29=null;
-		CommonTree IDENTIFIER30=null;
-
-		CommonTree id_tree=null;
-		CommonTree COMMA29_tree=null;
-		CommonTree IDENTIFIER30_tree=null;
 
 		try {
-			// src\\alia\\AliaChecker.g:141:2: (id= IDENTIFIER ( COMMA IDENTIFIER )* )
-			// src\\alia\\AliaChecker.g:141:4: id= IDENTIFIER ( COMMA IDENTIFIER )*
+			// src\\alia\\AliaChecker.g:149:2: (id= IDENTIFIER ( COMMA IDENTIFIER )* )
+			// src\\alia\\AliaChecker.g:149:4: id= IDENTIFIER ( COMMA IDENTIFIER )*
 			{
-			root_0 = (CommonTree)adaptor.nil();
+			id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_varlist1009); 
 
-
-			_last = (CommonTree)input.LT(1);
-			id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_varlist972); 
-			id_tree = (CommonTree)adaptor.dupNode(id);
-
-
-			adaptor.addChild(root_0, id_tree);
-
-
-						retval.type = getType((id!=null?id.getText():null));
+						type = getType((id!=null?id.getText():null));
 					
-			// src\\alia\\AliaChecker.g:145:3: ( COMMA IDENTIFIER )*
+			// src\\alia\\AliaChecker.g:153:3: ( COMMA IDENTIFIER )*
 			loop13:
 			while (true) {
 				int alt13=2;
@@ -2028,24 +1256,12 @@ public class AliaChecker extends TreeParser {
 
 				switch (alt13) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:145:4: COMMA IDENTIFIER
+					// src\\alia\\AliaChecker.g:153:4: COMMA IDENTIFIER
 					{
-					_last = (CommonTree)input.LT(1);
-					COMMA29=(CommonTree)match(input,COMMA,FOLLOW_COMMA_in_varlist981); 
-					COMMA29_tree = (CommonTree)adaptor.dupNode(COMMA29);
+					match(input,COMMA,FOLLOW_COMMA_in_varlist1018); 
+					match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_varlist1020); 
 
-
-					adaptor.addChild(root_0, COMMA29_tree);
-
-					_last = (CommonTree)input.LT(1);
-					IDENTIFIER30=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_varlist983); 
-					IDENTIFIER30_tree = (CommonTree)adaptor.dupNode(IDENTIFIER30);
-
-
-					adaptor.addChild(root_0, IDENTIFIER30_tree);
-
-
-									retval.type = new _Void();
+									type = new _Void();
 								
 					}
 					break;
@@ -2057,8 +1273,6 @@ public class AliaChecker extends TreeParser {
 
 			}
 
-			retval.tree = (CommonTree)adaptor.rulePostProcessing(root_0);
-
 		}
 		 
 		    catch (RecognitionException e) { 
@@ -2068,55 +1282,33 @@ public class AliaChecker extends TreeParser {
 		finally {
 			// do for sure before leaving
 		}
-		return retval;
+		return type;
 	}
 	// $ANTLR end "varlist"
 
 
-	public static class exprlist_return extends TreeRuleReturnScope {
-		public _Type type;
-		CommonTree tree;
-		@Override
-		public CommonTree getTree() { return tree; }
-	};
-
 
 	// $ANTLR start "exprlist"
-	// src\\alia\\AliaChecker.g:151:1: exprlist returns [_Type type] : t= expr ( COMMA t= expr )* ;
-	public final AliaChecker.exprlist_return exprlist() throws RecognitionException {
-		AliaChecker.exprlist_return retval = new AliaChecker.exprlist_return();
-		retval.start = input.LT(1);
-
-		CommonTree root_0 = null;
-
-		CommonTree _first_0 = null;
-		CommonTree _last = null;
+	// src\\alia\\AliaChecker.g:159:1: exprlist returns [_Type type] : t= expr ( COMMA t= expr )* ;
+	public final _Type exprlist() throws RecognitionException {
+		_Type type = null;
 
 
-		CommonTree COMMA31=null;
-		TreeRuleReturnScope t =null;
-
-		CommonTree COMMA31_tree=null;
+		_Type t =null;
 
 		try {
-			// src\\alia\\AliaChecker.g:152:5: (t= expr ( COMMA t= expr )* )
-			// src\\alia\\AliaChecker.g:152:7: t= expr ( COMMA t= expr )*
+			// src\\alia\\AliaChecker.g:160:5: (t= expr ( COMMA t= expr )* )
+			// src\\alia\\AliaChecker.g:160:7: t= expr ( COMMA t= expr )*
 			{
-			root_0 = (CommonTree)adaptor.nil();
-
-
-			_last = (CommonTree)input.LT(1);
-			pushFollow(FOLLOW_expr_in_exprlist1011);
+			pushFollow(FOLLOW_expr_in_exprlist1048);
 			t=expr();
 			state._fsp--;
 
-			adaptor.addChild(root_0, t.getTree());
 
-
-						checkNotVoid((t!=null?((AliaChecker.expr_return)t).type:null));
-						retval.type = (t!=null?((AliaChecker.expr_return)t).type:null);
+						checkNotVoid(t);
+						type = t;
 					
-			// src\\alia\\AliaChecker.g:157:3: ( COMMA t= expr )*
+			// src\\alia\\AliaChecker.g:165:3: ( COMMA t= expr )*
 			loop14:
 			while (true) {
 				int alt14=2;
@@ -2127,25 +1319,16 @@ public class AliaChecker extends TreeParser {
 
 				switch (alt14) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:157:4: COMMA t= expr
+					// src\\alia\\AliaChecker.g:165:4: COMMA t= expr
 					{
-					_last = (CommonTree)input.LT(1);
-					COMMA31=(CommonTree)match(input,COMMA,FOLLOW_COMMA_in_exprlist1020); 
-					COMMA31_tree = (CommonTree)adaptor.dupNode(COMMA31);
-
-
-					adaptor.addChild(root_0, COMMA31_tree);
-
-					_last = (CommonTree)input.LT(1);
-					pushFollow(FOLLOW_expr_in_exprlist1024);
+					match(input,COMMA,FOLLOW_COMMA_in_exprlist1057); 
+					pushFollow(FOLLOW_expr_in_exprlist1061);
 					t=expr();
 					state._fsp--;
 
-					adaptor.addChild(root_0, t.getTree());
 
-
-									checkNotVoid((t!=null?((AliaChecker.expr_return)t).type:null));
-									retval.type = new _Void();
+									checkNotVoid(t);
+									type = new _Void();
 								
 					}
 					break;
@@ -2157,8 +1340,6 @@ public class AliaChecker extends TreeParser {
 
 			}
 
-			retval.tree = (CommonTree)adaptor.rulePostProcessing(root_0);
-
 		}
 		 
 		    catch (RecognitionException e) { 
@@ -2168,41 +1349,20 @@ public class AliaChecker extends TreeParser {
 		finally {
 			// do for sure before leaving
 		}
-		return retval;
+		return type;
 	}
 	// $ANTLR end "exprlist"
 
 
-	public static class type_return extends TreeRuleReturnScope {
-		public _Type type;
-		CommonTree tree;
-		@Override
-		public CommonTree getTree() { return tree; }
-	};
-
 
 	// $ANTLR start "type"
-	// src\\alia\\AliaChecker.g:165:1: type returns [_Type type] : ( INTEGER | CHAR | BOOL );
-	public final AliaChecker.type_return type() throws RecognitionException {
-		AliaChecker.type_return retval = new AliaChecker.type_return();
-		retval.start = input.LT(1);
+	// src\\alia\\AliaChecker.g:173:1: type returns [_Type type] : ( INTEGER | CHAR | BOOL );
+	public final _Type type() throws RecognitionException {
+		_Type type = null;
 
-		CommonTree root_0 = null;
-
-		CommonTree _first_0 = null;
-		CommonTree _last = null;
-
-
-		CommonTree INTEGER32=null;
-		CommonTree CHAR33=null;
-		CommonTree BOOL34=null;
-
-		CommonTree INTEGER32_tree=null;
-		CommonTree CHAR33_tree=null;
-		CommonTree BOOL34_tree=null;
 
 		try {
-			// src\\alia\\AliaChecker.g:166:5: ( INTEGER | CHAR | BOOL )
+			// src\\alia\\AliaChecker.g:174:5: ( INTEGER | CHAR | BOOL )
 			int alt15=3;
 			switch ( input.LA(1) ) {
 			case INTEGER:
@@ -2227,57 +1387,28 @@ public class AliaChecker extends TreeParser {
 			}
 			switch (alt15) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:166:9: INTEGER
+					// src\\alia\\AliaChecker.g:174:9: INTEGER
 					{
-					root_0 = (CommonTree)adaptor.nil();
-
-
-					_last = (CommonTree)input.LT(1);
-					INTEGER32=(CommonTree)match(input,INTEGER,FOLLOW_INTEGER_in_type1054); 
-					INTEGER32_tree = (CommonTree)adaptor.dupNode(INTEGER32);
-
-
-					adaptor.addChild(root_0, INTEGER32_tree);
-
-					 retval.type = new _Int(); 
+					match(input,INTEGER,FOLLOW_INTEGER_in_type1091); 
+					 type = new _Int(); 
 					}
 					break;
 				case 2 :
-					// src\\alia\\AliaChecker.g:168:9: CHAR
+					// src\\alia\\AliaChecker.g:176:9: CHAR
 					{
-					root_0 = (CommonTree)adaptor.nil();
-
-
-					_last = (CommonTree)input.LT(1);
-					CHAR33=(CommonTree)match(input,CHAR,FOLLOW_CHAR_in_type1074); 
-					CHAR33_tree = (CommonTree)adaptor.dupNode(CHAR33);
-
-
-					adaptor.addChild(root_0, CHAR33_tree);
-
-					 retval.type = new _Char(); 
+					match(input,CHAR,FOLLOW_CHAR_in_type1111); 
+					 type = new _Char(); 
 					}
 					break;
 				case 3 :
-					// src\\alia\\AliaChecker.g:170:9: BOOL
+					// src\\alia\\AliaChecker.g:178:9: BOOL
 					{
-					root_0 = (CommonTree)adaptor.nil();
-
-
-					_last = (CommonTree)input.LT(1);
-					BOOL34=(CommonTree)match(input,BOOL,FOLLOW_BOOL_in_type1094); 
-					BOOL34_tree = (CommonTree)adaptor.dupNode(BOOL34);
-
-
-					adaptor.addChild(root_0, BOOL34_tree);
-
-					 retval.type = new _Bool(); 
+					match(input,BOOL,FOLLOW_BOOL_in_type1131); 
+					 type = new _Bool(); 
 					}
 					break;
 
 			}
-			retval.tree = (CommonTree)adaptor.rulePostProcessing(root_0);
-
 		}
 		 
 		    catch (RecognitionException e) { 
@@ -2287,7 +1418,7 @@ public class AliaChecker extends TreeParser {
 		finally {
 			// do for sure before leaving
 		}
-		return retval;
+		return type;
 	}
 	// $ANTLR end "type"
 
@@ -2296,89 +1427,91 @@ public class AliaChecker extends TreeParser {
 
 
 	public static final BitSet FOLLOW_PROGRAM_in_program135 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_statement_in_program138 = new BitSet(new long[]{0x00580FE737A84078L});
-	public static final BitSet FOLLOW_statement_in_statements162 = new BitSet(new long[]{0x00580FE737A84072L});
+	public static final BitSet FOLLOW_statement_in_program138 = new BitSet(new long[]{0x01603F9CDEA12078L});
+	public static final BitSet FOLLOW_statement_in_statements162 = new BitSet(new long[]{0x01603F9CDEA12072L});
 	public static final BitSet FOLLOW_WHILE_in_statement193 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_statement197 = new BitSet(new long[]{0x0000000000008000L});
-	public static final BitSet FOLLOW_DO_in_statement199 = new BitSet(new long[]{0x00580FE737AC4070L});
-	public static final BitSet FOLLOW_statements_in_statement201 = new BitSet(new long[]{0x0000000000040000L});
+	public static final BitSet FOLLOW_expr_in_statement197 = new BitSet(new long[]{0x0000000000020000L});
+	public static final BitSet FOLLOW_DO_in_statement199 = new BitSet(new long[]{0x01603F9CDEB12070L});
+	public static final BitSet FOLLOW_statements_in_statement201 = new BitSet(new long[]{0x0000000000100000L});
 	public static final BitSet FOLLOW_END_in_statement203 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_expr_in_statement222 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_expr_op_in_expr256 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_expr_comp_in_expr268 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_expr_math_in_expr280 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_IF_in_expr299 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr303 = new BitSet(new long[]{0x00580FE737AB4078L});
-	public static final BitSet FOLLOW_statements_in_expr307 = new BitSet(new long[]{0x0000000000030008L});
-	public static final BitSet FOLLOW_ELSEIF_in_expr324 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr328 = new BitSet(new long[]{0x0000000000008000L});
-	public static final BitSet FOLLOW_DO_in_expr330 = new BitSet(new long[]{0x00580FE737AB4078L});
-	public static final BitSet FOLLOW_statements_in_expr335 = new BitSet(new long[]{0x0000000000030008L});
-	public static final BitSet FOLLOW_ELSE_in_expr362 = new BitSet(new long[]{0x00580FE737A84078L});
-	public static final BitSet FOLLOW_statements_in_expr366 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_BECOMES_in_expr415 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_IDENTIFIER_in_expr419 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr423 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_operand_in_expr_op461 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_set_in_expr_op467 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_operand_in_expr_op481 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_OR_in_expr_comp504 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_comp508 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_comp512 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_OR_ALT_in_expr_comp524 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_comp528 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_comp532 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_AND_in_expr_comp544 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_comp548 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_comp552 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_AND_ALT_in_expr_comp564 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_comp568 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_comp572 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_EQ_in_expr_comp584 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_comp588 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_comp592 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_NQ_in_expr_comp604 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_comp608 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_comp612 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_LE_in_expr_comp624 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_comp628 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_comp632 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_GE_in_expr_comp644 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_comp648 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_comp652 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_GT_in_expr_comp664 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_comp668 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_comp672 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_LT_in_expr_comp684 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_comp688 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_comp692 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_PLUS_in_expr_math725 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_math729 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_math733 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_MINUS_in_expr_math745 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_math749 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_math753 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_TIMES_in_expr_math765 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_math769 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_math773 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_DIV_in_expr_math785 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expr_in_expr_math789 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_expr_math793 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_IDENTIFIER_in_operand825 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_NUMBER_in_operand848 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_LETTER_in_operand868 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_set_in_operand887 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_PRINT_in_operand_special925 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_exprlist_in_operand_special929 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_READ_in_operand_special944 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_varlist_in_operand_special948 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_IDENTIFIER_in_varlist972 = new BitSet(new long[]{0x0000000000000402L});
-	public static final BitSet FOLLOW_COMMA_in_varlist981 = new BitSet(new long[]{0x0000000002000000L});
-	public static final BitSet FOLLOW_IDENTIFIER_in_varlist983 = new BitSet(new long[]{0x0000000000000402L});
-	public static final BitSet FOLLOW_expr_in_exprlist1011 = new BitSet(new long[]{0x0000000000000402L});
-	public static final BitSet FOLLOW_COMMA_in_exprlist1020 = new BitSet(new long[]{0x00180FE737A84070L});
-	public static final BitSet FOLLOW_expr_in_exprlist1024 = new BitSet(new long[]{0x0000000000000402L});
-	public static final BitSet FOLLOW_INTEGER_in_type1054 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_CHAR_in_type1074 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_BOOL_in_type1094 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_expr_in_expr303 = new BitSet(new long[]{0x01603F9CDEAD2078L});
+	public static final BitSet FOLLOW_statements_in_expr307 = new BitSet(new long[]{0x00000000000C0008L});
+	public static final BitSet FOLLOW_ELSEIF_in_expr324 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr328 = new BitSet(new long[]{0x0000000000020000L});
+	public static final BitSet FOLLOW_DO_in_expr330 = new BitSet(new long[]{0x01603F9CDEAD2078L});
+	public static final BitSet FOLLOW_statements_in_expr334 = new BitSet(new long[]{0x00000000000C0008L});
+	public static final BitSet FOLLOW_ELSE_in_expr361 = new BitSet(new long[]{0x01603F9CDEA12078L});
+	public static final BitSet FOLLOW_statements_in_expr365 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_BECOMES_in_expr414 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_IDENTIFIER_in_expr418 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr422 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_COMPOUND_in_expr444 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_statements_in_expr460 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_operand_in_expr_op498 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_set_in_expr_op504 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_operand_in_expr_op518 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_OR_in_expr_comp541 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_comp545 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_comp549 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_OR_ALT_in_expr_comp561 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_comp565 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_comp569 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_AND_in_expr_comp581 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_comp585 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_comp589 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_AND_ALT_in_expr_comp601 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_comp605 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_comp609 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_EQ_in_expr_comp621 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_comp625 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_comp629 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_NQ_in_expr_comp641 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_comp645 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_comp649 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_LE_in_expr_comp661 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_comp665 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_comp669 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_GE_in_expr_comp681 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_comp685 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_comp689 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_GT_in_expr_comp701 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_comp705 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_comp709 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_LT_in_expr_comp721 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_comp725 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_comp729 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_PLUS_in_expr_math762 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_math766 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_math770 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_MINUS_in_expr_math782 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_math786 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_math790 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_TIMES_in_expr_math802 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_math806 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_math810 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_DIV_in_expr_math822 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_expr_in_expr_math826 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_expr_math830 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_IDENTIFIER_in_operand862 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_NUMBER_in_operand885 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_LETTER_in_operand905 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_set_in_operand924 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_PRINT_in_operand_special962 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_exprlist_in_operand_special966 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_READ_in_operand_special981 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_varlist_in_operand_special985 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_IDENTIFIER_in_varlist1009 = new BitSet(new long[]{0x0000000000000802L});
+	public static final BitSet FOLLOW_COMMA_in_varlist1018 = new BitSet(new long[]{0x0000000008000000L});
+	public static final BitSet FOLLOW_IDENTIFIER_in_varlist1020 = new BitSet(new long[]{0x0000000000000802L});
+	public static final BitSet FOLLOW_expr_in_exprlist1048 = new BitSet(new long[]{0x0000000000000802L});
+	public static final BitSet FOLLOW_COMMA_in_exprlist1057 = new BitSet(new long[]{0x00603F9CDEA12070L});
+	public static final BitSet FOLLOW_expr_in_exprlist1061 = new BitSet(new long[]{0x0000000000000802L});
+	public static final BitSet FOLLOW_INTEGER_in_type1091 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_CHAR_in_type1111 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_BOOL_in_type1131 = new BitSet(new long[]{0x0000000000000002L});
 }

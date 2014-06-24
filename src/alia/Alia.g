@@ -59,9 +59,11 @@ tokens {
     TRUE		=   'true'    ;
     FALSE		=   'false'    ;
     DEF         =   'def'        ;
+    BEGIN       =   'begin'        ;
     
     FUNC        =   'func' ;
     EXPR_LIST   =   'exprlist';
+    COMPOUND    =   'compound';
 }
 
 @lexer::header {
@@ -99,10 +101,13 @@ operand : read |
 	   	  print |
 	   	  if_stmnt |
 	   	  LPAREN! expr RPAREN! |
+	   	  compound_stmnt |
 	   	  NUMBER |
 	   	  char_expr |
 	   	  boolean_expr |
 	   	  func_identifier;
+
+compound_stmnt : BEGIN statements END -> COMPOUND statements;
 
 char_expr : SQUOTE! LETTER SQUOTE!;
 

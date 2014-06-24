@@ -60,7 +60,7 @@ expr returns [_Type type]
 		   		types.add($ts.type);
 	   			checkBoolType($t.type);
 	   		}
-   			(ELSEIF t=expr DO! ts=statements
+   			(ELSEIF t=expr DO ts=statements
 		   		{
 		   			types.add($ts.type);
 		   			checkBoolType($t.type);
@@ -80,6 +80,14 @@ expr returns [_Type type]
    	|   ^(BECOMES id=IDENTIFIER t=expr)
         {   
         	declare($id.text, $t.type);
+    		$type = $t.type;
+        }
+   	|   ^(COMPOUND
+   		{ // Openscope
+   		}
+   		t=statements)
+        {
+        	// Closescope
     		$type = $t.type;
         }
     ;
