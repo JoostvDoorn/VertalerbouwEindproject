@@ -71,6 +71,7 @@ public class SymbolTable<Entry extends IdEntry> {
     	}
     	else {
         	scopeStack.peek().add(id);
+        	entry.setLevel(level);
         	entryStack.push(entry);
     	}
     }
