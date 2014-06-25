@@ -1,4 +1,5 @@
 // $ANTLR 3.5.2 src\\alia\\AliaChecker.g 2014-06-25 11:05:34
+// $ANTLR 3.5.2 src\\alia\\AliaChecker.g 2014-06-25 11:02:04
 
 package alia;
 import alia.types.*;
@@ -112,15 +113,15 @@ public class AliaChecker extends CheckerAux {
 
 
 	// $ANTLR start "program"
-	// src\\alia\\AliaChecker.g:35:1: program : ^( PROGRAM ( statement )+ ) ;
+	// src\\alia\\AliaChecker.g:36:1: program : ^( PROGRAM ( statement )+ ) ;
 	public final void program() throws RecognitionException {
 		try {
-			// src\\alia\\AliaChecker.g:36:5: ( ^( PROGRAM ( statement )+ ) )
-			// src\\alia\\AliaChecker.g:36:9: ^( PROGRAM ( statement )+ )
+			// src\\alia\\AliaChecker.g:37:5: ( ^( PROGRAM ( statement )+ ) )
+			// src\\alia\\AliaChecker.g:37:9: ^( PROGRAM ( statement )+ )
 			{
 			match(input,PROGRAM,FOLLOW_PROGRAM_in_program144); 
 			match(input, Token.DOWN, null); 
-			// src\\alia\\AliaChecker.g:36:19: ( statement )+
+			// src\\alia\\AliaChecker.g:37:19: ( statement )+
 			int cnt1=0;
 			loop1:
 			while (true) {
@@ -132,7 +133,7 @@ public class AliaChecker extends CheckerAux {
 
 				switch (alt1) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:36:20: statement
+					// src\\alia\\AliaChecker.g:37:20: statement
 					{
 					pushFollow(FOLLOW_statement_in_program147);
 					statement();
@@ -157,6 +158,7 @@ public class AliaChecker extends CheckerAux {
 		 
 		    catch (RecognitionException e) { 
 		        throw e; 
+		        // TODO: Fix this
 		    } 
 
 		finally {
@@ -168,7 +170,7 @@ public class AliaChecker extends CheckerAux {
 
 
 	// $ANTLR start "statements"
-	// src\\alia\\AliaChecker.g:39:1: statements returns [_Type type = new _Void()] : (t= statement )* ;
+	// src\\alia\\AliaChecker.g:40:1: statements returns [_Type type = new _Void()] : (t= statement )* ;
 	public final _Type statements() throws RecognitionException {
 		_Type type =  new _Void();
 
@@ -176,10 +178,10 @@ public class AliaChecker extends CheckerAux {
 		_Type t =null;
 
 		try {
-			// src\\alia\\AliaChecker.g:40:2: ( (t= statement )* )
-			// src\\alia\\AliaChecker.g:40:4: (t= statement )*
+			// src\\alia\\AliaChecker.g:41:2: ( (t= statement )* )
+			// src\\alia\\AliaChecker.g:41:4: (t= statement )*
 			{
-			// src\\alia\\AliaChecker.g:40:4: (t= statement )*
+			// src\\alia\\AliaChecker.g:41:4: (t= statement )*
 			loop2:
 			while (true) {
 				int alt2=2;
@@ -190,7 +192,7 @@ public class AliaChecker extends CheckerAux {
 
 				switch (alt2) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:40:5: t= statement
+					// src\\alia\\AliaChecker.g:41:5: t= statement
 					{
 					pushFollow(FOLLOW_statement_in_statements171);
 					t=statement();
@@ -211,6 +213,7 @@ public class AliaChecker extends CheckerAux {
 		 
 		    catch (RecognitionException e) { 
 		        throw e; 
+		        // TODO: Fix this
 		    } 
 
 		finally {
@@ -223,7 +226,7 @@ public class AliaChecker extends CheckerAux {
 
 
 	// $ANTLR start "statement"
-	// src\\alia\\AliaChecker.g:44:1: statement returns [_Type type = new _Void()] : ( ^( WHILE t= expr DO statements END ) |t= expr );
+	// src\\alia\\AliaChecker.g:45:1: statement returns [_Type type = new _Void()] : ( ^( WHILE t= expr DO statements END ) |t= expr );
 	public final _Type statement() throws RecognitionException {
 		_Type type =  new _Void();
 
@@ -231,7 +234,7 @@ public class AliaChecker extends CheckerAux {
 		_Type t =null;
 
 		try {
-			// src\\alia\\AliaChecker.g:45:5: ( ^( WHILE t= expr DO statements END ) |t= expr )
+			// src\\alia\\AliaChecker.g:46:5: ( ^( WHILE t= expr DO statements END ) |t= expr )
 			int alt3=2;
 			int LA3_0 = input.LA(1);
 			if ( (LA3_0==WHILE) ) {
@@ -249,7 +252,7 @@ public class AliaChecker extends CheckerAux {
 
 			switch (alt3) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:45:9: ^( WHILE t= expr DO statements END )
+					// src\\alia\\AliaChecker.g:46:9: ^( WHILE t= expr DO statements END )
 					{
 					match(input,WHILE,FOLLOW_WHILE_in_statement202); 
 					match(input, Token.DOWN, null); 
@@ -269,7 +272,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 2 :
-					// src\\alia\\AliaChecker.g:47:9: t= expr
+					// src\\alia\\AliaChecker.g:48:9: t= expr
 					{
 					pushFollow(FOLLOW_expr_in_statement231);
 					t=expr();
@@ -284,6 +287,7 @@ public class AliaChecker extends CheckerAux {
 		 
 		    catch (RecognitionException e) { 
 		        throw e; 
+		        // TODO: Fix this
 		    } 
 
 		finally {
@@ -296,7 +300,7 @@ public class AliaChecker extends CheckerAux {
 
 
 	// $ANTLR start "expr"
-	// src\\alia\\AliaChecker.g:51:1: expr returns [_Type type] : ( (t= operand |t= expr_comp |t= expr_math | ^( PRINT t= exprlist ) | ^( READ t= varlist ) | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) ) | ^( IF t= expr ts= statements ( ELSEIF t= expr DO ts= statements )* ( ELSE ts= statements )? ) | ^( BECOMES id= IDENTIFIER t1= expr ( COLON t2= type )? ) | ^( COMPOUND t= statements ) );
+	// src\\alia\\AliaChecker.g:52:1: expr returns [_Type type] : ( (t= operand |t= expr_comp |t= expr_math | ^( PRINT t= exprlist ) | ^( READ t= varlist ) | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) ) | ^( IF t= expr ts= statements ( ELSEIF t= expr DO ts= statements )* ( ELSE ts= statements )? ) | ^( BECOMES id= IDENTIFIER t1= expr ( COLON t2= type )? ) | ^( COMPOUND t= statements ) );
 	public final _Type expr() throws RecognitionException {
 		_Type type = null;
 
@@ -308,7 +312,7 @@ public class AliaChecker extends CheckerAux {
 		_Type t2 =null;
 
 		try {
-			// src\\alia\\AliaChecker.g:52:5: ( (t= operand |t= expr_comp |t= expr_math | ^( PRINT t= exprlist ) | ^( READ t= varlist ) | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) ) | ^( IF t= expr ts= statements ( ELSEIF t= expr DO ts= statements )* ( ELSE ts= statements )? ) | ^( BECOMES id= IDENTIFIER t1= expr ( COLON t2= type )? ) | ^( COMPOUND t= statements ) )
+			// src\\alia\\AliaChecker.g:53:5: ( (t= operand |t= expr_comp |t= expr_math | ^( PRINT t= exprlist ) | ^( READ t= varlist ) | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) ) | ^( IF t= expr ts= statements ( ELSEIF t= expr DO ts= statements )* ( ELSE ts= statements )? ) | ^( BECOMES id= IDENTIFIER t1= expr ( COLON t2= type )? ) | ^( COMPOUND t= statements ) )
 			int alt8=4;
 			switch ( input.LA(1) ) {
 			case AND:
@@ -362,9 +366,9 @@ public class AliaChecker extends CheckerAux {
 			}
 			switch (alt8) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:52:9: (t= operand |t= expr_comp |t= expr_math | ^( PRINT t= exprlist ) | ^( READ t= varlist ) | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) )
+					// src\\alia\\AliaChecker.g:53:9: (t= operand |t= expr_comp |t= expr_math | ^( PRINT t= exprlist ) | ^( READ t= varlist ) | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) )
 					{
-					// src\\alia\\AliaChecker.g:52:9: (t= operand |t= expr_comp |t= expr_math | ^( PRINT t= exprlist ) | ^( READ t= varlist ) | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) )
+					// src\\alia\\AliaChecker.g:53:9: (t= operand |t= expr_comp |t= expr_math | ^( PRINT t= exprlist ) | ^( READ t= varlist ) | ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand ) )
 					int alt4=6;
 					switch ( input.LA(1) ) {
 					case FALSE:
@@ -423,7 +427,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					switch (alt4) {
 						case 1 :
-							// src\\alia\\AliaChecker.g:52:10: t= operand
+							// src\\alia\\AliaChecker.g:53:10: t= operand
 							{
 							pushFollow(FOLLOW_operand_in_expr265);
 							t=operand();
@@ -432,7 +436,7 @@ public class AliaChecker extends CheckerAux {
 							}
 							break;
 						case 2 :
-							// src\\alia\\AliaChecker.g:53:9: t= expr_comp
+							// src\\alia\\AliaChecker.g:54:9: t= expr_comp
 							{
 							pushFollow(FOLLOW_expr_comp_in_expr277);
 							t=expr_comp();
@@ -441,7 +445,7 @@ public class AliaChecker extends CheckerAux {
 							}
 							break;
 						case 3 :
-							// src\\alia\\AliaChecker.g:54:9: t= expr_math
+							// src\\alia\\AliaChecker.g:55:9: t= expr_math
 							{
 							pushFollow(FOLLOW_expr_math_in_expr289);
 							t=expr_math();
@@ -450,7 +454,7 @@ public class AliaChecker extends CheckerAux {
 							}
 							break;
 						case 4 :
-							// src\\alia\\AliaChecker.g:55:7: ^( PRINT t= exprlist )
+							// src\\alia\\AliaChecker.g:56:7: ^( PRINT t= exprlist )
 							{
 							match(input,PRINT,FOLLOW_PRINT_in_expr298); 
 							match(input, Token.DOWN, null); 
@@ -463,7 +467,7 @@ public class AliaChecker extends CheckerAux {
 							}
 							break;
 						case 5 :
-							// src\\alia\\AliaChecker.g:56:7: ^( READ t= varlist )
+							// src\\alia\\AliaChecker.g:57:7: ^( READ t= varlist )
 							{
 							match(input,READ,FOLLOW_READ_in_expr312); 
 							match(input, Token.DOWN, null); 
@@ -476,7 +480,7 @@ public class AliaChecker extends CheckerAux {
 							}
 							break;
 						case 6 :
-							// src\\alia\\AliaChecker.g:57:4: ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand )
+							// src\\alia\\AliaChecker.g:58:4: ^( ( NOT | PLUS_OP | MINUS_OP ) t= operand )
 							{
 							if ( input.LA(1)==MINUS_OP||input.LA(1)==NOT||input.LA(1)==PLUS_OP ) {
 								input.consume();
@@ -504,7 +508,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 2 :
-					// src\\alia\\AliaChecker.g:61:9: ^( IF t= expr ts= statements ( ELSEIF t= expr DO ts= statements )* ( ELSE ts= statements )? )
+					// src\\alia\\AliaChecker.g:62:9: ^( IF t= expr ts= statements ( ELSEIF t= expr DO ts= statements )* ( ELSE ts= statements )? )
 					{
 					match(input,IF,FOLLOW_IF_in_expr357); 
 					match(input, Token.DOWN, null); 
@@ -521,7 +525,7 @@ public class AliaChecker extends CheckerAux {
 							   		types.add(ts);
 						   			checkBoolType(t);
 						   		
-					// src\\alia\\AliaChecker.g:67:7: ( ELSEIF t= expr DO ts= statements )*
+					// src\\alia\\AliaChecker.g:68:7: ( ELSEIF t= expr DO ts= statements )*
 					loop5:
 					while (true) {
 						int alt5=2;
@@ -532,7 +536,7 @@ public class AliaChecker extends CheckerAux {
 
 						switch (alt5) {
 						case 1 :
-							// src\\alia\\AliaChecker.g:67:8: ELSEIF t= expr DO ts= statements
+							// src\\alia\\AliaChecker.g:68:8: ELSEIF t= expr DO ts= statements
 							{
 							match(input,ELSEIF,FOLLOW_ELSEIF_in_expr382); 
 							pushFollow(FOLLOW_expr_in_expr386);
@@ -556,7 +560,7 @@ public class AliaChecker extends CheckerAux {
 						}
 					}
 
-					// src\\alia\\AliaChecker.g:73:7: ( ELSE ts= statements )?
+					// src\\alia\\AliaChecker.g:74:7: ( ELSE ts= statements )?
 					int alt6=2;
 					int LA6_0 = input.LA(1);
 					if ( (LA6_0==ELSE) ) {
@@ -564,7 +568,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					switch (alt6) {
 						case 1 :
-							// src\\alia\\AliaChecker.g:73:8: ELSE ts= statements
+							// src\\alia\\AliaChecker.g:74:8: ELSE ts= statements
 							{
 							match(input,ELSE,FOLLOW_ELSE_in_expr419); 
 							pushFollow(FOLLOW_statements_in_expr423);
@@ -583,12 +587,12 @@ public class AliaChecker extends CheckerAux {
 
 
 					   			checkBoolType(t);
-					   			type = checkTypesIf($types.type);
+					   			type = checkTypesIf(types);
 					   		
 					}
 					break;
 				case 3 :
-					// src\\alia\\AliaChecker.g:84:9: ^( BECOMES id= IDENTIFIER t1= expr ( COLON t2= type )? )
+					// src\\alia\\AliaChecker.g:85:9: ^( BECOMES id= IDENTIFIER t1= expr ( COLON t2= type )? )
 					{
 					match(input,BECOMES,FOLLOW_BECOMES_in_expr472); 
 					match(input, Token.DOWN, null); 
@@ -597,7 +601,7 @@ public class AliaChecker extends CheckerAux {
 					t1=expr();
 					state._fsp--;
 
-					// src\\alia\\AliaChecker.g:84:41: ( COLON t2= type )?
+					// src\\alia\\AliaChecker.g:85:41: ( COLON t2= type )?
 					int alt7=2;
 					int LA7_0 = input.LA(1);
 					if ( (LA7_0==COLON) ) {
@@ -605,7 +609,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					switch (alt7) {
 						case 1 :
-							// src\\alia\\AliaChecker.g:84:42: COLON t2= type
+							// src\\alia\\AliaChecker.g:85:42: COLON t2= type
 							{
 							match(input,COLON,FOLLOW_COLON_in_expr483); 
 							pushFollow(FOLLOW_type_in_expr487);
@@ -627,7 +631,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 4 :
-					// src\\alia\\AliaChecker.g:90:9: ^( COMPOUND t= statements )
+					// src\\alia\\AliaChecker.g:91:9: ^( COMPOUND t= statements )
 					{
 					match(input,COMPOUND,FOLLOW_COMPOUND_in_expr511); 
 					 // Openscope
@@ -655,6 +659,7 @@ public class AliaChecker extends CheckerAux {
 		 
 		    catch (RecognitionException e) { 
 		        throw e; 
+		        // TODO: Fix this
 		    } 
 
 		finally {
@@ -667,7 +672,7 @@ public class AliaChecker extends CheckerAux {
 
 
 	// $ANTLR start "expr_comp"
-	// src\\alia\\AliaChecker.g:102:1: expr_comp returns [_Type type] : ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) ) ;
+	// src\\alia\\AliaChecker.g:103:1: expr_comp returns [_Type type] : ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) ) ;
 	public final _Type expr_comp() throws RecognitionException {
 		_Type type = null;
 
@@ -676,10 +681,10 @@ public class AliaChecker extends CheckerAux {
 		_Type t2 =null;
 
 		try {
-			// src\\alia\\AliaChecker.g:103:2: ( ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) ) )
-			// src\\alia\\AliaChecker.g:103:6: ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) )
+			// src\\alia\\AliaChecker.g:104:2: ( ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) ) )
+			// src\\alia\\AliaChecker.g:104:6: ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) )
 			{
-			// src\\alia\\AliaChecker.g:103:6: ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) )
+			// src\\alia\\AliaChecker.g:104:6: ( ^( OR t1= expr t2= expr ) | ^( OR_ALT t1= expr t2= expr ) | ^( AND t1= expr t2= expr ) | ^( AND_ALT t1= expr t2= expr ) | ^( EQ t1= expr t2= expr ) | ^( NQ t1= expr t2= expr ) | ^( LE t1= expr t2= expr ) | ^( GE t1= expr t2= expr ) | ^( GT t1= expr t2= expr ) | ^( LT t1= expr t2= expr ) )
 			int alt9=10;
 			switch ( input.LA(1) ) {
 			case OR:
@@ -739,7 +744,7 @@ public class AliaChecker extends CheckerAux {
 			}
 			switch (alt9) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:103:7: ^( OR t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:104:7: ^( OR t1= expr t2= expr )
 					{
 					match(input,OR,FOLLOW_OR_in_expr_comp564); 
 					match(input, Token.DOWN, null); 
@@ -756,7 +761,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 2 :
-					// src\\alia\\AliaChecker.g:104:9: ^( OR_ALT t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:105:9: ^( OR_ALT t1= expr t2= expr )
 					{
 					match(input,OR_ALT,FOLLOW_OR_ALT_in_expr_comp584); 
 					match(input, Token.DOWN, null); 
@@ -773,7 +778,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 3 :
-					// src\\alia\\AliaChecker.g:105:9: ^( AND t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:106:9: ^( AND t1= expr t2= expr )
 					{
 					match(input,AND,FOLLOW_AND_in_expr_comp604); 
 					match(input, Token.DOWN, null); 
@@ -790,7 +795,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 4 :
-					// src\\alia\\AliaChecker.g:106:9: ^( AND_ALT t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:107:9: ^( AND_ALT t1= expr t2= expr )
 					{
 					match(input,AND_ALT,FOLLOW_AND_ALT_in_expr_comp624); 
 					match(input, Token.DOWN, null); 
@@ -807,7 +812,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 5 :
-					// src\\alia\\AliaChecker.g:107:9: ^( EQ t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:108:9: ^( EQ t1= expr t2= expr )
 					{
 					match(input,EQ,FOLLOW_EQ_in_expr_comp644); 
 					match(input, Token.DOWN, null); 
@@ -824,7 +829,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 6 :
-					// src\\alia\\AliaChecker.g:108:9: ^( NQ t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:109:9: ^( NQ t1= expr t2= expr )
 					{
 					match(input,NQ,FOLLOW_NQ_in_expr_comp664); 
 					match(input, Token.DOWN, null); 
@@ -841,7 +846,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 7 :
-					// src\\alia\\AliaChecker.g:109:9: ^( LE t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:110:9: ^( LE t1= expr t2= expr )
 					{
 					match(input,LE,FOLLOW_LE_in_expr_comp684); 
 					match(input, Token.DOWN, null); 
@@ -858,7 +863,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 8 :
-					// src\\alia\\AliaChecker.g:110:9: ^( GE t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:111:9: ^( GE t1= expr t2= expr )
 					{
 					match(input,GE,FOLLOW_GE_in_expr_comp704); 
 					match(input, Token.DOWN, null); 
@@ -875,7 +880,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 9 :
-					// src\\alia\\AliaChecker.g:111:9: ^( GT t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:112:9: ^( GT t1= expr t2= expr )
 					{
 					match(input,GT,FOLLOW_GT_in_expr_comp724); 
 					match(input, Token.DOWN, null); 
@@ -892,7 +897,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 10 :
-					// src\\alia\\AliaChecker.g:112:9: ^( LT t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:113:9: ^( LT t1= expr t2= expr )
 					{
 					match(input,LT,FOLLOW_LT_in_expr_comp744); 
 					match(input, Token.DOWN, null); 
@@ -921,6 +926,7 @@ public class AliaChecker extends CheckerAux {
 		 
 		    catch (RecognitionException e) { 
 		        throw e; 
+		        // TODO: Fix this
 		    } 
 
 		finally {
@@ -933,7 +939,7 @@ public class AliaChecker extends CheckerAux {
 
 
 	// $ANTLR start "expr_math"
-	// src\\alia\\AliaChecker.g:119:1: expr_math returns [_Type type] : ( ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) ) | ^( MOD t1= expr t2= expr ) );
+	// src\\alia\\AliaChecker.g:120:1: expr_math returns [_Type type] : ( ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) ) | ^( MOD t1= expr t2= expr ) );
 	public final _Type expr_math() throws RecognitionException {
 		_Type type = null;
 
@@ -942,7 +948,7 @@ public class AliaChecker extends CheckerAux {
 		_Type t2 =null;
 
 		try {
-			// src\\alia\\AliaChecker.g:120:5: ( ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) ) | ^( MOD t1= expr t2= expr ) )
+			// src\\alia\\AliaChecker.g:121:5: ( ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) ) | ^( MOD t1= expr t2= expr ) )
 			int alt11=2;
 			int LA11_0 = input.LA(1);
 			if ( (LA11_0==DIV||LA11_0==MINUS||LA11_0==PLUS||LA11_0==TIMES) ) {
@@ -960,9 +966,9 @@ public class AliaChecker extends CheckerAux {
 
 			switch (alt11) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:120:9: ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) )
+					// src\\alia\\AliaChecker.g:121:9: ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) )
 					{
-					// src\\alia\\AliaChecker.g:120:9: ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) )
+					// src\\alia\\AliaChecker.g:121:9: ( ^( PLUS t1= expr t2= expr ) | ^( MINUS t1= expr t2= expr ) | ^( TIMES t1= expr t2= expr ) | ^( DIV t1= expr t2= expr ) )
 					int alt10=4;
 					switch ( input.LA(1) ) {
 					case PLUS:
@@ -992,7 +998,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					switch (alt10) {
 						case 1 :
-							// src\\alia\\AliaChecker.g:120:10: ^( PLUS t1= expr t2= expr )
+							// src\\alia\\AliaChecker.g:121:10: ^( PLUS t1= expr t2= expr )
 							{
 							match(input,PLUS,FOLLOW_PLUS_in_expr_math785); 
 							match(input, Token.DOWN, null); 
@@ -1009,7 +1015,7 @@ public class AliaChecker extends CheckerAux {
 							}
 							break;
 						case 2 :
-							// src\\alia\\AliaChecker.g:121:9: ^( MINUS t1= expr t2= expr )
+							// src\\alia\\AliaChecker.g:122:9: ^( MINUS t1= expr t2= expr )
 							{
 							match(input,MINUS,FOLLOW_MINUS_in_expr_math805); 
 							match(input, Token.DOWN, null); 
@@ -1026,7 +1032,7 @@ public class AliaChecker extends CheckerAux {
 							}
 							break;
 						case 3 :
-							// src\\alia\\AliaChecker.g:122:9: ^( TIMES t1= expr t2= expr )
+							// src\\alia\\AliaChecker.g:123:9: ^( TIMES t1= expr t2= expr )
 							{
 							match(input,TIMES,FOLLOW_TIMES_in_expr_math825); 
 							match(input, Token.DOWN, null); 
@@ -1043,7 +1049,7 @@ public class AliaChecker extends CheckerAux {
 							}
 							break;
 						case 4 :
-							// src\\alia\\AliaChecker.g:123:9: ^( DIV t1= expr t2= expr )
+							// src\\alia\\AliaChecker.g:124:9: ^( DIV t1= expr t2= expr )
 							{
 							match(input,DIV,FOLLOW_DIV_in_expr_math845); 
 							match(input, Token.DOWN, null); 
@@ -1065,7 +1071,7 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 2 :
-					// src\\alia\\AliaChecker.g:124:9: ^( MOD t1= expr t2= expr )
+					// src\\alia\\AliaChecker.g:125:9: ^( MOD t1= expr t2= expr )
 					{
 					match(input,MOD,FOLLOW_MOD_in_expr_math866); 
 					match(input, Token.DOWN, null); 
@@ -1091,6 +1097,7 @@ public class AliaChecker extends CheckerAux {
 		 
 		    catch (RecognitionException e) { 
 		        throw e; 
+		        // TODO: Fix this
 		    } 
 
 		finally {
@@ -1103,7 +1110,7 @@ public class AliaChecker extends CheckerAux {
 
 
 	// $ANTLR start "operand"
-	// src\\alia\\AliaChecker.g:130:1: operand returns [_Type type] : (id= IDENTIFIER |n= NUMBER |c= LETTER |b= ( TRUE | FALSE ) );
+	// src\\alia\\AliaChecker.g:131:1: operand returns [_Type type] : (id= IDENTIFIER |n= NUMBER |c= LETTER |b= ( TRUE | FALSE ) );
 	public final _Type operand() throws RecognitionException {
 		_Type type = null;
 
@@ -1114,7 +1121,7 @@ public class AliaChecker extends CheckerAux {
 		CommonTree b=null;
 
 		try {
-			// src\\alia\\AliaChecker.g:131:5: (id= IDENTIFIER |n= NUMBER |c= LETTER |b= ( TRUE | FALSE ) )
+			// src\\alia\\AliaChecker.g:132:5: (id= IDENTIFIER |n= NUMBER |c= LETTER |b= ( TRUE | FALSE ) )
 			int alt12=4;
 			switch ( input.LA(1) ) {
 			case IDENTIFIER:
@@ -1145,7 +1152,7 @@ public class AliaChecker extends CheckerAux {
 			}
 			switch (alt12) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:131:9: id= IDENTIFIER
+					// src\\alia\\AliaChecker.g:132:9: id= IDENTIFIER
 					{
 					id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_operand905); 
 					 type = getType((id!=null?id.getText():null));
@@ -1154,21 +1161,21 @@ public class AliaChecker extends CheckerAux {
 					}
 					break;
 				case 2 :
-					// src\\alia\\AliaChecker.g:135:9: n= NUMBER
+					// src\\alia\\AliaChecker.g:136:9: n= NUMBER
 					{
 					n=(CommonTree)match(input,NUMBER,FOLLOW_NUMBER_in_operand928); 
 					 type = new _Int(); 
 					}
 					break;
 				case 3 :
-					// src\\alia\\AliaChecker.g:137:9: c= LETTER
+					// src\\alia\\AliaChecker.g:138:9: c= LETTER
 					{
 					c=(CommonTree)match(input,LETTER,FOLLOW_LETTER_in_operand948); 
 					 type = new _Char(); 
 					}
 					break;
 				case 4 :
-					// src\\alia\\AliaChecker.g:139:9: b= ( TRUE | FALSE )
+					// src\\alia\\AliaChecker.g:140:9: b= ( TRUE | FALSE )
 					{
 					b=(CommonTree)input.LT(1);
 					if ( input.LA(1)==FALSE||input.LA(1)==TRUE ) {
@@ -1188,6 +1195,7 @@ public class AliaChecker extends CheckerAux {
 		 
 		    catch (RecognitionException e) { 
 		        throw e; 
+		        // TODO: Fix this
 		    } 
 
 		finally {
@@ -1200,7 +1208,7 @@ public class AliaChecker extends CheckerAux {
 
 
 	// $ANTLR start "varlist"
-	// src\\alia\\AliaChecker.g:144:1: varlist returns [_Type type] : id= IDENTIFIER ( COMMA IDENTIFIER )* ;
+	// src\\alia\\AliaChecker.g:145:1: varlist returns [_Type type] : id= IDENTIFIER ( COMMA IDENTIFIER )* ;
 	public final _Type varlist() throws RecognitionException {
 		_Type type = null;
 
@@ -1208,14 +1216,14 @@ public class AliaChecker extends CheckerAux {
 		CommonTree id=null;
 
 		try {
-			// src\\alia\\AliaChecker.g:145:2: (id= IDENTIFIER ( COMMA IDENTIFIER )* )
-			// src\\alia\\AliaChecker.g:145:4: id= IDENTIFIER ( COMMA IDENTIFIER )*
+			// src\\alia\\AliaChecker.g:146:2: (id= IDENTIFIER ( COMMA IDENTIFIER )* )
+			// src\\alia\\AliaChecker.g:146:4: id= IDENTIFIER ( COMMA IDENTIFIER )*
 			{
 			id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_varlist1002); 
 
 						type = getType((id!=null?id.getText():null));
 					
-			// src\\alia\\AliaChecker.g:149:3: ( COMMA IDENTIFIER )*
+			// src\\alia\\AliaChecker.g:150:3: ( COMMA IDENTIFIER )*
 			loop13:
 			while (true) {
 				int alt13=2;
@@ -1226,7 +1234,7 @@ public class AliaChecker extends CheckerAux {
 
 				switch (alt13) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:149:4: COMMA IDENTIFIER
+					// src\\alia\\AliaChecker.g:150:4: COMMA IDENTIFIER
 					{
 					match(input,COMMA,FOLLOW_COMMA_in_varlist1011); 
 					match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_varlist1013); 
@@ -1247,6 +1255,7 @@ public class AliaChecker extends CheckerAux {
 		 
 		    catch (RecognitionException e) { 
 		        throw e; 
+		        // TODO: Fix this
 		    } 
 
 		finally {
@@ -1259,7 +1268,7 @@ public class AliaChecker extends CheckerAux {
 
 
 	// $ANTLR start "exprlist"
-	// src\\alia\\AliaChecker.g:155:1: exprlist returns [_Type type] : t= expr ( COMMA t= expr )* ;
+	// src\\alia\\AliaChecker.g:156:1: exprlist returns [_Type type] : t= expr ( COMMA t= expr )* ;
 	public final _Type exprlist() throws RecognitionException {
 		_Type type = null;
 
@@ -1267,8 +1276,8 @@ public class AliaChecker extends CheckerAux {
 		_Type t =null;
 
 		try {
-			// src\\alia\\AliaChecker.g:156:5: (t= expr ( COMMA t= expr )* )
-			// src\\alia\\AliaChecker.g:156:7: t= expr ( COMMA t= expr )*
+			// src\\alia\\AliaChecker.g:157:5: (t= expr ( COMMA t= expr )* )
+			// src\\alia\\AliaChecker.g:157:7: t= expr ( COMMA t= expr )*
 			{
 			pushFollow(FOLLOW_expr_in_exprlist1041);
 			t=expr();
@@ -1278,7 +1287,7 @@ public class AliaChecker extends CheckerAux {
 						checkNotVoid(t);
 						type = t;
 					
-			// src\\alia\\AliaChecker.g:161:3: ( COMMA t= expr )*
+			// src\\alia\\AliaChecker.g:162:3: ( COMMA t= expr )*
 			loop14:
 			while (true) {
 				int alt14=2;
@@ -1289,7 +1298,7 @@ public class AliaChecker extends CheckerAux {
 
 				switch (alt14) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:161:4: COMMA t= expr
+					// src\\alia\\AliaChecker.g:162:4: COMMA t= expr
 					{
 					match(input,COMMA,FOLLOW_COMMA_in_exprlist1050); 
 					pushFollow(FOLLOW_expr_in_exprlist1054);
@@ -1314,6 +1323,7 @@ public class AliaChecker extends CheckerAux {
 		 
 		    catch (RecognitionException e) { 
 		        throw e; 
+		        // TODO: Fix this
 		    } 
 
 		finally {
@@ -1326,13 +1336,13 @@ public class AliaChecker extends CheckerAux {
 
 
 	// $ANTLR start "type"
-	// src\\alia\\AliaChecker.g:169:1: type returns [_Type type] : ( INTEGER | CHAR | BOOL );
+	// src\\alia\\AliaChecker.g:170:1: type returns [_Type type] : ( INTEGER | CHAR | BOOL );
 	public final _Type type() throws RecognitionException {
 		_Type type = null;
 
 
 		try {
-			// src\\alia\\AliaChecker.g:170:5: ( INTEGER | CHAR | BOOL )
+			// src\\alia\\AliaChecker.g:171:5: ( INTEGER | CHAR | BOOL )
 			int alt15=3;
 			switch ( input.LA(1) ) {
 			case INTEGER:
@@ -1357,21 +1367,21 @@ public class AliaChecker extends CheckerAux {
 			}
 			switch (alt15) {
 				case 1 :
-					// src\\alia\\AliaChecker.g:170:9: INTEGER
+					// src\\alia\\AliaChecker.g:171:9: INTEGER
 					{
 					match(input,INTEGER,FOLLOW_INTEGER_in_type1084); 
 					 type = new _Int(); 
 					}
 					break;
 				case 2 :
-					// src\\alia\\AliaChecker.g:172:9: CHAR
+					// src\\alia\\AliaChecker.g:173:9: CHAR
 					{
 					match(input,CHAR,FOLLOW_CHAR_in_type1104); 
 					 type = new _Char(); 
 					}
 					break;
 				case 3 :
-					// src\\alia\\AliaChecker.g:174:9: BOOL
+					// src\\alia\\AliaChecker.g:175:9: BOOL
 					{
 					match(input,BOOL,FOLLOW_BOOL_in_type1124); 
 					 type = new _Bool(); 
@@ -1383,6 +1393,7 @@ public class AliaChecker extends CheckerAux {
 		 
 		    catch (RecognitionException e) { 
 		        throw e; 
+		        // TODO: Fix this
 		    } 
 
 		finally {

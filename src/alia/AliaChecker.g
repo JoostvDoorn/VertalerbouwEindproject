@@ -21,6 +21,7 @@ import java.util.HashSet;
 @rulecatch { 
     catch (RecognitionException e) { 
         throw e; 
+        // TODO: Fix this
     } 
 }
 
@@ -78,7 +79,7 @@ expr returns [_Type type]
    		)
    		{
    			checkBoolType($t.type);
-   			$type = checkTypesIf($types.type);
+   			$type = checkTypesIf(types);
    		}
    		
    	|   ^(BECOMES id=IDENTIFIER t1=expr (COLON t2=type)?)

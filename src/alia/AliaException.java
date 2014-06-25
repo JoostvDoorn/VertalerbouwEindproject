@@ -1,8 +1,9 @@
 package alia;
 
+import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.Tree;
 
-public class AliaException extends Exception {
+public class AliaException extends RecognitionException {
 
 	/**
 	 * 
