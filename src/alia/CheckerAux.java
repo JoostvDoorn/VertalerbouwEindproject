@@ -13,17 +13,19 @@ public abstract class CheckerAux {
 		}
 	}
 	
-	protected void checkTypesIf(List<_Type> t) throws AliaException{
-		if(t.isEmpty()){
+	protected _Type checkTypesIf(List<_Type> list) throws AliaException{
+		_Type t = new _Bool();
+		if(list.isEmpty()){
 			throw new AliaException("No types to be checked.");
 		} else {
-			_Type c = t.get(0);
-			for(_Type x : t){
+			_Type c = list.get(0);
+			for(_Type x : list){
 				if(!x.equals(c)){
-					throw new AliaTypeException("If statement contains different types.");
+					t = new _Void();
 				}
 			}
 		}
+		return t;
 	}
 	
 	protected void checkEqualType(_Type a, _Type b) throws AliaTypeException{
