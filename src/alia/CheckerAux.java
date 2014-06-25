@@ -74,5 +74,9 @@ public abstract class CheckerAux extends TreeParser {
 		symTab.enter(name, entry);
 	}
 	
+	protected _Type getType(String name) throws SymbolTableException{
+		IdEntry id = symTab.retrieve(name);
+		return id.getType();
+	}
 	
 }
