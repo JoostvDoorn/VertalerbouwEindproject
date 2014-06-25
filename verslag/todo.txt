@@ -3,3 +3,12 @@
 3. Type hierarchy so that functions are better supported.
 4. Kijk of er iets staat in @members AliaChecker
 5. Meerzeggende exception handling
+
+
+Voor verslag
+1. syntax updaten?
+2. context-beperkingen
+3. semantiek
+4. problemen en oplossingen
+5. vertaalregels
+6. beschrijving java-programmatuur
