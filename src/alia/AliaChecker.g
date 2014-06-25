@@ -57,48 +57,46 @@ expr returns [_Type type]
         }
    	|   ^(IF
    			{
-   				openScope(); // Open scope for conditional statements, the scope is the same for the IF and ELSEIF conditions
+   				symTab.openScope(); // Open scope for conditional statements, the scope is the same for the IF and ELSEIF conditions
    			}
    			t=statements
    			{
-   				openScope(); // Open scope for the first statement
+   				symTab.openScope(); // Open scope for the first statement
    			}
    			DO ts=statements
 	   		{
 	   			List<_Type> types = new ArrayList();
 		   		types.add($ts.type);
 	   			checkBoolType($t.type);
-	   			closeScope(); // Close scope for the first statement
+	   			symTab.closeScope(); // Close scope for the first statement
 	   		}
    			(ELSEIF t=statements DO
 	   			{
-	   				openScope(); // Open scope for this elseif statement
+	   				symTab.openScope(); // Open scope for this elseif statement
 	   			}
    				ts=statements
 		   		{
 		   			types.add($ts.type);
 		   			checkBoolType($t.type);
-		   			closeScope();
+		   			symTab.closeScope();
 		   		}
 		   	)*
    			(ELSE
 	   			{
-	   				openScope(); // Open scope for the else statement
+	   				symTab.openScope(); // Open scope for the else statement
 	   			}
    				ts=statements
 		   		{
 		   			types.add($ts.type);
-	   				closeScope(); // Open scope for the else statement
+	   				symTab.closeScope(); // Open scope for the else statement
 		   		}
 		   	)?
    			{
-   				closeScope(); // Close scope for the conditional statements
+   				symTab.closeScope(); // Close scope for the conditional statements
+	   			checkBoolType($t.type);
+	   			$type = checkTypesIf(types);
    			}
    		)
-   		{
-   			checkBoolType($t.type);
-   			$type = checkTypesIf(types);
-   		}
    		
    	|   ^(BECOMES id=IDENTIFIER t1=expr (COLON t2=type)?)
         {   
@@ -107,13 +105,13 @@ expr returns [_Type type]
     		$type = t;
         }
    	|   ^(COMPOUND
-   		{ // Openscope
-   			openScope();
+   		{ // symTab.openScope
+   			symTab.openScope();
    		}
    		t=statements)
         {
-        	// Closescope
-        	closeScope();
+        	// closeScope
+        	symTab.closeScope();
     		$type = $t.type;
         }
     ;
