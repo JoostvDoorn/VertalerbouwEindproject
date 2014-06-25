@@ -48,9 +48,12 @@ statement returns [_Type type = new _Void()]
     ; 
     
 expr returns [_Type type]
-    :   (t=expr_op
+    :   (t=operand
     |   t=expr_comp
-    |   t=expr_math)
+    |   t=expr_math
+    |	^(PRINT t=exprlist)
+    |	^(READ t=varlist)
+	|	^((NOT | PLUS_OP | MINUS_OP) t=operand))
     	{
     		$type = $t.type;
         }
@@ -77,26 +80,24 @@ expr returns [_Type type]
    			$type = checkTypesIf($types.type);
    		}
    		
-   	|   ^(BECOMES id=IDENTIFIER t=expr)
+   	|   ^(BECOMES id=IDENTIFIER t1=expr (COLON t2=type)?)
         {   
-        	declare($id.text, $t.type);
-    		$type = $t.type;
+        	t = checkEqualType($t1.type, $t2.type);
+        	declare($id.text, t);
+    		$type = t;
         }
    	|   ^(COMPOUND
    		{ // Openscope
+   			openScope();
    		}
    		t=statements)
         {
         	// Closescope
+        	closeScope();
     		$type = $t.type;
         }
     ;
     
-expr_op returns [_Type type]
-	:   (t=operand
-	|	^((NOT | PLUS_OP | MINUS_OP) t=operand))
-	{ $type = $t.type; }
-	;
 expr_comp returns [_Type type]
 	:   (^(OR t1=expr t2=expr)
     |   ^(OR_ALT t1=expr t2=expr)
@@ -137,13 +138,6 @@ operand returns [_Type type]
     	{ $type = new _Bool(); }
     ;
 
-operand_special returns [_Type type]
-    :   (^(PRINT t=exprlist)
-    
-    |	^(READ t=varlist))
-    {
-    	$type = $t.type;
-    };
 
 varlist returns [_Type type] 
 	: id=IDENTIFIER
