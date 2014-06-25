@@ -3,10 +3,20 @@ package alia;
 import java.util.List;
 
 import alia.types.*;
+import org.antlr.runtime.*;
+import org.antlr.runtime.tree.*;
 
-public abstract class CheckerAux {
+public abstract class CheckerAux extends TreeParser {
 
 	
+	public CheckerAux(TreeNodeStream input) {
+		super(input);
+	}
+
+	public CheckerAux(TreeNodeStream input, RecognizerSharedState state) {
+		super(input, state);
+	}
+
 	protected void checkBoolType (_Type a) throws AliaTypeException{
 		if (!a.equals(new _Bool())){
 			throw new AliaTypeException("Type exception, expression is not a boolean.");

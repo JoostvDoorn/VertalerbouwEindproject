@@ -4,6 +4,7 @@ options {
     k=1;                                // LL(1) - do not use LL(*)
     tokenVocab=Alia;                    // import tokens from Calc.tokens
     ASTLabelType=CommonTree;            // AST nodes are of type CommonTree
+    superClass=CheckerAux;
 }
 
 @header {
