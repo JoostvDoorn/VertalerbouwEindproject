@@ -1,5 +1,7 @@
 package alia.types;
 
 public class _Array extends _Type {
-	protected final String typename = "array";
+	public _Array() {
+		this.typename = "array";
+	}
 }
