@@ -59,23 +59,45 @@ expr returns [_Type type]
     	{
     		$type = $t.type;
         }
-   	|   ^(IF t=expr ts=statements
+   	|   ^(IF
+   			{
+   				openScope(); // Open scope for conditional statements, the scope is the same for the IF and ELSEIF conditions
+   			}
+   			t=statements
+   			{
+   				openScope(); // Open scope for the first statement
+   			}
+   			DO ts=statements
 	   		{
 	   			List<_Type> types = new ArrayList();
 		   		types.add($ts.type);
 	   			checkBoolType($t.type);
+	   			closeScope(); // Close scope for the first statement
 	   		}
-   			(ELSEIF t=expr DO ts=statements
+   			(ELSEIF t=statements DO
+	   			{
+	   				openScope(); // Open scope for this elseif statement
+	   			}
+   				ts=statements
 		   		{
 		   			types.add($ts.type);
 		   			checkBoolType($t.type);
+		   			closeScope();
 		   		}
 		   	)*
-   			(ELSE ts=statements
+   			(ELSE
+	   			{
+	   				openScope(); // Open scope for the else statement
+	   			}
+   				ts=statements
 		   		{
 		   			types.add($ts.type);
+	   				closeScope(); // Open scope for the else statement
 		   		}
 		   	)?
+   			{
+   				closeScope(); // Close scope for the conditional statements
+   			}
    		)
    		{
    			checkBoolType($t.type);
