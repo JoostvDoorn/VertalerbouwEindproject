@@ -6,10 +6,13 @@ import alia.types.*;
 
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
-import alia.symtab.SymbolTable;
+
+import alia.symtab.*;
 
 
 public abstract class CheckerAux extends TreeParser {
+	
+    protected SymbolTable<IdEntry> symTab = new SymbolTable<IdEntry>(); 
 
 	
 	public CheckerAux(TreeNodeStream input) {
@@ -20,6 +23,7 @@ public abstract class CheckerAux extends TreeParser {
 		super(input, state);
 	}
 
+	// Check type methods
 	protected void checkBoolType (_Type a) throws AliaTypeException{
 		if (!a.equals(new _Bool())){
 			throw new AliaTypeException("Type exception, expression is not a boolean.");
@@ -60,6 +64,14 @@ public abstract class CheckerAux extends TreeParser {
 		if(!a.equals(new _Void())){
 			throw new AliaTypeException("Not type void.");
 		}
+	}
+	
+	
+	//Symbol table related functions
+	protected void declare(String name, _Type t) throws SymbolTableException{
+		IdEntry entry = new IdEntry();
+		entry.setType(t);
+		symTab.enter(name, entry);
 	}
 	
 	

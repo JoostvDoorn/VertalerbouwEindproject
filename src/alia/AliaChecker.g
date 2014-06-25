@@ -26,11 +26,7 @@ import java.util.HashSet;
 }
 
 @members {
-    // idset - a set of declared identifiers.
-    private Set<String> idset = new HashSet<String>();   
-    
-    public boolean  isDeclared(String s)     { return idset.contains(s); }
-    public void     declare(String s)        { idset.add(s);             }
+
 }
 
 program
