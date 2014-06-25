@@ -68,24 +68,21 @@ expr
     ;
     
 expr_comp
-  :   (^(OR t1=expr t2=expr)
-    |   ^(OR_ALT t1=expr t2=expr)
-    |   ^(AND t1=expr t2=expr)
-    |   ^(AND_ALT t1=expr t2=expr)
-    |   ^(EQ t1=expr t2=expr)
-    |   ^(NQ t1=expr t2=expr)
-    |   ^(LE t1=expr t2=expr)
-    |   ^(GE t1=expr t2=expr)
-    |   ^(GT t1=expr t2=expr)
-    |   ^(LT t1=expr t2=expr))
-    ;
-
-expr_math
-    :   (^(PLUS t1=expr t2=expr)
-    |   ^(MINUS t1=expr t2=expr)
-    |   ^(TIMES t1=expr t2=expr)
-    |   ^(DIV t1=expr t2=expr)
-    |   ^(MOD t1=expr t2=expr))
+    :   ^(OR t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
+    |   ^(OR_ALT t1=expr t2=expr)   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
+    |   ^(AND t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
+    |   ^(AND_ALT t1=expr t2=expr)   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
+    |   ^(EQ t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"eq"})
+    |   ^(NQ t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"ne"})
+    |   ^(LE t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"le"})
+    |   ^(GE t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"ge"})
+    |   ^(GT t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"gt"})
+    |   ^(LT t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"lt"})
+    |   ^(PLUS t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"add"})
+    |   ^(MINUS t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"sub"})
+    |   ^(TIMES t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"mul"})
+    |   ^(DIV t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"div"})
+    |   ^(MOD t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
     ;
 operand
     :   id=IDENTIFIER 

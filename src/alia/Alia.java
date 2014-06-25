@@ -1,5 +1,6 @@
 package alia;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.util.EnumSet;
 import java.util.Set;
@@ -13,6 +14,7 @@ import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.runtime.tree.DOTTreeGenerator;
 import org.antlr.runtime.tree.TreeNodeStream;
 import org.antlr.stringtemplate.StringTemplate;
+import org.antlr.stringtemplate.StringTemplateGroup;
 
 
 /**
@@ -77,6 +79,21 @@ public class Alia {
 
             if (options.contains(Option.CODE_GENERATOR)) {
                 // generate TAM assembler code using string template
+                // 1. Read template file
+                FileReader groupFileR = new FileReader("tam.stg");
+                StringTemplateGroup templates 
+                    = new StringTemplateGroup(groupFileR);
+                groupFileR.close();
+                // 2. Walk the AST.
+                CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
+                AliaCodeGeneratorStringTemplate codegenerator 
+                    = new AliaCodeGeneratorStringTemplate(nodes);
+                codegenerator.setTemplateLib(templates);
+                AliaCodeGeneratorStringTemplate.program_return r 
+                    = codegenerator.program();
+                // 3. Get the stringtemplate output and print it.
+                StringTemplate output = (StringTemplate) r.getTemplate();
+                System.out.println(output.toString());
             }
 
             if (options.contains(Option.AST)) {          // print the AST as string
