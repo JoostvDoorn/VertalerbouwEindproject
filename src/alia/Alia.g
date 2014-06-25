@@ -119,7 +119,7 @@ func_identifier : IDENTIFIER
 
 while_stmnt : WHILE^ expr DO statements END;
 
-if_stmnt : IF^ expr DO! statements (ELSEIF expr DO! statements)* (ELSE statements)? END!;
+if_stmnt : IF^ statements DO statements (ELSEIF expr DO statements)* (ELSE statements)? END!;
 
 print : PRINT^ LPAREN! exprlist RPAREN!;
 read : READ^ LPAREN! varlist RPAREN!;
