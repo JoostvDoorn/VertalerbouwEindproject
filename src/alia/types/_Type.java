@@ -6,4 +6,8 @@ public abstract class _Type {
 	public boolean equals(_Type type) {
 		return typename.equals(type.typename);
 	}
+	
+	public String toString(){
+		return typename;
+	}
 }

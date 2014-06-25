@@ -120,6 +120,7 @@ expr_math returns [_Type type]
     |   ^(MINUS t1=expr t2=expr)
     |   ^(TIMES t1=expr t2=expr)
     |   ^(DIV t1=expr t2=expr))
+    |   ^(MOD t1=expr t2=expr)
     { 
     	checkMathType($t1.type, $t2.type);
     	$type = new _Int();

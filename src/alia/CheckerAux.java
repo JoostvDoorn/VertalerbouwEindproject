@@ -1,0 +1,48 @@
+package alia;
+
+import java.util.List;
+
+import alia.types.*;
+
+public abstract class CheckerAux {
+
+	
+	protected void checkBoolType (_Type a){
+		if (!a.equals(new _Bool())){
+			throw new AliaTypeException("Type exception, expression is not a boolean.");
+		}
+	}
+	
+	protected void checkTypesIf(List<_Type> t) throws AliaException{
+		if(t.isEmpty()){
+			throw new AliaException("No types to be checked.");
+		} else {
+			_Type c = t.get(0);
+			for(_Type x : t){
+				if(!x.equals(c)){
+					throw new AliaTypeException("If statement contains different types.");
+				}
+			}
+		}
+	}
+	
+	protected void checkEqualType(_Type a, _Type b){
+		if(!a.equals(b)){
+			throw new AliaTypeException("Type " + a.toString() + " is not equal to " + b.toString() ".");
+		}
+	}
+	
+	protected void checkMathType(_Type a, _Type b){
+		if(!a.equals(new _Int()) || !b.equals(new _Int())){
+			throw new AliaTypeException("Math expressions require type Int");
+		}
+	}
+	
+	protected void checkNotVoid(_Type a){
+		if(!a.equals(new _Void())){
+			throw new AliaTypeException("Not type void.");
+		}
+	}
+	
+	
+}
