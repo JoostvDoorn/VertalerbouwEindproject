@@ -3,6 +3,7 @@ package alia;
 import java.util.List;
 
 import alia.types.*;
+
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.*;
 
@@ -38,10 +39,13 @@ public abstract class CheckerAux extends TreeParser {
 		return t;
 	}
 	
-	protected void checkEqualType(_Type a, _Type b) throws AliaTypeException{
-		if(!a.equals(b)){
-			throw new AliaTypeException("Type " + a.toString() + " is not equal to " + b.toString() + ".");
+	protected _Type checkEqualType(_Type a, _Type b) throws AliaTypeException{
+		if(b != null) { // This is done for those functions that have an optional value b.
+			if(!a.equals(b)){
+				throw new AliaTypeException("Type " + a.toString() + " is not equal to " + b.toString() + ".");
+			}
 		}
+		return a;
 	}
 	
 	protected void checkMathType(_Type a, _Type b) throws AliaTypeException{
