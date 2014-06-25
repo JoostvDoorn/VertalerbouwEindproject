@@ -62,11 +62,11 @@ public class Alia {
             AliaParser.program_return result = parser.program();
             CommonTree tree = (CommonTree) result.getTree();
 
-//            if (!options.contains(Option.NO_CHECKER)) {      // check the AST
-//                CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
-//                AliaChecker checker = new AliaChecker(nodes);
-//                checker.program();
-//            }
+            if (!options.contains(Option.NO_CHECKER)) {      // check the AST
+                CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
+                AliaChecker checker = new AliaChecker(nodes);
+                checker.program();
+            }
 
 //            if (!options.contains(Option.NO_INTERPRETER) &&
 //                    !options.contains(Option.CODE_GENERATOR)) {  // interpret the AST

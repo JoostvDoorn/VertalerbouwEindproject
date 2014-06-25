@@ -18,6 +18,7 @@ public class SymbolTable<Entry extends IdEntry> {
      */
     public SymbolTable() {
     	symtab = new HashMap<String, Stack<Entry>>();
+    	scopeStack = new Stack<List<String>>();
     	level = -1;
     }
 
@@ -62,16 +63,19 @@ public class SymbolTable<Entry extends IdEntry> {
     public void enter(String id, Entry entry)
             throws SymbolTableException {
     	Stack<Entry> entryStack = symtab.get(id);
-    	entryStack = entryStack.empty() ? new Stack<Entry>() : entryStack;
+    	if(entryStack == null) {
+    		entryStack = new Stack<Entry>();
+        	symtab.put(id, entryStack);
+    	}
     	if(level == -1) {
     		throw (new SymbolTableException("No valid scope level!"));
     	}
-    	else if(entryStack.peek().getLevel() == level) {
+    	else if(!entryStack.empty() && entryStack.peek().getLevel() == level) {
     		throw (new SymbolTableException("Id already declared on this level"));
     	}
     	else {
-        	scopeStack.peek().add(id);
         	entry.setLevel(level);
+        	scopeStack.peek().add(id);
         	entryStack.push(entry);
     	}
     }
@@ -85,7 +89,7 @@ public class SymbolTable<Entry extends IdEntry> {
      */
     public Entry retrieve(String id) throws SymbolTableException {
     	Stack<Entry> resultStack = symtab.get(id);
-    	if(resultStack.empty()) {
+    	if(resultStack == null || resultStack.empty()) {
     		throw (new SymbolTableException("Not yet declared"));
     	}
         return resultStack.peek();

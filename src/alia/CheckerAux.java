@@ -26,6 +26,7 @@ public abstract class CheckerAux extends TreeParser {
 	// Check type methods
 	protected void checkBoolType (_Type a) throws AliaTypeException{
 		if (!a.equals(new _Bool())){
+			System.out.println("1");
 			throw new AliaTypeException("Type exception, expression is not a boolean.");
 		}
 	}
@@ -33,6 +34,7 @@ public abstract class CheckerAux extends TreeParser {
 	protected _Type checkTypesIf(List<_Type> list) throws AliaException{
 		_Type t = new _Bool();
 		if(list.isEmpty()){
+			System.out.println("2");
 			throw new AliaException("No types to be checked.");
 		} else {
 			_Type c = list.get(0);
@@ -48,6 +50,7 @@ public abstract class CheckerAux extends TreeParser {
 	protected _Type checkEqualType(_Type a, _Type b) throws AliaTypeException{
 		if(b != null) { // This is done for those functions that have an optional value b.
 			if(!a.equals(b)){
+				System.out.println("3");
 				throw new AliaTypeException("Type " + a.toString() + " is not equal to " + b.toString() + ".");
 			}
 		}
@@ -56,13 +59,16 @@ public abstract class CheckerAux extends TreeParser {
 	
 	protected void checkMathType(_Type a, _Type b) throws AliaTypeException{
 		if(!a.equals(new _Int()) || !b.equals(new _Int())){
+			System.out.println("4");
 			throw new AliaTypeException("Math expressions require type Int");
 		}
 	}
 	
 	protected void checkNotVoid(_Type a) throws AliaTypeException{
-		if(!a.equals(new _Void())){
-			throw new AliaTypeException("Not type void.");
+		if(a == null || a.equals(new _Void())){
+			System.out.println(a);
+			System.out.println("5");
+			throw new AliaTypeException("Type is void.");
 		}
 	}
 	
@@ -74,7 +80,7 @@ public abstract class CheckerAux extends TreeParser {
 		try {
 			symTab.enter(name, entry);
 		} catch (SymbolTableException e) {
-			throw new AliaException(e.getMessage());
+			//throw new AliaException(e.getMessage());
 		}
 	}
 	
@@ -83,7 +89,8 @@ public abstract class CheckerAux extends TreeParser {
 		try {
 			id = symTab.retrieve(name);
 		} catch (SymbolTableException e) {
-			throw new AliaException(e.getMessage());
+			System.out.println("6");
+			throw new AliaException("test"+e.getMessage());
 		}
 		return id.getType();
 	}

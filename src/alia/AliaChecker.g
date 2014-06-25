@@ -20,6 +20,7 @@ import java.util.HashSet;
 // This disables ANTLR error handling: AliaExceptions are propagated upwards.
 @rulecatch { 
     catch (RecognitionException e) { 
+		System.out.println("Exception!:"+e.getMessage());
         throw e; 
         // TODO: Fix this
     } 
@@ -30,7 +31,9 @@ import java.util.HashSet;
 }
 
 program
-    :   ^(PROGRAM (statement)+)
+    :   { symTab.openScope(); }
+    	(statement)+
+    	{ symTab.closeScope(); }
     ;
 
 statements returns [_Type type = new _Void()]
@@ -39,7 +42,7 @@ statements returns [_Type type = new _Void()]
 	)*;
     
 statement returns [_Type type = new _Void()]
-    :   ^(WHILE t=expr DO statements END)
+    :   ^(WHILE t=expr ^(DO statements))
     { checkBoolType($t.type); }
     |   t=expr
 	{ $type = $t.type; }
@@ -63,14 +66,15 @@ expr returns [_Type type]
    			{
    				symTab.openScope(); // Open scope for the first statement
    			}
-   			DO ts=statements
+   			^(DO ts=statements)
 	   		{
 	   			List<_Type> types = new ArrayList();
 		   		types.add($ts.type);
 	   			checkBoolType($t.type);
 	   			symTab.closeScope(); // Close scope for the first statement
 	   		}
-   			(ELSEIF t=statements DO
+   			(ELSEIF t=statements
+   				^(DO
 	   			{
 	   				symTab.openScope(); // Open scope for this elseif statement
 	   			}
@@ -80,8 +84,9 @@ expr returns [_Type type]
 		   			checkBoolType($t.type);
 		   			symTab.closeScope();
 		   		}
+		   		)
 		   	)*
-   			(ELSE
+   			(^(ELSE
 	   			{
 	   				symTab.openScope(); // Open scope for the else statement
 	   			}
@@ -90,7 +95,7 @@ expr returns [_Type type]
 		   			types.add($ts.type);
 	   				symTab.closeScope(); // Open scope for the else statement
 		   		}
-		   	)?
+		   	))?
    			{
    				symTab.closeScope(); // Close scope for the conditional statements
 	   			checkBoolType($t.type);
@@ -129,7 +134,7 @@ expr_comp returns [_Type type]
    	|   ^(LT t1=expr t2=expr))
    	{
    	  checkEqualType($t1.type, $t2.type);
-   	  $type = $t1.type;
+   	  $type = new _Bool();
    	}
    	;
 
@@ -137,8 +142,8 @@ expr_math returns [_Type type]
     :   (^(PLUS t1=expr t2=expr)
     |   ^(MINUS t1=expr t2=expr)
     |   ^(TIMES t1=expr t2=expr)
-    |   ^(DIV t1=expr t2=expr))
-    |   ^(MOD t1=expr t2=expr)
+    |   ^(DIV t1=expr t2=expr)
+    |   ^(MOD t1=expr t2=expr))
     { 
     	checkMathType($t1.type, $t2.type);
     	$type = new _Int();
@@ -151,7 +156,7 @@ operand returns [_Type type]
          }
     |   n=NUMBER 
     	{ $type = new _Int(); }
-    |   c=LETTER
+    |   c=CHAR_EXPR
     	{ $type = new _Char(); }
     |   b=(TRUE | FALSE)
     	{ $type = new _Bool(); }
@@ -163,7 +168,7 @@ varlist returns [_Type type]
 		{
 			$type = getType($id.text);
 		}
-		(COMMA IDENTIFIER
+		(IDENTIFIER
 			{
 				$type = new _Void();
 			}
@@ -175,7 +180,7 @@ exprlist returns [_Type type]
 			checkNotVoid($t.type);
 			$type = $t.type;
 		}
-		(COMMA t=expr
+		(t=expr
 			{
 				checkNotVoid($t.type);
 				$type = new _Void();
