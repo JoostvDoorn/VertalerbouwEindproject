@@ -1,4 +1,4 @@
-// $ANTLR 3.5.2 src\\alia\\Alia.g 2014-06-24 17:06:26
+// $ANTLR 3.5.2 src\\alia\\Alia.g 2014-06-25 10:36:13
 
 package alia;
 
@@ -17,12 +17,13 @@ import org.antlr.runtime.tree.*;
 public class AliaParser extends Parser {
 	public static final String[] tokenNames = new String[] {
 		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "AND", "AND_ALT", "BECOMES", "BEGIN", 
-		"BOOL", "CHAR", "COLON", "COMMA", "COMMENT", "COMPOUND", "DEF", "DIGIT", 
-		"DIV", "DO", "ELSE", "ELSEIF", "END", "EQ", "EXPR_LIST", "FALSE", "FUNC", 
-		"GE", "GT", "IDENTIFIER", "IF", "INT", "LE", "LETTER", "LOWER", "LPAREN", 
-		"LT", "MINUS", "MINUS_OP", "MOD", "NEWLINE", "NOT", "NQ", "NUMBER", "OR", 
-		"OR_ALT", "PLUS", "PLUS_OP", "PRINT", "PROGRAM", "READ", "RPAREN", "SEMICOLON", 
-		"SQUOTE", "STRING", "TIMES", "TRUE", "UPPER", "WHILE", "WS"
+		"BOOL", "CHAR", "CHAR_EXPR", "COLON", "COMMA", "COMMENT", "COMPOUND", 
+		"DEF", "DIGIT", "DIV", "DO", "ELSE", "ELSEIF", "END", "EQ", "EXPR_LIST", 
+		"FALSE", "FUNC", "GE", "GT", "IDENTIFIER", "IF", "INT", "LE", "LETTER", 
+		"LOWER", "LPAREN", "LT", "MINUS", "MINUS_OP", "MOD", "NEWLINE", "NOT", 
+		"NQ", "NUMBER", "OR", "OR_ALT", "PLUS", "PLUS_OP", "PRINT", "PROGRAM", 
+		"READ", "RPAREN", "SEMICOLON", "SQUOTE", "STRING", "TIMES", "TRUE", "UPPER", 
+		"WHILE", "WS"
 	};
 	public static final int EOF=-1;
 	public static final int AND=4;
@@ -31,54 +32,55 @@ public class AliaParser extends Parser {
 	public static final int BEGIN=7;
 	public static final int BOOL=8;
 	public static final int CHAR=9;
-	public static final int COLON=10;
-	public static final int COMMA=11;
-	public static final int COMMENT=12;
-	public static final int COMPOUND=13;
-	public static final int DEF=14;
-	public static final int DIGIT=15;
-	public static final int DIV=16;
-	public static final int DO=17;
-	public static final int ELSE=18;
-	public static final int ELSEIF=19;
-	public static final int END=20;
-	public static final int EQ=21;
-	public static final int EXPR_LIST=22;
-	public static final int FALSE=23;
-	public static final int FUNC=24;
-	public static final int GE=25;
-	public static final int GT=26;
-	public static final int IDENTIFIER=27;
-	public static final int IF=28;
-	public static final int INT=29;
-	public static final int LE=30;
-	public static final int LETTER=31;
-	public static final int LOWER=32;
-	public static final int LPAREN=33;
-	public static final int LT=34;
-	public static final int MINUS=35;
-	public static final int MINUS_OP=36;
-	public static final int MOD=37;
-	public static final int NEWLINE=38;
-	public static final int NOT=39;
-	public static final int NQ=40;
-	public static final int NUMBER=41;
-	public static final int OR=42;
-	public static final int OR_ALT=43;
-	public static final int PLUS=44;
-	public static final int PLUS_OP=45;
-	public static final int PRINT=46;
-	public static final int PROGRAM=47;
-	public static final int READ=48;
-	public static final int RPAREN=49;
-	public static final int SEMICOLON=50;
-	public static final int SQUOTE=51;
-	public static final int STRING=52;
-	public static final int TIMES=53;
-	public static final int TRUE=54;
-	public static final int UPPER=55;
-	public static final int WHILE=56;
-	public static final int WS=57;
+	public static final int CHAR_EXPR=10;
+	public static final int COLON=11;
+	public static final int COMMA=12;
+	public static final int COMMENT=13;
+	public static final int COMPOUND=14;
+	public static final int DEF=15;
+	public static final int DIGIT=16;
+	public static final int DIV=17;
+	public static final int DO=18;
+	public static final int ELSE=19;
+	public static final int ELSEIF=20;
+	public static final int END=21;
+	public static final int EQ=22;
+	public static final int EXPR_LIST=23;
+	public static final int FALSE=24;
+	public static final int FUNC=25;
+	public static final int GE=26;
+	public static final int GT=27;
+	public static final int IDENTIFIER=28;
+	public static final int IF=29;
+	public static final int INT=30;
+	public static final int LE=31;
+	public static final int LETTER=32;
+	public static final int LOWER=33;
+	public static final int LPAREN=34;
+	public static final int LT=35;
+	public static final int MINUS=36;
+	public static final int MINUS_OP=37;
+	public static final int MOD=38;
+	public static final int NEWLINE=39;
+	public static final int NOT=40;
+	public static final int NQ=41;
+	public static final int NUMBER=42;
+	public static final int OR=43;
+	public static final int OR_ALT=44;
+	public static final int PLUS=45;
+	public static final int PLUS_OP=46;
+	public static final int PRINT=47;
+	public static final int PROGRAM=48;
+	public static final int READ=49;
+	public static final int RPAREN=50;
+	public static final int SEMICOLON=51;
+	public static final int SQUOTE=52;
+	public static final int STRING=53;
+	public static final int TIMES=54;
+	public static final int TRUE=55;
+	public static final int UPPER=56;
+	public static final int WHILE=57;
+	public static final int WS=58;
 
 	// delegates
 	public Parser[] getDelegates() {
@@ -146,6 +148,7 @@ public class AliaParser extends Parser {
 					}
 					break;
 				case BEGIN:
+				case CHAR_EXPR:
 				case FALSE:
 				case IDENTIFIER:
 				case IF:
@@ -156,7 +159,6 @@ public class AliaParser extends Parser {
 				case PLUS:
 				case PRINT:
 				case READ:
-				case SQUOTE:
 				case TRUE:
 				case WHILE:
 					{
@@ -311,7 +313,7 @@ public class AliaParser extends Parser {
 			while (true) {
 				int alt2=3;
 				int LA2_0 = input.LA(1);
-				if ( (LA2_0==BEGIN||LA2_0==FALSE||(LA2_0 >= IDENTIFIER && LA2_0 <= IF)||LA2_0==LPAREN||LA2_0==MINUS||LA2_0==NOT||LA2_0==NUMBER||LA2_0==PLUS||LA2_0==PRINT||LA2_0==READ||LA2_0==SQUOTE||LA2_0==TRUE||LA2_0==WHILE) ) {
+				if ( (LA2_0==BEGIN||LA2_0==CHAR_EXPR||LA2_0==FALSE||(LA2_0 >= IDENTIFIER && LA2_0 <= IF)||LA2_0==LPAREN||LA2_0==MINUS||LA2_0==NOT||LA2_0==NUMBER||LA2_0==PLUS||LA2_0==PRINT||LA2_0==READ||LA2_0==TRUE||LA2_0==WHILE) ) {
 					alt2=1;
 				}
 				else if ( (LA2_0==NEWLINE) ) {
@@ -391,7 +393,7 @@ public class AliaParser extends Parser {
 			// src\\alia\\Alia.g:82:11: ( expr_assignment ( COLON type )? end_statement | while_stmnt )
 			int alt4=2;
 			int LA4_0 = input.LA(1);
-			if ( (LA4_0==BEGIN||LA4_0==FALSE||(LA4_0 >= IDENTIFIER && LA4_0 <= IF)||LA4_0==LPAREN||LA4_0==MINUS||LA4_0==NOT||LA4_0==NUMBER||LA4_0==PLUS||LA4_0==PRINT||LA4_0==READ||LA4_0==SQUOTE||LA4_0==TRUE) ) {
+			if ( (LA4_0==BEGIN||LA4_0==CHAR_EXPR||LA4_0==FALSE||(LA4_0 >= IDENTIFIER && LA4_0 <= IF)||LA4_0==LPAREN||LA4_0==MINUS||LA4_0==NOT||LA4_0==NUMBER||LA4_0==PLUS||LA4_0==PRINT||LA4_0==READ||LA4_0==TRUE) ) {
 				alt4=1;
 			}
 			else if ( (LA4_0==WHILE) ) {
@@ -624,7 +626,7 @@ public class AliaParser extends Parser {
 				}
 
 			}
-			else if ( (LA6_0==BEGIN||LA6_0==FALSE||LA6_0==IF||LA6_0==LPAREN||LA6_0==MINUS||LA6_0==NOT||LA6_0==NUMBER||LA6_0==PLUS||LA6_0==PRINT||LA6_0==READ||LA6_0==SQUOTE||LA6_0==TRUE) ) {
+			else if ( (LA6_0==BEGIN||LA6_0==CHAR_EXPR||LA6_0==FALSE||LA6_0==IF||LA6_0==LPAREN||LA6_0==MINUS||LA6_0==NOT||LA6_0==NUMBER||LA6_0==PLUS||LA6_0==PRINT||LA6_0==READ||LA6_0==TRUE) ) {
 				alt6=2;
 			}
 
@@ -1216,6 +1218,7 @@ public class AliaParser extends Parser {
 				}
 				break;
 			case BEGIN:
+			case CHAR_EXPR:
 			case FALSE:
 			case IDENTIFIER:
 			case IF:
@@ -1223,7 +1226,6 @@ public class AliaParser extends Parser {
 			case NUMBER:
 			case PRINT:
 			case READ:
-			case SQUOTE:
 			case TRUE:
 				{
 				alt12=2;
@@ -1506,7 +1508,7 @@ public class AliaParser extends Parser {
 
 
 	// $ANTLR start "operand"
-	// src\\alia\\Alia.g:100:1: operand : ( read | print | if_stmnt | LPAREN ! expr RPAREN !| compound_stmnt | NUMBER | char_expr | boolean_expr | func_identifier );
+	// src\\alia\\Alia.g:100:1: operand : ( read | print | if_stmnt | LPAREN ! expr RPAREN !| compound_stmnt | NUMBER | CHAR_EXPR | boolean_expr | func_identifier );
 	public final AliaParser.operand_return operand() throws RecognitionException {
 		AliaParser.operand_return retval = new AliaParser.operand_return();
 		retval.start = input.LT(1);
@@ -1516,21 +1518,22 @@ public class AliaParser extends Parser {
 		Token LPAREN46=null;
 		Token RPAREN48=null;
 		Token NUMBER50=null;
+		Token CHAR_EXPR51=null;
 		ParserRuleReturnScope read43 =null;
 		ParserRuleReturnScope print44 =null;
 		ParserRuleReturnScope if_stmnt45 =null;
 		ParserRuleReturnScope expr47 =null;
 		ParserRuleReturnScope compound_stmnt49 =null;
-		ParserRuleReturnScope char_expr51 =null;
 		ParserRuleReturnScope boolean_expr52 =null;
 		ParserRuleReturnScope func_identifier53 =null;
 
 		Object LPAREN46_tree=null;
 		Object RPAREN48_tree=null;
 		Object NUMBER50_tree=null;
+		Object CHAR_EXPR51_tree=null;
 
 		try {
-			// src\\alia\\Alia.g:100:9: ( read | print | if_stmnt | LPAREN ! expr RPAREN !| compound_stmnt | NUMBER | char_expr | boolean_expr | func_identifier )
+			// src\\alia\\Alia.g:100:9: ( read | print | if_stmnt | LPAREN ! expr RPAREN !| compound_stmnt | NUMBER | CHAR_EXPR | boolean_expr | func_identifier )
 			int alt13=9;
 			switch ( input.LA(1) ) {
 			case READ:
@@ -1563,7 +1566,7 @@ public class AliaParser extends Parser {
 				alt13=6;
 				}
 				break;
-			case SQUOTE:
+			case CHAR_EXPR:
 				{
 				alt13=7;
 				}
@@ -1673,16 +1676,16 @@ public class AliaParser extends Parser {
 					}
 					break;
 				case 7 :
-					// src\\alia\\Alia.g:106:8: char_expr
+					// src\\alia\\Alia.g:106:8: CHAR_EXPR
 					{
 					root_0 = (Object)adaptor.nil();
 
 
-					pushFollow(FOLLOW_char_expr_in_operand1604);
-					char_expr51=char_expr();
-					state._fsp--;
-					if (state.failed) return retval;
-					if ( state.backtracking==0 ) adaptor.addChild(root_0, char_expr51.getTree());
+					CHAR_EXPR51=(Token)match(input,CHAR_EXPR,FOLLOW_CHAR_EXPR_in_operand1604); if (state.failed) return retval;
+					if ( state.backtracking==0 ) {
+					CHAR_EXPR51_tree = (Object)adaptor.create(CHAR_EXPR51);
+					adaptor.addChild(root_0, CHAR_EXPR51_tree);
+					}
 
 					}
 					break;
@@ -1744,7 +1747,7 @@ public class AliaParser extends Parser {
 
 
 	// $ANTLR start "compound_stmnt"
-	// src\\alia\\Alia.g:110:1: compound_stmnt : BEGIN statements END -> COMPOUND statements ;
+	// src\\alia\\Alia.g:110:1: compound_stmnt : BEGIN statements END -> ^( COMPOUND statements ) ;
 	public final AliaParser.compound_stmnt_return compound_stmnt() throws RecognitionException {
 		AliaParser.compound_stmnt_return retval = new AliaParser.compound_stmnt_return();
 		retval.start = input.LT(1);
@@ -1762,7 +1765,7 @@ public class AliaParser extends Parser {
 		RewriteRuleSubtreeStream stream_statements=new RewriteRuleSubtreeStream(adaptor,"rule statements");
 
 		try {
-			// src\\alia\\Alia.g:110:16: ( BEGIN statements END -> COMPOUND statements )
+			// src\\alia\\Alia.g:110:16: ( BEGIN statements END -> ^( COMPOUND statements ) )
 			// src\\alia\\Alia.g:110:18: BEGIN statements END
 			{
 			BEGIN54=(Token)match(input,BEGIN,FOLLOW_BEGIN_in_compound_stmnt1634); if (state.failed) return retval; 
@@ -1788,10 +1791,16 @@ public class AliaParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 110:39: -> COMPOUND statements
+			// 110:39: -> ^( COMPOUND statements )
 			{
-				adaptor.addChild(root_0, (Object)adaptor.create(COMPOUND, "COMPOUND"));
-				adaptor.addChild(root_0, stream_statements.nextTree());
+				// src\\alia\\Alia.g:110:42: ^( COMPOUND statements )
+				{
+				Object root_1 = (Object)adaptor.nil();
+				root_1 = (Object)adaptor.becomeRoot((Object)adaptor.create(COMPOUND, "COMPOUND"), root_1);
+				adaptor.addChild(root_1, stream_statements.nextTree());
+				adaptor.addChild(root_0, root_1);
+				}
+
 			}
 
 
@@ -1850,14 +1859,14 @@ public class AliaParser extends Parser {
 			root_0 = (Object)adaptor.nil();
 
 
-			SQUOTE57=(Token)match(input,SQUOTE,FOLLOW_SQUOTE_in_char_expr1652); if (state.failed) return retval;
-			LETTER58=(Token)match(input,LETTER,FOLLOW_LETTER_in_char_expr1655); if (state.failed) return retval;
+			SQUOTE57=(Token)match(input,SQUOTE,FOLLOW_SQUOTE_in_char_expr1654); if (state.failed) return retval;
+			LETTER58=(Token)match(input,LETTER,FOLLOW_LETTER_in_char_expr1657); if (state.failed) return retval;
 			if ( state.backtracking==0 ) {
 			LETTER58_tree = (Object)adaptor.create(LETTER58);
 			adaptor.addChild(root_0, LETTER58_tree);
 			}
 
-			SQUOTE59=(Token)match(input,SQUOTE,FOLLOW_SQUOTE_in_char_expr1657); if (state.failed) return retval;
+			SQUOTE59=(Token)match(input,SQUOTE,FOLLOW_SQUOTE_in_char_expr1659); if (state.failed) return retval;
 			}
 
 			retval.stop = input.LT(-1);
@@ -1911,7 +1920,7 @@ public class AliaParser extends Parser {
 			root_0 = (Object)adaptor.nil();
 
 
-			IDENTIFIER60=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_func_identifier1666); if (state.failed) return retval;
+			IDENTIFIER60=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_func_identifier1668); if (state.failed) return retval;
 			if ( state.backtracking==0 ) {
 			IDENTIFIER60_tree = (Object)adaptor.create(IDENTIFIER60);
 			adaptor.addChild(root_0, IDENTIFIER60_tree);
@@ -1927,7 +1936,7 @@ public class AliaParser extends Parser {
 				case 1 :
 					// src\\alia\\Alia.g:115:6: LPAREN ^ ( exprlist )? RPAREN
 					{
-					LPAREN61=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_func_identifier1674); if (state.failed) return retval;
+					LPAREN61=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_func_identifier1676); if (state.failed) return retval;
 					if ( state.backtracking==0 ) {
 					LPAREN61_tree = (Object)adaptor.create(LPAREN61);
 					root_0 = (Object)adaptor.becomeRoot(LPAREN61_tree, root_0);
@@ -1936,14 +1945,14 @@ public class AliaParser extends Parser {
 					// src\\alia\\Alia.g:115:14: ( exprlist )?
 					int alt14=2;
 					int LA14_0 = input.LA(1);
-					if ( (LA14_0==BEGIN||LA14_0==FALSE||(LA14_0 >= IDENTIFIER && LA14_0 <= IF)||LA14_0==LPAREN||LA14_0==MINUS||LA14_0==NOT||LA14_0==NUMBER||LA14_0==PLUS||LA14_0==PRINT||LA14_0==READ||LA14_0==SQUOTE||LA14_0==TRUE) ) {
+					if ( (LA14_0==BEGIN||LA14_0==CHAR_EXPR||LA14_0==FALSE||(LA14_0 >= IDENTIFIER && LA14_0 <= IF)||LA14_0==LPAREN||LA14_0==MINUS||LA14_0==NOT||LA14_0==NUMBER||LA14_0==PLUS||LA14_0==PRINT||LA14_0==READ||LA14_0==TRUE) ) {
 						alt14=1;
 					}
 					switch (alt14) {
 						case 1 :
 							// src\\alia\\Alia.g:115:14: exprlist
 							{
-							pushFollow(FOLLOW_exprlist_in_func_identifier1677);
+							pushFollow(FOLLOW_exprlist_in_func_identifier1679);
 							exprlist62=exprlist();
 							state._fsp--;
 							if (state.failed) return retval;
@@ -1954,7 +1963,7 @@ public class AliaParser extends Parser {
 
 					}
 
-					RPAREN63=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_func_identifier1680); if (state.failed) return retval;
+					RPAREN63=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_func_identifier1682); if (state.failed) return retval;
 					if ( state.backtracking==0 ) {
 					RPAREN63_tree = (Object)adaptor.create(RPAREN63);
 					adaptor.addChild(root_0, RPAREN63_tree);
@@ -1995,7 +2004,7 @@ public class AliaParser extends Parser {
 
 
 	// $ANTLR start "while_stmnt"
-	// src\\alia\\Alia.g:119:1: while_stmnt : WHILE ^ expr DO statements END ;
+	// src\\alia\\Alia.g:120:1: while_stmnt : WHILE ^ expr DO statements END ;
 	public final AliaParser.while_stmnt_return while_stmnt() throws RecognitionException {
 		AliaParser.while_stmnt_return retval = new AliaParser.while_stmnt_return();
 		retval.start = input.LT(1);
@@ -2013,37 +2022,37 @@ public class AliaParser extends Parser {
 		Object END68_tree=null;
 
 		try {
-			// src\\alia\\Alia.g:119:13: ( WHILE ^ expr DO statements END )
-			// src\\alia\\Alia.g:119:15: WHILE ^ expr DO statements END
+			// src\\alia\\Alia.g:120:13: ( WHILE ^ expr DO statements END )
+			// src\\alia\\Alia.g:120:15: WHILE ^ expr DO statements END
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			WHILE64=(Token)match(input,WHILE,FOLLOW_WHILE_in_while_stmnt1692); if (state.failed) return retval;
+			WHILE64=(Token)match(input,WHILE,FOLLOW_WHILE_in_while_stmnt1695); if (state.failed) return retval;
 			if ( state.backtracking==0 ) {
 			WHILE64_tree = (Object)adaptor.create(WHILE64);
 			root_0 = (Object)adaptor.becomeRoot(WHILE64_tree, root_0);
 			}
 
-			pushFollow(FOLLOW_expr_in_while_stmnt1695);
+			pushFollow(FOLLOW_expr_in_while_stmnt1698);
 			expr65=expr();
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, expr65.getTree());
 
-			DO66=(Token)match(input,DO,FOLLOW_DO_in_while_stmnt1697); if (state.failed) return retval;
+			DO66=(Token)match(input,DO,FOLLOW_DO_in_while_stmnt1700); if (state.failed) return retval;
 			if ( state.backtracking==0 ) {
 			DO66_tree = (Object)adaptor.create(DO66);
 			adaptor.addChild(root_0, DO66_tree);
 			}
 
-			pushFollow(FOLLOW_statements_in_while_stmnt1699);
+			pushFollow(FOLLOW_statements_in_while_stmnt1702);
 			statements67=statements();
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, statements67.getTree());
 
-			END68=(Token)match(input,END,FOLLOW_END_in_while_stmnt1701); if (state.failed) return retval;
+			END68=(Token)match(input,END,FOLLOW_END_in_while_stmnt1704); if (state.failed) return retval;
 			if ( state.backtracking==0 ) {
 			END68_tree = (Object)adaptor.create(END68);
 			adaptor.addChild(root_0, END68_tree);
@@ -2079,7 +2088,7 @@ public class AliaParser extends Parser {
 
 
 	// $ANTLR start "if_stmnt"
-	// src\\alia\\Alia.g:121:1: if_stmnt : IF ^ expr DO ! statements ( ELSEIF expr DO ! statements )* ( ELSE statements )? END !;
+	// src\\alia\\Alia.g:122:1: if_stmnt : IF ^ expr DO ! statements ( ELSEIF expr DO ! statements )* ( ELSE statements )? END !;
 	public final AliaParser.if_stmnt_return if_stmnt() throws RecognitionException {
 		AliaParser.if_stmnt_return retval = new AliaParser.if_stmnt_return();
 		retval.start = input.LT(1);
@@ -2106,32 +2115,32 @@ public class AliaParser extends Parser {
 		Object END79_tree=null;
 
 		try {
-			// src\\alia\\Alia.g:121:10: ( IF ^ expr DO ! statements ( ELSEIF expr DO ! statements )* ( ELSE statements )? END !)
-			// src\\alia\\Alia.g:121:12: IF ^ expr DO ! statements ( ELSEIF expr DO ! statements )* ( ELSE statements )? END !
+			// src\\alia\\Alia.g:122:10: ( IF ^ expr DO ! statements ( ELSEIF expr DO ! statements )* ( ELSE statements )? END !)
+			// src\\alia\\Alia.g:122:12: IF ^ expr DO ! statements ( ELSEIF expr DO ! statements )* ( ELSE statements )? END !
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			IF69=(Token)match(input,IF,FOLLOW_IF_in_if_stmnt1709); if (state.failed) return retval;
+			IF69=(Token)match(input,IF,FOLLOW_IF_in_if_stmnt1712); if (state.failed) return retval;
 			if ( state.backtracking==0 ) {
 			IF69_tree = (Object)adaptor.create(IF69);
 			root_0 = (Object)adaptor.becomeRoot(IF69_tree, root_0);
 			}
 
-			pushFollow(FOLLOW_expr_in_if_stmnt1712);
+			pushFollow(FOLLOW_expr_in_if_stmnt1715);
 			expr70=expr();
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, expr70.getTree());
 
-			DO71=(Token)match(input,DO,FOLLOW_DO_in_if_stmnt1714); if (state.failed) return retval;
-			pushFollow(FOLLOW_statements_in_if_stmnt1717);
+			DO71=(Token)match(input,DO,FOLLOW_DO_in_if_stmnt1717); if (state.failed) return retval;
+			pushFollow(FOLLOW_statements_in_if_stmnt1720);
 			statements72=statements();
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, statements72.getTree());
 
-			// src\\alia\\Alia.g:121:36: ( ELSEIF expr DO ! statements )*
+			// src\\alia\\Alia.g:122:36: ( ELSEIF expr DO ! statements )*
 			loop16:
 			while (true) {
 				int alt16=2;
@@ -2142,22 +2151,22 @@ public class AliaParser extends Parser {
 
 				switch (alt16) {
 				case 1 :
-					// src\\alia\\Alia.g:121:37: ELSEIF expr DO ! statements
+					// src\\alia\\Alia.g:122:37: ELSEIF expr DO ! statements
 					{
-					ELSEIF73=(Token)match(input,ELSEIF,FOLLOW_ELSEIF_in_if_stmnt1720); if (state.failed) return retval;
+					ELSEIF73=(Token)match(input,ELSEIF,FOLLOW_ELSEIF_in_if_stmnt1723); if (state.failed) return retval;
 					if ( state.backtracking==0 ) {
 					ELSEIF73_tree = (Object)adaptor.create(ELSEIF73);
 					adaptor.addChild(root_0, ELSEIF73_tree);
 					}
 
-					pushFollow(FOLLOW_expr_in_if_stmnt1722);
+					pushFollow(FOLLOW_expr_in_if_stmnt1725);
 					expr74=expr();
 					state._fsp--;
 					if (state.failed) return retval;
 					if ( state.backtracking==0 ) adaptor.addChild(root_0, expr74.getTree());
 
-					DO75=(Token)match(input,DO,FOLLOW_DO_in_if_stmnt1724); if (state.failed) return retval;
-					pushFollow(FOLLOW_statements_in_if_stmnt1727);
+					DO75=(Token)match(input,DO,FOLLOW_DO_in_if_stmnt1727); if (state.failed) return retval;
+					pushFollow(FOLLOW_statements_in_if_stmnt1730);
 					statements76=statements();
 					state._fsp--;
 					if (state.failed) return retval;
@@ -2171,7 +2180,7 @@ public class AliaParser extends Parser {
 				}
 			}
 
-			// src\\alia\\Alia.g:121:66: ( ELSE statements )?
+			// src\\alia\\Alia.g:122:66: ( ELSE statements )?
 			int alt17=2;
 			int LA17_0 = input.LA(1);
 			if ( (LA17_0==ELSE) ) {
@@ -2179,15 +2188,15 @@ public class AliaParser extends Parser {
 			}
 			switch (alt17) {
 				case 1 :
-					// src\\alia\\Alia.g:121:67: ELSE statements
+					// src\\alia\\Alia.g:122:67: ELSE statements
 					{
-					ELSE77=(Token)match(input,ELSE,FOLLOW_ELSE_in_if_stmnt1732); if (state.failed) return retval;
+					ELSE77=(Token)match(input,ELSE,FOLLOW_ELSE_in_if_stmnt1735); if (state.failed) return retval;
 					if ( state.backtracking==0 ) {
 					ELSE77_tree = (Object)adaptor.create(ELSE77);
 					adaptor.addChild(root_0, ELSE77_tree);
 					}
 
-					pushFollow(FOLLOW_statements_in_if_stmnt1734);
+					pushFollow(FOLLOW_statements_in_if_stmnt1737);
 					statements78=statements();
 					state._fsp--;
 					if (state.failed) return retval;
@@ -2198,7 +2207,7 @@ public class AliaParser extends Parser {
 
 			}
 
-			END79=(Token)match(input,END,FOLLOW_END_in_if_stmnt1738); if (state.failed) return retval;
+			END79=(Token)match(input,END,FOLLOW_END_in_if_stmnt1741); if (state.failed) return retval;
 			}
 
 			retval.stop = input.LT(-1);
@@ -2229,7 +2238,7 @@ public class AliaParser extends Parser {
 
 
 	// $ANTLR start "print"
-	// src\\alia\\Alia.g:123:1: print : PRINT ^ LPAREN ! exprlist RPAREN !;
+	// src\\alia\\Alia.g:124:1: print : PRINT ^ LPAREN ! exprlist RPAREN !;
 	public final AliaParser.print_return print() throws RecognitionException {
 		AliaParser.print_return retval = new AliaParser.print_return();
 		retval.start = input.LT(1);
@@ -2246,26 +2255,26 @@ public class AliaParser extends Parser {
 		Object RPAREN83_tree=null;
 
 		try {
-			// src\\alia\\Alia.g:123:7: ( PRINT ^ LPAREN ! exprlist RPAREN !)
-			// src\\alia\\Alia.g:123:9: PRINT ^ LPAREN ! exprlist RPAREN !
+			// src\\alia\\Alia.g:124:7: ( PRINT ^ LPAREN ! exprlist RPAREN !)
+			// src\\alia\\Alia.g:124:9: PRINT ^ LPAREN ! exprlist RPAREN !
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			PRINT80=(Token)match(input,PRINT,FOLLOW_PRINT_in_print1747); if (state.failed) return retval;
+			PRINT80=(Token)match(input,PRINT,FOLLOW_PRINT_in_print1750); if (state.failed) return retval;
 			if ( state.backtracking==0 ) {
 			PRINT80_tree = (Object)adaptor.create(PRINT80);
 			root_0 = (Object)adaptor.becomeRoot(PRINT80_tree, root_0);
 			}
 
-			LPAREN81=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_print1750); if (state.failed) return retval;
-			pushFollow(FOLLOW_exprlist_in_print1753);
+			LPAREN81=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_print1753); if (state.failed) return retval;
+			pushFollow(FOLLOW_exprlist_in_print1756);
 			exprlist82=exprlist();
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, exprlist82.getTree());
 
-			RPAREN83=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_print1755); if (state.failed) return retval;
+			RPAREN83=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_print1758); if (state.failed) return retval;
 			}
 
 			retval.stop = input.LT(-1);
@@ -2296,7 +2305,7 @@ public class AliaParser extends Parser {
 
 
 	// $ANTLR start "read"
-	// src\\alia\\Alia.g:124:1: read : READ ^ LPAREN ! varlist RPAREN !;
+	// src\\alia\\Alia.g:125:1: read : READ ^ LPAREN ! varlist RPAREN !;
 	public final AliaParser.read_return read() throws RecognitionException {
 		AliaParser.read_return retval = new AliaParser.read_return();
 		retval.start = input.LT(1);
@@ -2313,26 +2322,26 @@ public class AliaParser extends Parser {
 		Object RPAREN87_tree=null;
 
 		try {
-			// src\\alia\\Alia.g:124:6: ( READ ^ LPAREN ! varlist RPAREN !)
-			// src\\alia\\Alia.g:124:8: READ ^ LPAREN ! varlist RPAREN !
+			// src\\alia\\Alia.g:125:6: ( READ ^ LPAREN ! varlist RPAREN !)
+			// src\\alia\\Alia.g:125:8: READ ^ LPAREN ! varlist RPAREN !
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			READ84=(Token)match(input,READ,FOLLOW_READ_in_read1763); if (state.failed) return retval;
+			READ84=(Token)match(input,READ,FOLLOW_READ_in_read1766); if (state.failed) return retval;
 			if ( state.backtracking==0 ) {
 			READ84_tree = (Object)adaptor.create(READ84);
 			root_0 = (Object)adaptor.becomeRoot(READ84_tree, root_0);
 			}
 
-			LPAREN85=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_read1766); if (state.failed) return retval;
-			pushFollow(FOLLOW_varlist_in_read1769);
+			LPAREN85=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_read1769); if (state.failed) return retval;
+			pushFollow(FOLLOW_varlist_in_read1772);
 			varlist86=varlist();
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, varlist86.getTree());
 
-			RPAREN87=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_read1771); if (state.failed) return retval;
+			RPAREN87=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_read1774); if (state.failed) return retval;
 			}
 
 			retval.stop = input.LT(-1);
@@ -2363,7 +2372,7 @@ public class AliaParser extends Parser {
 
 
 	// $ANTLR start "varlist"
-	// src\\alia\\Alia.g:126:1: varlist : IDENTIFIER ( COMMA IDENTIFIER )* ;
+	// src\\alia\\Alia.g:127:1: varlist : IDENTIFIER ( COMMA ! IDENTIFIER )* ;
 	public final AliaParser.varlist_return varlist() throws RecognitionException {
 		AliaParser.varlist_return retval = new AliaParser.varlist_return();
 		retval.start = input.LT(1);
@@ -2379,19 +2388,19 @@ public class AliaParser extends Parser {
 		Object IDENTIFIER90_tree=null;
 
 		try {
-			// src\\alia\\Alia.g:126:9: ( IDENTIFIER ( COMMA IDENTIFIER )* )
-			// src\\alia\\Alia.g:126:11: IDENTIFIER ( COMMA IDENTIFIER )*
+			// src\\alia\\Alia.g:127:9: ( IDENTIFIER ( COMMA ! IDENTIFIER )* )
+			// src\\alia\\Alia.g:127:11: IDENTIFIER ( COMMA ! IDENTIFIER )*
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			IDENTIFIER88=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_varlist1780); if (state.failed) return retval;
+			IDENTIFIER88=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_varlist1783); if (state.failed) return retval;
 			if ( state.backtracking==0 ) {
 			IDENTIFIER88_tree = (Object)adaptor.create(IDENTIFIER88);
 			adaptor.addChild(root_0, IDENTIFIER88_tree);
 			}
 
-			// src\\alia\\Alia.g:126:22: ( COMMA IDENTIFIER )*
+			// src\\alia\\Alia.g:127:22: ( COMMA ! IDENTIFIER )*
 			loop18:
 			while (true) {
 				int alt18=2;
@@ -2402,15 +2411,10 @@ public class AliaParser extends Parser {
 
 				switch (alt18) {
 				case 1 :
-					// src\\alia\\Alia.g:126:23: COMMA IDENTIFIER
+					// src\\alia\\Alia.g:127:23: COMMA ! IDENTIFIER
 					{
-					COMMA89=(Token)match(input,COMMA,FOLLOW_COMMA_in_varlist1783); if (state.failed) return retval;
-					if ( state.backtracking==0 ) {
-					COMMA89_tree = (Object)adaptor.create(COMMA89);
-					adaptor.addChild(root_0, COMMA89_tree);
-					}
-
-					IDENTIFIER90=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_varlist1785); if (state.failed) return retval;
+					COMMA89=(Token)match(input,COMMA,FOLLOW_COMMA_in_varlist1786); if (state.failed) return retval;
+					IDENTIFIER90=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_varlist1789); if (state.failed) return retval;
 					if ( state.backtracking==0 ) {
 					IDENTIFIER90_tree = (Object)adaptor.create(IDENTIFIER90);
 					adaptor.addChild(root_0, IDENTIFIER90_tree);
@@ -2454,7 +2458,7 @@ public class AliaParser extends Parser {
 
 
 	// $ANTLR start "exprlist"
-	// src\\alia\\Alia.g:128:1: exprlist : expr ( COMMA expr )* ;
+	// src\\alia\\Alia.g:129:1: exprlist : expr ( COMMA ! expr )* ;
 	public final AliaParser.exprlist_return exprlist() throws RecognitionException {
 		AliaParser.exprlist_return retval = new AliaParser.exprlist_return();
 		retval.start = input.LT(1);
@@ -2468,19 +2472,19 @@ public class AliaParser extends Parser {
 		Object COMMA92_tree=null;
 
 		try {
-			// src\\alia\\Alia.g:128:10: ( expr ( COMMA expr )* )
-			// src\\alia\\Alia.g:128:12: expr ( COMMA expr )*
+			// src\\alia\\Alia.g:129:10: ( expr ( COMMA ! expr )* )
+			// src\\alia\\Alia.g:129:12: expr ( COMMA ! expr )*
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			pushFollow(FOLLOW_expr_in_exprlist1795);
+			pushFollow(FOLLOW_expr_in_exprlist1799);
 			expr91=expr();
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, expr91.getTree());
 
-			// src\\alia\\Alia.g:128:17: ( COMMA expr )*
+			// src\\alia\\Alia.g:129:17: ( COMMA ! expr )*
 			loop19:
 			while (true) {
 				int alt19=2;
@@ -2491,15 +2495,10 @@ public class AliaParser extends Parser {
 
 				switch (alt19) {
 				case 1 :
-					// src\\alia\\Alia.g:128:18: COMMA expr
+					// src\\alia\\Alia.g:129:18: COMMA ! expr
 					{
-					COMMA92=(Token)match(input,COMMA,FOLLOW_COMMA_in_exprlist1798); if (state.failed) return retval;
-					if ( state.backtracking==0 ) {
-					COMMA92_tree = (Object)adaptor.create(COMMA92);
-					adaptor.addChild(root_0, COMMA92_tree);
-					}
-
-					pushFollow(FOLLOW_expr_in_exprlist1800);
+					COMMA92=(Token)match(input,COMMA,FOLLOW_COMMA_in_exprlist1802); if (state.failed) return retval;
+					pushFollow(FOLLOW_expr_in_exprlist1805);
 					expr93=expr();
 					state._fsp--;
 					if (state.failed) return retval;
@@ -2543,7 +2542,7 @@ public class AliaParser extends Parser {
 
 
 	// $ANTLR start "func_def"
-	// src\\alia\\Alia.g:130:1: func_def : DEF IDENTIFIER LPAREN ! RPAREN ! statements END ;
+	// src\\alia\\Alia.g:131:1: func_def : DEF IDENTIFIER LPAREN ! RPAREN ! statements END ;
 	public final AliaParser.func_def_return func_def() throws RecognitionException {
 		AliaParser.func_def_return retval = new AliaParser.func_def_return();
 		retval.start = input.LT(1);
@@ -2564,33 +2563,33 @@ public class AliaParser extends Parser {
 		Object END99_tree=null;
 
 		try {
-			// src\\alia\\Alia.g:130:10: ( DEF IDENTIFIER LPAREN ! RPAREN ! statements END )
-			// src\\alia\\Alia.g:130:12: DEF IDENTIFIER LPAREN ! RPAREN ! statements END
+			// src\\alia\\Alia.g:131:10: ( DEF IDENTIFIER LPAREN ! RPAREN ! statements END )
+			// src\\alia\\Alia.g:131:12: DEF IDENTIFIER LPAREN ! RPAREN ! statements END
 			{
 			root_0 = (Object)adaptor.nil();
 
 
-			DEF94=(Token)match(input,DEF,FOLLOW_DEF_in_func_def1810); if (state.failed) return retval;
+			DEF94=(Token)match(input,DEF,FOLLOW_DEF_in_func_def1815); if (state.failed) return retval;
 			if ( state.backtracking==0 ) {
 			DEF94_tree = (Object)adaptor.create(DEF94);
 			adaptor.addChild(root_0, DEF94_tree);
 			}
 
-			IDENTIFIER95=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_func_def1812); if (state.failed) return retval;
+			IDENTIFIER95=(Token)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_func_def1817); if (state.failed) return retval;
 			if ( state.backtracking==0 ) {
 			IDENTIFIER95_tree = (Object)adaptor.create(IDENTIFIER95);
 			adaptor.addChild(root_0, IDENTIFIER95_tree);
 			}
 
-			LPAREN96=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_func_def1814); if (state.failed) return retval;
-			RPAREN97=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_func_def1818); if (state.failed) return retval;
-			pushFollow(FOLLOW_statements_in_func_def1821);
+			LPAREN96=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_func_def1819); if (state.failed) return retval;
+			RPAREN97=(Token)match(input,RPAREN,FOLLOW_RPAREN_in_func_def1823); if (state.failed) return retval;
+			pushFollow(FOLLOW_statements_in_func_def1826);
 			statements98=statements();
 			state._fsp--;
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) adaptor.addChild(root_0, statements98.getTree());
 
-			END99=(Token)match(input,END,FOLLOW_END_in_func_def1823); if (state.failed) return retval;
+			END99=(Token)match(input,END,FOLLOW_END_in_func_def1828); if (state.failed) return retval;
 			if ( state.backtracking==0 ) {
 			END99_tree = (Object)adaptor.create(END99);
 			adaptor.addChild(root_0, END99_tree);
@@ -2626,7 +2625,7 @@ public class AliaParser extends Parser {
 
 
 	// $ANTLR start "boolean_expr"
-	// src\\alia\\Alia.g:139:1: boolean_expr : ( TRUE | FALSE );
+	// src\\alia\\Alia.g:140:1: boolean_expr : ( TRUE | FALSE );
 	public final AliaParser.boolean_expr_return boolean_expr() throws RecognitionException {
 		AliaParser.boolean_expr_return retval = new AliaParser.boolean_expr_return();
 		retval.start = input.LT(1);
@@ -2638,7 +2637,7 @@ public class AliaParser extends Parser {
 		Object set100_tree=null;
 
 		try {
-			// src\\alia\\Alia.g:139:14: ( TRUE | FALSE )
+			// src\\alia\\Alia.g:140:14: ( TRUE | FALSE )
 			// src\\alia\\Alia.g:
 			{
 			root_0 = (Object)adaptor.nil();
@@ -2686,7 +2685,7 @@ public class AliaParser extends Parser {
 
 
 	// $ANTLR start "type"
-	// src\\alia\\Alia.g:141:1: type : ( CHAR | INT | BOOL );
+	// src\\alia\\Alia.g:142:1: type : ( CHAR | INT | BOOL );
 	public final AliaParser.type_return type() throws RecognitionException {
 		AliaParser.type_return retval = new AliaParser.type_return();
 		retval.start = input.LT(1);
@@ -2698,7 +2697,7 @@ public class AliaParser extends Parser {
 		Object set101_tree=null;
 
 		try {
-			// src\\alia\\Alia.g:141:6: ( CHAR | INT | BOOL )
+			// src\\alia\\Alia.g:142:6: ( CHAR | INT | BOOL )
 			// src\\alia\\Alia.g:
 			{
 			root_0 = (Object)adaptor.nil();
@@ -2770,105 +2769,105 @@ public class AliaParser extends Parser {
 
 
 
-	public static final BitSet FOLLOW_declaration_in_program1232 = new BitSet(new long[]{0x014952CA18804082L});
-	public static final BitSet FOLLOW_statement_in_program1236 = new BitSet(new long[]{0x014952CA18804082L});
-	public static final BitSet FOLLOW_NEWLINE_in_program1240 = new BitSet(new long[]{0x014952CA18804082L});
+	public static final BitSet FOLLOW_declaration_in_program1232 = new BitSet(new long[]{0x0282A59431008482L});
+	public static final BitSet FOLLOW_statement_in_program1236 = new BitSet(new long[]{0x0282A59431008482L});
+	public static final BitSet FOLLOW_NEWLINE_in_program1240 = new BitSet(new long[]{0x0282A59431008482L});
 	public static final BitSet FOLLOW_func_def_in_declaration1250 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_statement_in_statements1258 = new BitSet(new long[]{0x014952CA18800082L});
-	public static final BitSet FOLLOW_NEWLINE_in_statements1262 = new BitSet(new long[]{0x014952CA18800082L});
-	public static final BitSet FOLLOW_expr_assignment_in_statement1272 = new BitSet(new long[]{0x0004004000000400L});
-	public static final BitSet FOLLOW_COLON_in_statement1275 = new BitSet(new long[]{0x0000000020000300L});
-	public static final BitSet FOLLOW_type_in_statement1277 = new BitSet(new long[]{0x0004004000000000L});
+	public static final BitSet FOLLOW_statement_in_statements1258 = new BitSet(new long[]{0x0282A59431000482L});
+	public static final BitSet FOLLOW_NEWLINE_in_statements1262 = new BitSet(new long[]{0x0282A59431000482L});
+	public static final BitSet FOLLOW_expr_assignment_in_statement1272 = new BitSet(new long[]{0x0008008000000800L});
+	public static final BitSet FOLLOW_COLON_in_statement1275 = new BitSet(new long[]{0x0000000040000300L});
+	public static final BitSet FOLLOW_type_in_statement1277 = new BitSet(new long[]{0x0008008000000000L});
 	public static final BitSet FOLLOW_end_statement_in_statement1281 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_while_stmnt_in_statement1288 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_NEWLINE_in_end_statement1299 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_SEMICOLON_in_end_statement1304 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_EOF_in_end_statement1309 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_IDENTIFIER_in_expr_assignment1329 = new BitSet(new long[]{0x0000000000000040L});
-	public static final BitSet FOLLOW_BECOMES_in_expr_assignment1331 = new BitSet(new long[]{0x0049528A18800080L});
+	public static final BitSet FOLLOW_BECOMES_in_expr_assignment1331 = new BitSet(new long[]{0x0082A51431000480L});
 	public static final BitSet FOLLOW_expr_assignment_in_expr_assignment1335 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_expr_in_expr_assignment1342 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_expr1_in_expr1351 = new BitSet(new long[]{0x00000C0000000002L});
-	public static final BitSet FOLLOW_set_in_expr1354 = new BitSet(new long[]{0x0049528A18800080L});
-	public static final BitSet FOLLOW_expr1_in_expr1363 = new BitSet(new long[]{0x00000C0000000002L});
+	public static final BitSet FOLLOW_expr1_in_expr1351 = new BitSet(new long[]{0x0000180000000002L});
+	public static final BitSet FOLLOW_set_in_expr1354 = new BitSet(new long[]{0x0082A51431000480L});
+	public static final BitSet FOLLOW_expr1_in_expr1363 = new BitSet(new long[]{0x0000180000000002L});
 	public static final BitSet FOLLOW_expr2_in_expr11372 = new BitSet(new long[]{0x0000000000000032L});
-	public static final BitSet FOLLOW_set_in_expr11375 = new BitSet(new long[]{0x0049528A18800080L});
+	public static final BitSet FOLLOW_set_in_expr11375 = new BitSet(new long[]{0x0082A51431000480L});
 	public static final BitSet FOLLOW_expr2_in_expr11384 = new BitSet(new long[]{0x0000000000000032L});
-	public static final BitSet FOLLOW_expr3_in_expr21393 = new BitSet(new long[]{0x0000010446200002L});
-	public static final BitSet FOLLOW_set_in_expr21396 = new BitSet(new long[]{0x0049528A18800080L});
-	public static final BitSet FOLLOW_expr3_in_expr21421 = new BitSet(new long[]{0x0000010446200002L});
-	public static final BitSet FOLLOW_expr4_in_expr31430 = new BitSet(new long[]{0x0000100800000002L});
-	public static final BitSet FOLLOW_set_in_expr31433 = new BitSet(new long[]{0x0049528A18800080L});
-	public static final BitSet FOLLOW_expr4_in_expr31442 = new BitSet(new long[]{0x0000100800000002L});
-	public static final BitSet FOLLOW_expr5_in_expr41451 = new BitSet(new long[]{0x0020002000010002L});
-	public static final BitSet FOLLOW_set_in_expr41454 = new BitSet(new long[]{0x0049528A18800080L});
-	public static final BitSet FOLLOW_expr5_in_expr41467 = new BitSet(new long[]{0x0020002000010002L});
-	public static final BitSet FOLLOW_NOT_in_expr51476 = new BitSet(new long[]{0x0049420218800080L});
+	public static final BitSet FOLLOW_expr3_in_expr21393 = new BitSet(new long[]{0x000002088C400002L});
+	public static final BitSet FOLLOW_set_in_expr21396 = new BitSet(new long[]{0x0082A51431000480L});
+	public static final BitSet FOLLOW_expr3_in_expr21421 = new BitSet(new long[]{0x000002088C400002L});
+	public static final BitSet FOLLOW_expr4_in_expr31430 = new BitSet(new long[]{0x0000201000000002L});
+	public static final BitSet FOLLOW_set_in_expr31433 = new BitSet(new long[]{0x0082A51431000480L});
+	public static final BitSet FOLLOW_expr4_in_expr31442 = new BitSet(new long[]{0x0000201000000002L});
+	public static final BitSet FOLLOW_expr5_in_expr41451 = new BitSet(new long[]{0x0040004000020002L});
+	public static final BitSet FOLLOW_set_in_expr41454 = new BitSet(new long[]{0x0082A51431000480L});
+	public static final BitSet FOLLOW_expr5_in_expr41467 = new BitSet(new long[]{0x0040004000020002L});
+	public static final BitSet FOLLOW_NOT_in_expr51476 = new BitSet(new long[]{0x0082840431000480L});
 	public static final BitSet FOLLOW_operand_in_expr51479 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_operand_in_expr51483 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_expr_minus_in_expr51487 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_expr_plus_in_expr51491 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_MINUS_in_expr_minus1498 = new BitSet(new long[]{0x0049420218800080L});
+	public static final BitSet FOLLOW_MINUS_in_expr_minus1498 = new BitSet(new long[]{0x0082840431000480L});
 	public static final BitSet FOLLOW_operand_in_expr_minus1500 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_PLUS_in_expr_plus1515 = new BitSet(new long[]{0x0049420218800080L});
+	public static final BitSet FOLLOW_PLUS_in_expr_plus1515 = new BitSet(new long[]{0x0082840431000480L});
 	public static final BitSet FOLLOW_operand_in_expr_plus1517 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_read_in_operand1532 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_print_in_operand1543 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_if_stmnt_in_operand1554 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_LPAREN_in_operand1565 = new BitSet(new long[]{0x0049528A18800080L});
-	public static final BitSet FOLLOW_expr_in_operand1568 = new BitSet(new long[]{0x0002000000000000L});
+	public static final BitSet FOLLOW_LPAREN_in_operand1565 = new BitSet(new long[]{0x0082A51431000480L});
+	public static final BitSet FOLLOW_expr_in_operand1568 = new BitSet(new long[]{0x0004000000000000L});
 	public static final BitSet FOLLOW_RPAREN_in_operand1570 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_compound_stmnt_in_operand1582 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_NUMBER_in_operand1593 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_char_expr_in_operand1604 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_CHAR_EXPR_in_operand1604 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_boolean_expr_in_operand1615 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_func_identifier_in_operand1626 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_BEGIN_in_compound_stmnt1634 = new BitSet(new long[]{0x014952CA18900080L});
-	public static final BitSet FOLLOW_statements_in_compound_stmnt1636 = new BitSet(new long[]{0x0000000000100000L});
+	public static final BitSet FOLLOW_BEGIN_in_compound_stmnt1634 = new BitSet(new long[]{0x0282A59431200480L});
+	public static final BitSet FOLLOW_statements_in_compound_stmnt1636 = new BitSet(new long[]{0x0000000000200000L});
 	public static final BitSet FOLLOW_END_in_compound_stmnt1638 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_SQUOTE_in_char_expr1652 = new BitSet(new long[]{0x0000000080000000L});
-	public static final BitSet FOLLOW_LETTER_in_char_expr1655 = new BitSet(new long[]{0x0008000000000000L});
-	public static final BitSet FOLLOW_SQUOTE_in_char_expr1657 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IDENTIFIER_in_func_identifier1666 = new BitSet(new long[]{0x0000000200000002L});
-	public static final BitSet FOLLOW_LPAREN_in_func_identifier1674 = new BitSet(new long[]{0x004B528A18800080L});
-	public static final BitSet FOLLOW_exprlist_in_func_identifier1677 = new BitSet(new long[]{0x0002000000000000L});
-	public static final BitSet FOLLOW_RPAREN_in_func_identifier1680 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_WHILE_in_while_stmnt1692 = new BitSet(new long[]{0x0049528A18800080L});
-	public static final BitSet FOLLOW_expr_in_while_stmnt1695 = new BitSet(new long[]{0x0000000000020000L});
-	public static final BitSet FOLLOW_DO_in_while_stmnt1697 = new BitSet(new long[]{0x014952CA18900080L});
-	public static final BitSet FOLLOW_statements_in_while_stmnt1699 = new BitSet(new long[]{0x0000000000100000L});
-	public static final BitSet FOLLOW_END_in_while_stmnt1701 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IF_in_if_stmnt1709 = new BitSet(new long[]{0x0049528A18800080L});
-	public static final BitSet FOLLOW_expr_in_if_stmnt1712 = new BitSet(new long[]{0x0000000000020000L});
-	public static final BitSet FOLLOW_DO_in_if_stmnt1714 = new BitSet(new long[]{0x014952CA189C0080L});
-	public static final BitSet FOLLOW_statements_in_if_stmnt1717 = new BitSet(new long[]{0x00000000001C0000L});
-	public static final BitSet FOLLOW_ELSEIF_in_if_stmnt1720 = new BitSet(new long[]{0x0049528A18800080L});
-	public static final BitSet FOLLOW_expr_in_if_stmnt1722 = new BitSet(new long[]{0x0000000000020000L});
-	public static final BitSet FOLLOW_DO_in_if_stmnt1724 = new BitSet(new long[]{0x014952CA189C0080L});
-	public static final BitSet FOLLOW_statements_in_if_stmnt1727 = new BitSet(new long[]{0x00000000001C0000L});
-	public static final BitSet FOLLOW_ELSE_in_if_stmnt1732 = new BitSet(new long[]{0x014952CA18900080L});
-	public static final BitSet FOLLOW_statements_in_if_stmnt1734 = new BitSet(new long[]{0x0000000000100000L});
-	public static final BitSet FOLLOW_END_in_if_stmnt1738 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_PRINT_in_print1747 = new BitSet(new long[]{0x0000000200000000L});
-	public static final BitSet FOLLOW_LPAREN_in_print1750 = new BitSet(new long[]{0x0049528A18800080L});
-	public static final BitSet FOLLOW_exprlist_in_print1753 = new BitSet(new long[]{0x0002000000000000L});
-	public static final BitSet FOLLOW_RPAREN_in_print1755 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_READ_in_read1763 = new BitSet(new long[]{0x0000000200000000L});
-	public static final BitSet FOLLOW_LPAREN_in_read1766 = new BitSet(new long[]{0x0000000008000000L});
-	public static final BitSet FOLLOW_varlist_in_read1769 = new BitSet(new long[]{0x0002000000000000L});
-	public static final BitSet FOLLOW_RPAREN_in_read1771 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IDENTIFIER_in_varlist1780 = new BitSet(new long[]{0x0000000000000802L});
-	public static final BitSet FOLLOW_COMMA_in_varlist1783 = new BitSet(new long[]{0x0000000008000000L});
-	public static final BitSet FOLLOW_IDENTIFIER_in_varlist1785 = new BitSet(new long[]{0x0000000000000802L});
-	public static final BitSet FOLLOW_expr_in_exprlist1795 = new BitSet(new long[]{0x0000000000000802L});
-	public static final BitSet FOLLOW_COMMA_in_exprlist1798 = new BitSet(new long[]{0x0049528A18800080L});
-	public static final BitSet FOLLOW_expr_in_exprlist1800 = new BitSet(new long[]{0x0000000000000802L});
-	public static final BitSet FOLLOW_DEF_in_func_def1810 = new BitSet(new long[]{0x0000000008000000L});
-	public static final BitSet FOLLOW_IDENTIFIER_in_func_def1812 = new BitSet(new long[]{0x0000000200000000L});
-	public static final BitSet FOLLOW_LPAREN_in_func_def1814 = new BitSet(new long[]{0x0002000000000000L});
-	public static final BitSet FOLLOW_RPAREN_in_func_def1818 = new BitSet(new long[]{0x014952CA18900080L});
-	public static final BitSet FOLLOW_statements_in_func_def1821 = new BitSet(new long[]{0x0000000000100000L});
-	public static final BitSet FOLLOW_END_in_func_def1823 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_SQUOTE_in_char_expr1654 = new BitSet(new long[]{0x0000000100000000L});
+	public static final BitSet FOLLOW_LETTER_in_char_expr1657 = new BitSet(new long[]{0x0010000000000000L});
+	public static final BitSet FOLLOW_SQUOTE_in_char_expr1659 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IDENTIFIER_in_func_identifier1668 = new BitSet(new long[]{0x0000000400000002L});
+	public static final BitSet FOLLOW_LPAREN_in_func_identifier1676 = new BitSet(new long[]{0x0086A51431000480L});
+	public static final BitSet FOLLOW_exprlist_in_func_identifier1679 = new BitSet(new long[]{0x0004000000000000L});
+	public static final BitSet FOLLOW_RPAREN_in_func_identifier1682 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_WHILE_in_while_stmnt1695 = new BitSet(new long[]{0x0082A51431000480L});
+	public static final BitSet FOLLOW_expr_in_while_stmnt1698 = new BitSet(new long[]{0x0000000000040000L});
+	public static final BitSet FOLLOW_DO_in_while_stmnt1700 = new BitSet(new long[]{0x0282A59431200480L});
+	public static final BitSet FOLLOW_statements_in_while_stmnt1702 = new BitSet(new long[]{0x0000000000200000L});
+	public static final BitSet FOLLOW_END_in_while_stmnt1704 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IF_in_if_stmnt1712 = new BitSet(new long[]{0x0082A51431000480L});
+	public static final BitSet FOLLOW_expr_in_if_stmnt1715 = new BitSet(new long[]{0x0000000000040000L});
+	public static final BitSet FOLLOW_DO_in_if_stmnt1717 = new BitSet(new long[]{0x0282A59431380480L});
+	public static final BitSet FOLLOW_statements_in_if_stmnt1720 = new BitSet(new long[]{0x0000000000380000L});
+	public static final BitSet FOLLOW_ELSEIF_in_if_stmnt1723 = new BitSet(new long[]{0x0082A51431000480L});
+	public static final BitSet FOLLOW_expr_in_if_stmnt1725 = new BitSet(new long[]{0x0000000000040000L});
+	public static final BitSet FOLLOW_DO_in_if_stmnt1727 = new BitSet(new long[]{0x0282A59431380480L});
+	public static final BitSet FOLLOW_statements_in_if_stmnt1730 = new BitSet(new long[]{0x0000000000380000L});
+	public static final BitSet FOLLOW_ELSE_in_if_stmnt1735 = new BitSet(new long[]{0x0282A59431200480L});
+	public static final BitSet FOLLOW_statements_in_if_stmnt1737 = new BitSet(new long[]{0x0000000000200000L});
+	public static final BitSet FOLLOW_END_in_if_stmnt1741 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_PRINT_in_print1750 = new BitSet(new long[]{0x0000000400000000L});
+	public static final BitSet FOLLOW_LPAREN_in_print1753 = new BitSet(new long[]{0x0082A51431000480L});
+	public static final BitSet FOLLOW_exprlist_in_print1756 = new BitSet(new long[]{0x0004000000000000L});
+	public static final BitSet FOLLOW_RPAREN_in_print1758 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_READ_in_read1766 = new BitSet(new long[]{0x0000000400000000L});
+	public static final BitSet FOLLOW_LPAREN_in_read1769 = new BitSet(new long[]{0x0000000010000000L});
+	public static final BitSet FOLLOW_varlist_in_read1772 = new BitSet(new long[]{0x0004000000000000L});
+	public static final BitSet FOLLOW_RPAREN_in_read1774 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IDENTIFIER_in_varlist1783 = new BitSet(new long[]{0x0000000000001002L});
+	public static final BitSet FOLLOW_COMMA_in_varlist1786 = new BitSet(new long[]{0x0000000010000000L});
+	public static final BitSet FOLLOW_IDENTIFIER_in_varlist1789 = new BitSet(new long[]{0x0000000000001002L});
+	public static final BitSet FOLLOW_expr_in_exprlist1799 = new BitSet(new long[]{0x0000000000001002L});
+	public static final BitSet FOLLOW_COMMA_in_exprlist1802 = new BitSet(new long[]{0x0082A51431000480L});
+	public static final BitSet FOLLOW_expr_in_exprlist1805 = new BitSet(new long[]{0x0000000000001002L});
+	public static final BitSet FOLLOW_DEF_in_func_def1815 = new BitSet(new long[]{0x0000000010000000L});
+	public static final BitSet FOLLOW_IDENTIFIER_in_func_def1817 = new BitSet(new long[]{0x0000000400000000L});
+	public static final BitSet FOLLOW_LPAREN_in_func_def1819 = new BitSet(new long[]{0x0004000000000000L});
+	public static final BitSet FOLLOW_RPAREN_in_func_def1823 = new BitSet(new long[]{0x0282A59431200480L});
+	public static final BitSet FOLLOW_statements_in_func_def1826 = new BitSet(new long[]{0x0000000000200000L});
+	public static final BitSet FOLLOW_END_in_func_def1828 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_IDENTIFIER_in_synpred1_Alia1321 = new BitSet(new long[]{0x0000000000000040L});
 	public static final BitSet FOLLOW_BECOMES_in_synpred1_Alia1323 = new BitSet(new long[]{0x0000000000000002L});
 }
