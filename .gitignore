@@ -1,3 +1,8 @@
+# Auto generated files #
+src\alia\AliaChecker.java
+src\alia\AliaParser.java
+src\alia\AliaLexer.java
+
 # Directories #
 /build/
 /bin/
