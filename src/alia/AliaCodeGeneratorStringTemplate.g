@@ -31,22 +31,34 @@ import java.util.HashSet;
 
 program
     :
-      (statement)+
+      (s+=expr)+
+            ->  file(instructions={$s})
     ;
 
 statements
-  : (t=statement
-  )*;
+  : (s+=expr
+  )*
+            ->  statements(instructions={$s});
     
-statement
-    :   ^(WHILE t=expr ^(DO statements))
-    |   t=expr
-    ; 
-    
+
 expr
     :   (t=operand
-    |   t=expr_comp
-    |   t=expr_math
+    |   ^(OR t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
+    |   ^(OR_ALT t1=expr t2=expr)   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
+    |   ^(AND t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
+    |   ^(AND_ALT t1=expr t2=expr)   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
+    |   ^(EQ t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"eq"})
+    |   ^(NQ t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"ne"})
+    |   ^(LE t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"le"})
+    |   ^(GE t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"ge"})
+    |   ^(GT t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"gt"})
+    |   ^(LT t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"lt"})
+    |   ^(PLUS t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"add"})
+    |   ^(MINUS t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"sub"})
+    |   ^(TIMES t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"mul"})
+    |   ^(DIV t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"div"})
+    |   ^(MOD t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
+    | ^(WHILE expr ^(DO statements))
     | ^(PRINT t=exprlist)
     | ^(READ t=varlist)
   | ^((NOT | PLUS_OP | MINUS_OP) t=operand))
@@ -66,24 +78,7 @@ expr
     |   ^(COMPOUND
       t=statements)
     ;
-    
-expr_comp
-    :   ^(OR t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
-    |   ^(OR_ALT t1=expr t2=expr)   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
-    |   ^(AND t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
-    |   ^(AND_ALT t1=expr t2=expr)   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
-    |   ^(EQ t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"eq"})
-    |   ^(NQ t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"ne"})
-    |   ^(LE t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"le"})
-    |   ^(GE t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"ge"})
-    |   ^(GT t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"gt"})
-    |   ^(LT t1=expr t2=expr)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"lt"})
-    |   ^(PLUS t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"add"})
-    |   ^(MINUS t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"sub"})
-    |   ^(TIMES t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"mul"})
-    |   ^(DIV t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"div"})
-    |   ^(MOD t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
-    ;
+     
 operand
     :   id=IDENTIFIER 
     |   n=NUMBER 

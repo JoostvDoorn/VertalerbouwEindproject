@@ -80,7 +80,7 @@ public class Alia {
             if (options.contains(Option.CODE_GENERATOR)) {
                 // generate TAM assembler code using string template
                 // 1. Read template file
-                FileReader groupFileR = new FileReader("tam.stg");
+                FileReader groupFileR = new FileReader("src/alia/jbc.stg");
                 StringTemplateGroup templates 
                     = new StringTemplateGroup(groupFileR);
                 groupFileR.close();
