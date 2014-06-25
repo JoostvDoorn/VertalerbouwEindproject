@@ -103,17 +103,18 @@ operand : read |
 	   	  LPAREN! expr RPAREN! |
 	   	  compound_stmnt |
 	   	  NUMBER |
-	   	  char_expr |
+	   	  CHAR_EXPR |
 	   	  boolean_expr |
 	   	  func_identifier;
 
-compound_stmnt : BEGIN statements END -> COMPOUND statements;
+compound_stmnt : BEGIN statements END -> ^(COMPOUND statements);
 
 char_expr : SQUOTE! LETTER SQUOTE!;
 
 func_identifier : IDENTIFIER 
 				(LPAREN^ exprlist? RPAREN)?;
 //
+
 
 
 while_stmnt : WHILE^ expr DO statements END;
@@ -123,9 +124,9 @@ if_stmnt : IF^ expr DO! statements (ELSEIF expr DO! statements)* (ELSE statement
 print : PRINT^ LPAREN! exprlist RPAREN!;
 read : READ^ LPAREN! varlist RPAREN!;
 
-varlist : IDENTIFIER (COMMA IDENTIFIER)*;
+varlist : IDENTIFIER (COMMA! IDENTIFIER)*;
 
-exprlist : expr (COMMA expr)*;
+exprlist : expr (COMMA! expr)*;
 
 func_def : DEF IDENTIFIER LPAREN!  RPAREN! statements END;
 
@@ -140,6 +141,9 @@ boolean_expr : TRUE | FALSE;
 
 type : CHAR | INT | BOOL;
 
+
+
+CHAR_EXPR : SQUOTE LETTER SQUOTE;
 
 IDENTIFIER
     :   LETTER (LETTER | DIGIT)*
@@ -161,11 +165,10 @@ WS
             { $channel=HIDDEN; }
     ;
 
+fragment LETTER :   LOWER | UPPER ;
 fragment DIGIT  :   ('0'..'9') ;
 fragment LOWER  :   ('a'..'z') ;
 fragment UPPER  :   ('A'..'Z') ;
-fragment LETTER :   LOWER | UPPER ;
 
 
 //TODO: Constanten
-//TODO: Compound expressions
