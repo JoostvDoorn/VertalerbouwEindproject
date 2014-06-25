@@ -68,14 +68,23 @@ public abstract class CheckerAux extends TreeParser {
 	
 	
 	//Symbol table related functions
-	protected void declare(String name, _Type t) throws SymbolTableException{
+	protected void declare(String name, _Type t) throws AliaException{
 		IdEntry entry = new IdEntry();
 		entry.setType(t);
-		symTab.enter(name, entry);
+		try {
+			symTab.enter(name, entry);
+		} catch (SymbolTableException e) {
+			throw new AliaException(e.getMessage());
+		}
 	}
 	
-	protected _Type getType(String name) throws SymbolTableException{
-		IdEntry id = symTab.retrieve(name);
+	protected _Type getType(String name) throws AliaException {
+		IdEntry id;
+		try {
+			id = symTab.retrieve(name);
+		} catch (SymbolTableException e) {
+			throw new AliaException(e.getMessage());
+		}
 		return id.getType();
 	}
 	
