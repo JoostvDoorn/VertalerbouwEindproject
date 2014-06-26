@@ -58,9 +58,9 @@ expr
     |   ^(TIMES t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"mul"})
     |   ^(DIV t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"div"})
     |   ^(MOD t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
-    | ^(WHILE expr ^(DO statements))
-    | ^(PRINT t=exprlist)
-    | ^(READ t=varlist)
+    | ^(WHILE t1=expr ^(DO t2=statements))  -> whilestmt(x={$t.st}, y={$t2.st})
+    | ^(PRINT t=exprlist)                   -> printstmt(x={$t.st})
+    | ^(READ t=varlist)                     -> readstmt(x={$t.st})
   | ^((NOT | PLUS_OP | MINUS_OP) t=operand))
     |   ^(IF
         t=statements
@@ -74,16 +74,15 @@ expr
         ))?
       )
       
-    |   ^(BECOMES id=IDENTIFIER t1=expr (COLON t2=type)?)
-    |   ^(COMPOUND
-      t=statements)
+    |   ^(BECOMES id=IDENTIFIER t1=expr (COLON t2=type)?) -> assign(x={$id.st}), addr, y={t1.st}) //TODO address
+    |   ^(COMPOUND t=statements)                          -> statements(x={$t.st})
     ;
      
 operand
-    :   id=IDENTIFIER 
-    |   n=NUMBER 
-    |   c=CHAR_EXPR
-    |   b=(TRUE | FALSE)
+    :   id=IDENTIFIER            -> id(id={$id.st}) //TODO address?
+    |   n=NUMBER                 -> number(n={$n.st})
+    |   c=CHAR_EXPR              -> character(c={$c.st})
+    |   b=(TRUE | FALSE)         -> boolean(b={$b.st})
     ;
 
 

@@ -12,3 +12,8 @@ Voor verslag
 4. problemen en oplossingen
 5. vertaalregels
 6. beschrijving java-programmatuur
+
+
+
+Problemen:
+Scope definitie. Doordat we geen expliciete declaraties hebben kunnen we niet een variabele herdefinieren binnen een nieuwe scope. Bij het herdefinieren zou de waarde in de scope erboven dan niet worden overschreven maar zou er een variabele met een andere geheugenlocatie worden gebruikt. We hebben besloten dat we dit zo willen. Als het niet mogelijk is om eerder gedefineërde variabelen te overschrijven verlies je een groot stuk functionaliteit. Het niet kunnen definiëeren van nieuwe variabelen met dezelfde naam als in bovenliggende scopes daarintegen is niet erg, je kan ze gewoon een nieuwe naam geven.
