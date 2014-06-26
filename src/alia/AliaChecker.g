@@ -153,12 +153,16 @@ expr returns [_Type type]
    			}
    		)
    		
-   	|   ^(BECOMES id=IDENTIFIER t1=expr (COLON typ=type)?)
+   	|   ^(BECOMES id=IDENTIFIER t1=expr typeToken=(COLON typ=type)?)
         {   
         	_Type declType = checkEqualType($t1.type, $typ.type);
         	declare($id.text, declType);
     		$type = declType;
+    		
+        	String typename = String.valueOf($type);
+        	String identifier = String.valueOf(getIdentifier($id.text));
         }
+	   	-> ^(BECOMES ^(IDENTIFIER ^(TYPE[typename]) ^(ID[identifier])) expr $typeToken?)
    	|   ^(COMPOUND
    		{ // symTab.openScope
    			symTab.openScope();
@@ -176,15 +180,8 @@ expr returns [_Type type]
 
 
 operand returns [_Type type]
-    :   id=IDENTIFIER 
-        {
-        	$type = getType($id.text);
-        	// TODO: In functions type inference should also be included here. Example function test(x) x = x + 1
-        	
-        	String typename = String.valueOf($type);
-        	String identifier = String.valueOf(getIdentifier($id.text));
-         }
-	   	-> $id ^(TYPE[typename]) ^(ID[identifier])
+    :   id=identifier 
+        { $type = $id.type; }
     |   n=NUMBER 
     	{ $type = new _Int(); }
     |   c=CHAR_EXPR
@@ -195,15 +192,29 @@ operand returns [_Type type]
 
 
 varlist returns [_Type type] 
-	: id=IDENTIFIER
+	: t=identifier
 		{
-			$type = getType($id.text);
+			$type = $t.type;
 		}
-		(IDENTIFIER
+		(identifier
 			{
 				$type = new _Void();
 			}
-		)*;
+			
+		)*
+	;
+identifier returns [_Type type]
+	:
+	id=IDENTIFIER
+		{
+			$type = getType($id.text);
+        	String typename = String.valueOf($type);
+        	String identifier = String.valueOf(getIdentifier($id.text));
+        	// TODO: In functions type inference should also be included here. Example function test(x) x = x + 1
+        	
+		}
+	-> ^(IDENTIFIER ^(TYPE[typename]) ^(ID[identifier]))
+	;
 
 exprlist returns [_Type type]
     : t=expr
