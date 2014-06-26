@@ -43,7 +43,7 @@ statements
     
 
 expr
-    :   (o=operand
+    :   o=operand
     |   ^(OR t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
     |   ^(OR_ALT t1=expr t2=expr t=TYPE)   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
     |   ^(AND t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
@@ -62,7 +62,9 @@ expr
     | ^(WHILE cond=expr ^(DO t2=statements))  -> whilestmt(x={$cond.st}, y={$t2.st})
     | ^(PRINT exp=exprlist t=TYPE)                   -> printstmt(x={$exp.st})
     | ^(READ v=varlist t=TYPE)                     -> readstmt(x={$v.st})
-  | ^((NOT | PLUS_OP | MINUS_OP) o=operand))
+    | ^(NOT o=operand t=TYPE)                    -> unarynot(x={$o.st}, instr={"not"})
+    | ^(PLUS_OP o=operand t=TYPE)                  -> unaryplus(x={$o.st}, instr={"plus"})
+    | ^(MINUS_OP o=operand t=TYPE)                 -> unarymin(x={$o.st}, instr={"neg"})
     |   ^(IF
         stif1=statements
         ^(DO stif2=statements)

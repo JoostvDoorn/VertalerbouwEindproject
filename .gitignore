@@ -2,6 +2,7 @@
 src/alia/AliaChecker.java
 src/alia/AliaParser.java
 src/alia/AliaLexer.java
+src/alia/AliaCodeGeneratorStringTemplate.java
 
 # Directories #
 /build/
