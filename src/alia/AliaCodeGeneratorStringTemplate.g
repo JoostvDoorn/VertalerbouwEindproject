@@ -5,6 +5,7 @@ options {
     tokenVocab=Alia;                    // import tokens from Calc.tokens
     output = template;
     ASTLabelType=CommonTree;            // AST nodes are of type CommonTree
+    superClass=CodeGeneratorAux;
 }
 
 @header {
@@ -58,10 +59,10 @@ expr
     |   ^(TIMES t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"mul"})
     |   ^(DIV t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"div"})
     |   ^(MOD t1=expr t2=expr)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
-    | ^(WHILE expr ^(DO statements))
-    | ^(PRINT t=exprlist)
-    | ^(READ t=varlist)
-  | ^((NOT | PLUS_OP | MINUS_OP) t=operand))
+    |   ^(WHILE expr ^(DO statements))
+    |   ^(PRINT t=exprlist)
+    |   ^(READ t=varlist)
+    |   ^((NOT | PLUS_OP | MINUS_OP) t=operand))
     |   ^(IF
         t=statements
         ^(DO ts=statements)

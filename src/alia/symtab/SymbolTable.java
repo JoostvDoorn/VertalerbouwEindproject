@@ -10,7 +10,8 @@ import java.util.Stack;
 
 public class SymbolTable<Entry extends IdEntry> {
 	private Map<String, Stack<Entry>> symtab;
-	private Stack<List<String>> scopeStack;
+	private Stack<List<String>> scopeStack; 
+	private int currentIdentifier = 0;
 	private int level = -1;
     /**
      * Constructor.
@@ -41,6 +42,8 @@ public class SymbolTable<Entry extends IdEntry> {
     	// Remove the items from the symbol table
     	for(String item : scopeStack.pop()) {
     		symtab.get(item).pop();
+    		currentIdentifier--;
+    		
     	}
     	level--;
     }
@@ -75,6 +78,8 @@ public class SymbolTable<Entry extends IdEntry> {
     	}
     	else {
         	entry.setLevel(level);
+        	entry.setIdentifier(currentIdentifier);
+        	currentIdentifier++;
         	scopeStack.peek().add(id);
         	entryStack.push(entry);
     	}
@@ -93,6 +98,15 @@ public class SymbolTable<Entry extends IdEntry> {
     		throw (new SymbolTableException("Not yet declared"));
     	}
         return resultStack.peek();
+    }
+    
+    /**
+     * Returns true if the entry is defined.
+     * @return  true if there is an entry for the symbol
+     */
+    public boolean isDefined(String id) {
+    	Stack<Entry> resultStack = symtab.get(id);
+        return !(resultStack == null || resultStack.empty());
     }
 }
 
