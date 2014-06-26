@@ -10,6 +10,15 @@ statements(instructions) ::= <<
 <instructions; separator="\n">
 >>
 
+
+whilestmt() ::= <<>>
+printstmt() ::= <<>>
+readstmt() ::= <<>>
+id() ::= <<>>
+number() ::= <<>>
+character() ::= <<>>
+boolean() ::= <<>>
+
 declare(var, addr) ::= <<
 PUSH        1
 >>

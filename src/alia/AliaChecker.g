@@ -78,7 +78,7 @@ expr returns [_Type type]
 	   	    $type = new _Bool();
         	String typename = String.valueOf($type);
 	   	}
-	   	-> ^($c expr expr ^(TYPE[typename]))
+	   	-> ^($c expr expr TYPE[typename])
     |   (^(c=PLUS te1=expr te2=expr)
     |   ^(c=MINUS te1=expr te2=expr)
     |   ^(c=TIMES te1=expr te2=expr)
@@ -89,25 +89,25 @@ expr returns [_Type type]
 	    	$type = new _Int();
         	String typename = String.valueOf($type);
 	    }
-	   	-> ^($c expr expr ^(TYPE[typename]))
+	   	-> ^($c expr expr TYPE[typename])
     |	^(PRINT te=exprlist)
     	{
     		$type = $te.type;
         	String typename = String.valueOf($type);
         }
-	   	-> ^(PRINT exprlist ^(TYPE[typename]))
+	   	-> ^(PRINT exprlist TYPE[typename])
     |	^(READ tv=varlist)
     	{
     		$type = $tv.type;
         	String typename = String.valueOf($type);
         }
-	   	-> ^(READ varlist ^(TYPE[typename]))
+	   	-> ^(READ varlist TYPE[typename])
 	|	^(c=(NOT | PLUS_OP | MINUS_OP) to=operand)
     	{
     		$type = $to.type;
         	String typename = String.valueOf($type);
         }
-	   	-> ^($c operand ^(TYPE[typename]))
+	   	-> ^($c operand TYPE[typename])
    	|   ^(IF
    			{
    				symTab.openScope(); // Open scope for conditional statements, the scope is the same for the IF and ELSEIF conditions
@@ -153,7 +153,7 @@ expr returns [_Type type]
    			}
    		)
    		
-   	|   ^(BECOMES id=IDENTIFIER t1=expr typeToken=(COLON typ=type)?)
+   	|   ^(BECOMES id=IDENTIFIER t1=expr (COLON typ=type)?)
         {   
         	_Type declType = checkEqualType($t1.type, $typ.type);
         	declare($id.text, declType);
@@ -162,7 +162,7 @@ expr returns [_Type type]
         	String typename = String.valueOf($type);
         	String identifier = String.valueOf(getIdentifier($id.text));
         }
-	   	-> ^(BECOMES ^(IDENTIFIER ^(TYPE[typename]) ^(ID[identifier])) expr $typeToken?)
+	   	-> ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) expr)
    	|   ^(COMPOUND
    		{ // symTab.openScope
    			symTab.openScope();
@@ -174,7 +174,7 @@ expr returns [_Type type]
     		$type = $t.type;
         	String typename = String.valueOf($type);
         }
-	   	-> ^(COMPOUND ^(TYPE[typename]) statements)
+	   	-> ^(COMPOUND TYPE[typename] statements)
     ;
     
 
@@ -213,7 +213,7 @@ identifier returns [_Type type]
         	// TODO: In functions type inference should also be included here. Example function test(x) x = x + 1
         	
 		}
-	-> ^(IDENTIFIER ^(TYPE[typename]) ^(ID[identifier]))
+	-> ^(IDENTIFIER TYPE[typename] ID[identifier])
 	;
 
 exprlist returns [_Type type]
