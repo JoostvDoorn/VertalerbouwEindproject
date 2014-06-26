@@ -87,13 +87,13 @@ expr returns [_Type type]
     		$type = $te.type;
         	String typename = String.valueOf($type);
         }
-	   	-> ^(PRINT exprlist TYPE[typename])
+	   	-> ^(PRINT TYPE[typename] exprlist)
     |	^(READ tv=varlist)
     	{
     		$type = $tv.type;
         	String typename = String.valueOf($type);
         }
-	   	-> ^(READ varlist TYPE[typename])
+	   	-> ^(READ TYPE[typename] varlist)
 	|	^(c=(NOT | PLUS_OP | MINUS_OP) to=operand)
     	{
     		$type = $to.type;
@@ -182,19 +182,6 @@ operand returns [_Type type]
     	{ $type = new _Bool(); }
     ;
 
-
-varlist returns [_Type type] 
-	: t=identifier
-		{
-			$type = $t.type;
-		}
-		(identifier
-			{
-				$type = new _Void();
-			}
-			
-		)*
-	;
 identifier returns [_Type type]
 	:
 	id=IDENTIFIER
@@ -208,6 +195,20 @@ identifier returns [_Type type]
 	-> ^(IDENTIFIER TYPE[typename] ID[identifier])
 	;
 
+
+varlist returns [_Type type] 
+	: t=identifier
+		{
+			$type = $t.type;
+		}
+		(identifier
+			{
+				$type = new _Void();
+			}
+			
+		)*
+	;
+	
 exprlist returns [_Type type]
     : t=expr
 		{
