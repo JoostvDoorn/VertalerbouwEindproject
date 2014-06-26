@@ -77,21 +77,23 @@ expr
         ))?
       )
       
-    |   ^(BECOMES ^(id=IDENTIFIER t=TYPE a=ID) t1=expr) //-> assign(x={$id.st}), addr, y={t1.st}) //TODO address
-    |   ^(COMPOUND t=TYPE s=statements)                   //       -> statements(x={$s.st})
+    |   ^(BECOMES ^(id=IDENTIFIER t=TYPE a=ID) t1=expr) -> assign(var={$id},addr={$a}, expr={$t1.st}) //TODO address
+    |   ^(COMPOUND t=TYPE s=statements)                          -> statements(x={$s.st})
     ;
      
 operand
-    :   ^(id=IDENTIFIER t=TYPE a=ID)           //-> id(id={$id.st}) //TODO address?
+    :   identifier
     |   n=NUMBER                 -> number(n={$n})
     |   c=CHAR_EXPR              -> character(c={$c})
     |   b=(TRUE | FALSE)         -> boolean(b={$b})
     ;
 
-
+identifier
+  : ^(id=IDENTIFIER t=TYPE a=ID)           //-> id(id={$id.st}) //TODO address?
+  ;
 varlist
-  : id=IDENTIFIER
-    (IDENTIFIER)*;
+  : identifier
+    (identifier)*;
 
 exprlist
     : t=expr
