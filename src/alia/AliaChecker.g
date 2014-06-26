@@ -5,6 +5,7 @@ options {
     tokenVocab=Alia;                    // import tokens from Calc.tokens
     ASTLabelType=CommonTree;            // AST nodes are of type CommonTree
     superClass=CheckerAux;
+    output=AST;
 }
 
 @header {
@@ -47,17 +48,66 @@ statement returns [_Type type = new _Void()]
     |   t=expr
 	{ $type = $t.type; }
     ; 
-    
+exprtest returns [_Type type]
+	:   t=expr
+		{
+		
+        String c2 = String.valueOf($t.type);
+	    	$type = $t.type;
+	    } -> expr ^(TYPE[c2])
+		
+    ;
+
 expr returns [_Type type]
-    :   (t=operand
-    |   t=expr_comp
-    |   t=expr_math
-    |	^(PRINT t=exprlist)
-    |	^(READ t=varlist)
-	|	^((NOT | PLUS_OP | MINUS_OP) t=operand))
+    :   to=operand
+		{
+			$type = $to.type;
+	    }
+    |   (^(c=OR t1=expr t2=expr)
+    |   ^(c=OR_ALT t1=expr t2=expr)
+    |   ^(c=AND t1=expr t2=expr)
+    |   ^(c=AND_ALT t1=expr t2=expr)
+    |   ^(c=EQ t1=expr t2=expr)
+   	|   ^(c=NQ t1=expr t2=expr)
+   	|   ^(c=LE t1=expr t2=expr)
+   	|   ^(c=GE t1=expr t2=expr)
+   	|   ^(c=GT t1=expr t2=expr)
+   	|   ^(c=LT t1=expr t2=expr))
+	   	{
+	   	    checkEqualType($t1.type, $t2.type);
+	   	    $type = new _Bool();
+        	String typename = String.valueOf($type);
+	   	}
+	   	-> ^($c expr expr ^(TYPE[typename]))
+    |   (^(c=PLUS te1=expr te2=expr)
+    |   ^(c=MINUS te1=expr te2=expr)
+    |   ^(c=TIMES te1=expr te2=expr)
+    |   ^(c=DIV te1=expr te2=expr)
+    |   ^(c=MOD te1=expr te2=expr))
+	    { 
+	    	checkMathType($te1.type, $te2.type);
+	    	$type = new _Int();
+        	String typename = String.valueOf($type);
+	    }
+	   	-> ^($c expr expr ^(TYPE[typename]))
+    |	^(PRINT te=exprlist)
     	{
-    		$type = $t.type;
+    		$type = $te.type;
+        	String typename = String.valueOf($type);
         }
+	   	-> ^(PRINT exprlist ^(TYPE[typename]))
+    |	^(READ tv=varlist)
+    	{
+    		$type = $tv.type;
+        	String typename = String.valueOf($type);
+        }
+	   	-> ^(READ varlist ^(TYPE[typename]))
+	|	^(c=(NOT | PLUS_OP | MINUS_OP) to=operand)
+    	{
+    		$type = $to.type;
+        	String typename = String.valueOf($type);
+        }
+	   	-> ^($c operand ^(TYPE[typename]))
    	|   ^(IF
    			{
    				symTab.openScope(); // Open scope for conditional statements, the scope is the same for the IF and ELSEIF conditions
@@ -103,11 +153,11 @@ expr returns [_Type type]
    			}
    		)
    		
-   	|   ^(BECOMES id=IDENTIFIER t1=expr (COLON t2=type)?)
+   	|   ^(BECOMES id=IDENTIFIER t1=expr (COLON typ=type)?)
         {   
-        	t = checkEqualType($t1.type, $t2.type);
-        	declare($id.text, t);
-    		$type = t;
+        	_Type declType = checkEqualType($t1.type, $typ.type);
+        	declare($id.text, declType);
+    		$type = declType;
         }
    	|   ^(COMPOUND
    		{ // symTab.openScope
@@ -118,42 +168,23 @@ expr returns [_Type type]
         	// closeScope
         	symTab.closeScope();
     		$type = $t.type;
+        	String typename = String.valueOf($type);
         }
+	   	-> ^(COMPOUND ^(TYPE[typename]) statements)
     ;
     
-expr_comp returns [_Type type]
-	:   (^(OR t1=expr t2=expr)
-    |   ^(OR_ALT t1=expr t2=expr)
-    |   ^(AND t1=expr t2=expr)
-    |   ^(AND_ALT t1=expr t2=expr)
-    |   ^(EQ t1=expr t2=expr)
-   	|   ^(NQ t1=expr t2=expr)
-   	|   ^(LE t1=expr t2=expr)
-   	|   ^(GE t1=expr t2=expr)
-   	|   ^(GT t1=expr t2=expr)
-   	|   ^(LT t1=expr t2=expr))
-   	{
-   	  checkEqualType($t1.type, $t2.type);
-   	  $type = new _Bool();
-   	}
-   	;
 
-expr_math returns [_Type type]
-    :   (^(PLUS t1=expr t2=expr)
-    |   ^(MINUS t1=expr t2=expr)
-    |   ^(TIMES t1=expr t2=expr)
-    |   ^(DIV t1=expr t2=expr)
-    |   ^(MOD t1=expr t2=expr))
-    { 
-    	checkMathType($t1.type, $t2.type);
-    	$type = new _Int();
-    }
-    ;
+
 operand returns [_Type type]
     :   id=IDENTIFIER 
-        { $type = getType($id.text);
+        {
+        	$type = getType($id.text);
         	// TODO: In functions type inference should also be included here. Example function test(x) x = x + 1
+        	
+        	String typename = String.valueOf($type);
+        	String identifier = String.valueOf(getIdentifier($id.text));
          }
+	   	-> $id ^(TYPE[typename]) ^(ID[identifier])
     |   n=NUMBER 
     	{ $type = new _Int(); }
     |   c=CHAR_EXPR
@@ -187,6 +218,7 @@ exprlist returns [_Type type]
 			}
 		)*
 	;
+
 
 type returns [_Type type]
     :   INTEGER

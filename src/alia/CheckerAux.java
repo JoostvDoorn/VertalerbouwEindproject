@@ -12,7 +12,7 @@ import alia.symtab.*;
 
 public abstract class CheckerAux extends TreeParser {
 	
-    protected SymbolTable<IdEntry> symTab = new SymbolTable<IdEntry>(); 
+    protected SymbolTable<IdEntry> symTab = new SymbolTable<IdEntry>();
 
 	
 	public CheckerAux(TreeNodeStream input) {
@@ -77,13 +77,15 @@ public abstract class CheckerAux extends TreeParser {
 	protected void declare(String name, _Type t) throws AliaException{
 		IdEntry entry = new IdEntry();
 		entry.setType(t);
-		try {
-			symTab.enter(name, entry);
-		} catch (SymbolTableException e) {
-			//throw new AliaException(e.getMessage());
+		if(!symTab.isDefined(name)) {
+			try {
+				symTab.enter(name, entry);
+			} catch (SymbolTableException e) {
+				// Ignore
+			}
 		}
 	}
-	
+
 	protected _Type getType(String name) throws AliaException {
 		IdEntry id;
 		try {
@@ -93,6 +95,17 @@ public abstract class CheckerAux extends TreeParser {
 			throw new AliaException("test"+e.getMessage());
 		}
 		return id.getType();
+	}
+	
+	protected int getIdentifier(String name) throws AliaException {
+		IdEntry id;
+		try {
+			id = symTab.retrieve(name);
+		} catch (SymbolTableException e) {
+			System.out.println("6");
+			throw new AliaException("test"+e.getMessage());
+		}
+		return id.getIdentifier();
 	}
 	
 	

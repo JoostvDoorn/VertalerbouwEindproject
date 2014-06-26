@@ -62,8 +62,10 @@ tokens {
     BEGIN       =   'begin'        ;
     
     FUNC        =   'func' ;
-    EXPR_LIST   =   'exprlist';
-    COMPOUND    =   'compound';
+    EXPR_LIST;
+    COMPOUND;
+    TYPE;
+    ID;
 }
 
 @lexer::header {

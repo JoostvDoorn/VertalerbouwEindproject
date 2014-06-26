@@ -67,7 +67,8 @@ public class Alia {
             if (!options.contains(Option.NO_CHECKER)) {      // check the AST
                 CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
                 AliaChecker checker = new AliaChecker(nodes);
-                checker.program();
+                AliaChecker.program_return resultChecker = checker.program();
+                tree = (CommonTree) resultChecker.getTree();
             }
 
 //            if (!options.contains(Option.NO_INTERPRETER) &&
@@ -77,7 +78,7 @@ public class Alia {
 //                interpreter.program();
 //            }
 
-            if (options.contains(Option.CODE_GENERATOR)) {
+            if (options.contains(Option.CODE_GENERATOR) && false) {
                 // generate TAM assembler code using string template
                 // 1. Read template file
                 FileReader groupFileR = new FileReader("src/alia/jbc.stg");

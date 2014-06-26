@@ -5,6 +5,7 @@ options {
     tokenVocab=Alia;                    // import tokens from Calc.tokens
     output = template;
     ASTLabelType=CommonTree;            // AST nodes are of type CommonTree
+    superClass=CodeGeneratorAux;
 }
 
 @header {
