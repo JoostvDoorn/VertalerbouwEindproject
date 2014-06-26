@@ -47,3 +47,20 @@ LOAD(1)     <addr>[SB]                  // load value of <var>
 loadnum(val) ::= <<
 LOADL       <val>
 >>
+
+unarynot(x, instr) ::=  <<
+<x>   //if x is 0 make it 1, if x is 1 make it 0
+ifeq //jump forward if 0        jump current+7
+iconst_0  //if original was 1, load 0
+goto // add addr    //jump to current +4
+iconst_1 //if original was 0, load 1
+>>
+
+unaryplus(x, instr) ::= <<  //does nothing, is feature
+<x>
+>>
+
+unarymin(x, instr) ::=  <<
+<x>
+i<instr>
+>>

@@ -62,7 +62,9 @@ expr
     | ^(WHILE t1=expr ^(DO t2=statements))  -> whilestmt(x={$t.st}, y={$t2.st})
     | ^(PRINT t=exprlist)                   -> printstmt(x={$t.st})
     | ^(READ t=varlist)                     -> readstmt(x={$t.st})
-  | ^((NOT | PLUS_OP | MINUS_OP) t=operand))
+    | ^(NOT t=operand)                    -> unarynot(x={$t.st}, instr={"not"})
+    | ^(PLUS_OP t=operand)                  -> unaryplus(x={$t.st}, instr={"plus"})
+    | ^(MINUS_OP t=operand)                 -> unarymin(x={$t.st}, instr={"neg"})
     |   ^(IF
         t=statements
         ^(DO ts=statements)
