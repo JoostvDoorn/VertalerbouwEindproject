@@ -48,15 +48,7 @@ statement returns [_Type type = new _Void()]
     |   t=expr
 	{ $type = $t.type; }
     ; 
-exprtest returns [_Type type]
-	:   t=expr
-		{
-		
-        String c2 = String.valueOf($t.type);
-	    	$type = $t.type;
-	    } -> expr ^(TYPE[c2])
-		
-    ;
+
 
 expr returns [_Type type]
     :   to=operand
