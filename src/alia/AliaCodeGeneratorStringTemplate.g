@@ -43,7 +43,7 @@ statements
     
 
 expr
-    :   o=operand
+    :   o=operand							-> statement(instruction={$o.st})
     |   ^(OR t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
     |   ^(OR_ALT t1=expr t2=expr t=TYPE)   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
     |   ^(AND t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
@@ -189,14 +189,14 @@ expr
     ;
      
 operand
-    :   identifier
+    :   i=identifier			 -> statement(instruction={$i.st})
     |   n=NUMBER                 -> number(n={$n})
     |   c=CHAR_EXPR              -> character(c={$c})
     |   b=(TRUE | FALSE)         -> boolean(b={$b})
     ;
 
 identifier
-  : ^(id=IDENTIFIER t=TYPE a=ID)           //-> id(id={$id.st}) //TODO address?
+  : ^(id=IDENTIFIER t=TYPE a=ID)           -> identifier(addr={$a})
   ;
 varlist
   : identifier
