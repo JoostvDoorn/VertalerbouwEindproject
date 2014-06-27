@@ -101,3 +101,8 @@ elseif(statements1, statements2) ::= <<
   if_icmpne //add address   //jump over statements
   <statements2>
 >>
+
+elsemaybe(statements)           ::= <<
+<statements>
+//iets met returnen van lengte
+>>
