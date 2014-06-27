@@ -68,19 +68,19 @@ expr
     |   ^(IF
         stif1=statements
         ^(DO stif2=statements)
-        (ELSEIF stelseif1=statements
-          ^(DO   stelseif2=statements
-          )
-        )*
-        (^(ELSE
-          stelse=statements
-        ))?
-      )
-      
+        (elseif)*
+        (elsemaybe)?
+      )                                             -> if(x={$stif1.st}, y={$stif2.st})) //TODO from statements pass String?
     |   ^(BECOMES ^(id=IDENTIFIER t=TYPE a=ID) t1=expr) //-> assign(x={$id.st}), addr, y={t1.st}) //TODO address
     |   ^(COMPOUND t=TYPE s=statements)                   //       -> statements(x={$s.st})
     ;
-     
+elseif :
+  ELSEIF stelseif1=statements
+          ^(DO   stelseif2=statements)            ->  elseif(x={$stelseif1.st}, y={$stelseif2.st}) 
+       ;
+elsemaybe :
+  ^(ELSE stelse=statements)                       -> elsemaybe(x={$stelse.st})
+       ;
 operand
     :   ^(id=IDENTIFIER t=TYPE a=ID)           //-> id(id={$id.st}) //TODO address?
     |   n=NUMBER                 -> number(n={$n})

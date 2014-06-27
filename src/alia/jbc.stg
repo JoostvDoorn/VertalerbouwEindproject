@@ -29,9 +29,9 @@ STORE(1)    <addr>[SB]                  // store value into <var>
 >>
 
 print(statements) ::= <<
+getstatic //add right constant pool reference bytes for printstream
 <statements>
-CALL        putint                      // print the expression
-CALL        puteol                      // print end-of-line
+invokevirtual //add right constant pool reference bytes for println
 >>
 
 binexpr(x, y, instr) ::= <<
@@ -72,4 +72,16 @@ unaryplus(x, instr) ::= <<  //does nothing, is feature
 unarymin(x, instr) ::=  <<
 <x>
 i<instr>
+>>
+
+if(statements1, statements2) ::= <<
+  <statements1>
+  if_icmpne //add address   //jump over statements
+  <statements2>
+>>
+
+elseif(statements1, statements2) ::= <<
+  <statements1>
+  if_icmpne //add address   //jump over statements
+  <statements2>
 >>
