@@ -57,7 +57,7 @@ ldc <n>
 >>
 character(c) ::= <<
 
-bpush <c> ; Char
+bipush <c> ; Char
 >>
 boolean(b) ::= <<
 iconst_<if(b)>1<else>0<endif> ; Bool
