@@ -70,9 +70,9 @@ expr
         ^(DO stif2=statements)
         (elseif)*
         (elsemaybe)?
-      )                                             -> if(x={$stif1.st}, y={$stif2.st})) //TODO from statements pass String?
-    |   ^(BECOMES ^(id=IDENTIFIER t=TYPE a=ID) t1=expr) //-> assign(x={$id.st}), addr, y={t1.st}) //TODO address
-    |   ^(COMPOUND t=TYPE s=statements)                   //       -> statements(x={$s.st})
+      )                                             -> if(x={$stif1.st}, y={$stif2.st}) //TODO from statements pass String?
+    |   ^(BECOMES ^(id=IDENTIFIER t=TYPE a=ID) t1=expr) -> assign(var={$id},addr={$a}, expr={$t1.st})
+    |   ^(COMPOUND t=TYPE s=statements)                 -> statements(instructions={$s.st})
     ;
 elseif :
   ELSEIF stelseif1=statements
