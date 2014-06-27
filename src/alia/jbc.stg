@@ -25,14 +25,14 @@ readstmt() ::= <<
 identifier(addr) ::= <<
 iload_<addr>
 >>
-number() ::= <<
-//NUMBER
+number(n) ::= <<
+iload_<n>
 >>
-character() ::= <<
-//CHARACTER
+character(c) ::= <<
+iload_<c> // Char
 >>
-boolean() ::= <<
-//BOOLEAN
+boolean(b) ::= <<
+iload_<b> // Bool
 >>
 
 declare(var, addr) ::= <<
