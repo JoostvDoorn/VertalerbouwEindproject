@@ -174,7 +174,7 @@ expr returns [_Type type]
 operand returns [_Type type]
     :   id=identifier 
         { $type = $id.type; }
-    |   n=NUMBER 
+    |   n=NUMBER // TODO: Check if number is out of bound
     	{ $type = new _Int(); }
     |   c=CHAR_EXPR
     	{ $type = new _Char(); }

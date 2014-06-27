@@ -1,0 +1,76 @@
+\documentclass[paper=a4, fontsize=11pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+
+\usepackage[english]{babel}															% English language/hyphenation
+\usepackage[protrusion=true,expansion=true]{microtype}	
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage[pdftex]{graphicx}	
+\usepackage{url}
+
+%%% Equation and float numbering
+\numberwithin{equation}{section}		% Equationnumbering: section.eq#
+\numberwithin{figure}{section}			% Figurenumbering: section.fig#
+\numberwithin{table}{section}				% Tablenumbering: section.tab#
+
+
+%%% Maketitle metadata
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
+
+\title{
+		%\vspace{-1in} 	
+		\usefont{OT1}{bch}{b}{n}
+		\normalfont \normalsize \textsc{University of Twente} \\ [25pt]
+		\horrule{0.5pt} \\[0.4cm]
+		\huge Alia Programming Language \\
+		\horrule{2pt} \\[0.5cm]
+}
+\author{
+		\normalfont 								\normalsize
+        Fedor Beets\\[-3pt]		\normalsize
+        Joost van Doorn\\[-3pt]		\normalsize
+        \today
+}
+\date{}
+
+
+%%% Begin document
+\begin{document}
+\maketitle
+\section*{Introduction}
+%The Alia programming language was build for the compiler construction project at the University of Twente.
+
+%Korte beschrijving van de eindopdracht
+
+\chapter{Alia Programming Language}
+%De programmeertaal
+%Maximaal een A4
+
+%Typer inference
+%Expression language
+
+\chapter{Problems and solutions}
+%uitleg over de wijze waarop je de problemen die je bent tegengekomen bij het maken van de opdracht hebt opgelost (maximaal twee A4-tjes)
+
+\chapter{Syntax, context-constraints and semantics}
+
+
+\chapter{Translation rules} %Vertaalregels, hoofdstuk 7 van Watt & Brown
+
+\chapter{Java-code}
+%Beknopte bespreking van extra Java-klassen
+%Symbol table management
+%Type checking
+%Code generation
+%Error handeling
+%Welke informatie in AST nodes worden opgeslagen
+\chapter{Tests}
+
+\chapter{Appendices}
+%ANTLR LEXER
+%ANTLR PARSER
+%ANTLR TREEPARSER
+%Een testprogramma (invoer/uitvoer)
+% 
+%%% End document
+\end{document}
