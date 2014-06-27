@@ -43,9 +43,9 @@ i<instr>
 binexprcomp(x, y, instr) ::= <<
 <x>
 <y>
-if_icmp<instr> ; <line_number_store>
+if_icmp<instr> //; line_number_store
 iconst_1
-goto ; <line_number_store>
+goto //; line_number_store
 iconst_0
 >>
 
