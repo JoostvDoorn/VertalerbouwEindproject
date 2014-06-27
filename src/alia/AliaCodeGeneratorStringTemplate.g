@@ -60,7 +60,7 @@ expr
     |   ^(DIV t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"div"})
     |   ^(MOD t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
     | ^(WHILE cond=expr ^(DO t2=statements))  -> whilestmt(x={$cond.st}, y={$t2.st})
-    | ^(PRINT t=TYPE exp=exprlist)                   -> printstmt(x={$exp.st})
+    | ^(PRINT t=TYPE exp=exprlist)                   -> printstmt(statements={$exp.st})
     | ^(READ t=TYPE v=varlist)                     -> readstmt(x={$v.st})
     | ^(NOT o=operand t=TYPE)                    -> unarynot(x={$o.st}, instr={"not"})
     | ^(PLUS_OP o=operand t=TYPE)                  -> unaryplus(x={$o.st}, instr={"plus"})
@@ -83,8 +83,8 @@ elsemaybe :
        ;
 operand
     :   i=identifier			 -> statement(instruction={$i.st})
-    |   n=NUMBER                 -> number(n={$n})
-    |   c=CHAR_EXPR              -> character(c={$c})
+    |   n=NUMBER                 -> number(n={new NumberType(true,false)})
+    |   c=CHAR_EXPR              -> character(c={(int) c.toString().charAt(1)})
     |   b=(TRUE | FALSE)         -> boolean(b={$b})
     ;
 
@@ -92,12 +92,14 @@ identifier
   : ^(id=IDENTIFIER t=TYPE a=ID)           -> identifier(addr={$a})
   ;
 varlist
-  : identifier
-    (identifier)*;
+  : s+=identifier
+    (s+=identifier)*
+    ->  statements(instructions={$s});
 
 exprlist
-    : t=expr
-    (t=expr)*
+    : s+=expr
+    (s+=expr)*
+    ->  statements(instructions={$s})
   ;
 
 type

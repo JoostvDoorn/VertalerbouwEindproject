@@ -1,3 +1,6 @@
 x = 5
 y = 10
+c = 'c'
+z = true
+z = false
 print(x + y)
