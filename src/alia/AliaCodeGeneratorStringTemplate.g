@@ -83,7 +83,7 @@ elsemaybe :
        ;
 operand
     :   i=identifier			 -> statement(instruction={$i.st})
-    |   n=NUMBER                 -> number(n={$n})
+    |   n=NUMBER                 -> number(n={$n}, whatNumber($n)[0], whatNumber($n)[1],whatNumber($n)[2],whatNumber($n)[3],whatNumber($n)[4], whatNumber($n)[5])
     |   c=CHAR_EXPR              -> character(c={$c})
     |   b=(TRUE | FALSE)         -> boolean(b={$b})
     ;
