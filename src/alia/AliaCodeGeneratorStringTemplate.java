@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 // $ANTLR 3.5.2 src\\alia\\AliaCodeGeneratorStringTemplate.g 2014-06-27 09:57:11
 
+=======
+// $ANTLR 3.5.2 src\\alia\\AliaCodeGeneratorStringTemplate.g 2014-06-27 09:39:52
+ 
+>>>>>>> origin/master
 package alia;
 import alia.symtab.SymbolTable;
 import alia.symtab.IdEntry;
