@@ -51,7 +51,7 @@ $elseif(numberType.byteType)$
 bipush <n>
 $elseif(numberType.shortType)$
 sipush <n>
-$elseif(numberType.intType)$
+$endif(numberType.intType)$
 ldc <n>
 >>
 character(c) ::= <<
