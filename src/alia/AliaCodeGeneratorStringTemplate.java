@@ -1,5 +1,5 @@
 // $ANTLR 3.5.2 src\\alia\\AliaCodeGeneratorStringTemplate.g 2014-06-27 09:39:52
-
+ 
 package alia;
 import alia.symtab.SymbolTable;
 import alia.symtab.IdEntry;
