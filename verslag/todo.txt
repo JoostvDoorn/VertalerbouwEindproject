@@ -17,3 +17,5 @@ Voor verslag
 
 Problemen:
 Scope definitie. Doordat we geen expliciete declaraties hebben kunnen we niet een variabele herdefinieren binnen een nieuwe scope. Bij het herdefinieren zou de waarde in de scope erboven dan niet worden overschreven maar zou er een variabele met een andere geheugenlocatie worden gebruikt. We hebben besloten dat we dit zo willen. Als het niet mogelijk is om eerder gedefineërde variabelen te overschrijven verlies je een groot stuk functionaliteit. Het niet kunnen definiëeren van nieuwe variabelen met dezelfde naam als in bovenliggende scopes daarintegen is niet erg, je kan ze gewoon een nieuwe naam geven.
+
+String template expressions: We mogen van StringTemplate geen expressies evalueren in de string template zelf. Dit willen we omdat we in Java een andere operatie willen aanroepen voor het op de stack zetten van integers onder de 6, en dit niet in andere talen zouden willen. Dit lijkt express niet mogelijk in de StringTemplate dus we geven een argument mee bij operand of een integer kleiner is dan 6, groter dan -1, of -1
