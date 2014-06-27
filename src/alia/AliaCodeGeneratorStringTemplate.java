@@ -1,4 +1,4 @@
-// $ANTLR 3.5.2 src\\alia\\AliaCodeGeneratorStringTemplate.g 2014-06-27 13:31:08
+// $ANTLR 3.5.2 src\\alia\\AliaCodeGeneratorStringTemplate.g 2014-06-27 14:37:33
 
 package alia;
 import alia.symtab.SymbolTable;
@@ -1258,7 +1258,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 
 	// $ANTLR start "operand"
-	// src\\alia\\AliaCodeGeneratorStringTemplate.g:84:1: operand : (i= identifier -> statement(instruction=$i.st)|n= NUMBER -> number(n=new NumberType(true,false))|c= CHAR_EXPR -> character(c=(int) c.toString().charAt(1))|b= ( TRUE | FALSE ) -> boolean(b=$b));
+	// src\\alia\\AliaCodeGeneratorStringTemplate.g:84:1: operand : (i= identifier -> statement(instruction=$i.st)|n= NUMBER -> number(n=$n.toString()numberType=whatNumber(Integer.parseInt($n.toString())))|c= CHAR_EXPR -> character(c=(int) c.toString().charAt(1))|b= ( TRUE | FALSE ) -> boolean(b=$b));
 	public final AliaCodeGeneratorStringTemplate.operand_return operand() throws RecognitionException {
 		AliaCodeGeneratorStringTemplate.operand_return retval = new AliaCodeGeneratorStringTemplate.operand_return();
 		retval.start = input.LT(1);
@@ -1269,7 +1269,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 		TreeRuleReturnScope i =null;
 
 		try {
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:85:5: (i= identifier -> statement(instruction=$i.st)|n= NUMBER -> number(n=new NumberType(true,false))|c= CHAR_EXPR -> character(c=(int) c.toString().charAt(1))|b= ( TRUE | FALSE ) -> boolean(b=$b))
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:85:5: (i= identifier -> statement(instruction=$i.st)|n= NUMBER -> number(n=$n.toString()numberType=whatNumber(Integer.parseInt($n.toString())))|c= CHAR_EXPR -> character(c=(int) c.toString().charAt(1))|b= ( TRUE | FALSE ) -> boolean(b=$b))
 			int alt7=4;
 			switch ( input.LA(1) ) {
 			case IDENTIFIER:
@@ -1321,9 +1321,9 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 					{
 					n=(CommonTree)match(input,NUMBER,FOLLOW_NUMBER_in_operand1637); 
 					// TEMPLATE REWRITE
-					// 86:34: -> number(n=new NumberType(true,false))
+					// 86:34: -> number(n=$n.toString()numberType=whatNumber(Integer.parseInt($n.toString())))
 					{
-						retval.st = templateLib.getInstanceOf("number",new STAttrMap().put("n", new NumberType(true,false)));
+						retval.st = templateLib.getInstanceOf("number",new STAttrMap().put("n", n.toString()).put("numberType", whatNumber(Integer.parseInt(n.toString()))));
 					}
 
 
@@ -1333,7 +1333,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 				case 3 :
 					// src\\alia\\AliaCodeGeneratorStringTemplate.g:87:9: c= CHAR_EXPR
 					{
-					c=(CommonTree)match(input,CHAR_EXPR,FOLLOW_CHAR_EXPR_in_operand1674); 
+					c=(CommonTree)match(input,CHAR_EXPR,FOLLOW_CHAR_EXPR_in_operand1679); 
 					// TEMPLATE REWRITE
 					// 87:34: -> character(c=(int) c.toString().charAt(1))
 					{
@@ -1345,9 +1345,9 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 					}
 					break;
 				case 4 :
-					// src\\alia\\AliaCodeGeneratorStringTemplate.g:89:9: b= ( TRUE | FALSE )
+					// src\\alia\\AliaCodeGeneratorStringTemplate.g:88:9: b= ( TRUE | FALSE )
 					{
-					// src\\alia\\AliaCodeGeneratorStringTemplate.g:89:11: ( TRUE | FALSE )
+					// src\\alia\\AliaCodeGeneratorStringTemplate.g:88:11: ( TRUE | FALSE )
 					int alt6=2;
 					int LA6_0 = input.LA(1);
 					if ( (LA6_0==TRUE) ) {
@@ -1365,13 +1365,13 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 					switch (alt6) {
 						case 1 :
-							// src\\alia\\AliaCodeGeneratorStringTemplate.g:89:12: TRUE
+							// src\\alia\\AliaCodeGeneratorStringTemplate.g:88:12: TRUE
 							{
 							b=(CommonTree)match(input,TRUE,FOLLOW_TRUE_in_operand1714); 
 							}
 							break;
 						case 2 :
-							// src\\alia\\AliaCodeGeneratorStringTemplate.g:89:19: FALSE
+							// src\\alia\\AliaCodeGeneratorStringTemplate.g:88:19: FALSE
 							{
 							b=(CommonTree)match(input,FALSE,FOLLOW_FALSE_in_operand1718); 
 							}
@@ -1380,7 +1380,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 					}
 
 					// TEMPLATE REWRITE
-					// 89:34: -> boolean(b=$b)
+					// 88:34: -> boolean(b=$b)
 					{
 						retval.st = templateLib.getInstanceOf("boolean",new STAttrMap().put("b", b));
 					}
@@ -1415,7 +1415,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 
 	// $ANTLR start "identifier"
-	// src\\alia\\AliaCodeGeneratorStringTemplate.g:92:1: identifier : ^(id= IDENTIFIER t= TYPE a= ID ) -> identifier(addr=$a);
+	// src\\alia\\AliaCodeGeneratorStringTemplate.g:91:1: identifier : ^(id= IDENTIFIER t= TYPE a= ID ) -> identifier(addr=$a);
 	public final AliaCodeGeneratorStringTemplate.identifier_return identifier() throws RecognitionException {
 		AliaCodeGeneratorStringTemplate.identifier_return retval = new AliaCodeGeneratorStringTemplate.identifier_return();
 		retval.start = input.LT(1);
@@ -1425,8 +1425,8 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 		CommonTree a=null;
 
 		try {
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:93:3: ( ^(id= IDENTIFIER t= TYPE a= ID ) -> identifier(addr=$a))
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:93:5: ^(id= IDENTIFIER t= TYPE a= ID )
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:92:3: ( ^(id= IDENTIFIER t= TYPE a= ID ) -> identifier(addr=$a))
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:92:5: ^(id= IDENTIFIER t= TYPE a= ID )
 			{
 			id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifier1754); 
 			match(input, Token.DOWN, null); 
@@ -1435,7 +1435,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 			match(input, Token.UP, null); 
 
 			// TEMPLATE REWRITE
-			// 93:44: -> identifier(addr=$a)
+			// 92:44: -> identifier(addr=$a)
 			{
 				retval.st = templateLib.getInstanceOf("identifier",new STAttrMap().put("addr", a));
 			}
@@ -1468,7 +1468,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 
 	// $ANTLR start "varlist"
-	// src\\alia\\AliaCodeGeneratorStringTemplate.g:95:1: varlist :s+= identifier (s+= identifier )* -> statements(instructions=$s);
+	// src\\alia\\AliaCodeGeneratorStringTemplate.g:94:1: varlist :s+= identifier (s+= identifier )* -> statements(instructions=$s);
 	public final AliaCodeGeneratorStringTemplate.varlist_return varlist() throws RecognitionException {
 		AliaCodeGeneratorStringTemplate.varlist_return retval = new AliaCodeGeneratorStringTemplate.varlist_return();
 		retval.start = input.LT(1);
@@ -1476,8 +1476,8 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 		List<Object> list_s=null;
 		RuleReturnScope s = null;
 		try {
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:96:3: (s+= identifier (s+= identifier )* -> statements(instructions=$s))
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:96:5: s+= identifier (s+= identifier )*
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:95:3: (s+= identifier (s+= identifier )* -> statements(instructions=$s))
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:95:5: s+= identifier (s+= identifier )*
 			{
 			pushFollow(FOLLOW_identifier_in_varlist1796);
 			s=identifier();
@@ -1485,7 +1485,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 			if (list_s==null) list_s=new ArrayList<Object>();
 			list_s.add(s.getTemplate());
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:97:5: (s+= identifier )*
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:96:5: (s+= identifier )*
 			loop8:
 			while (true) {
 				int alt8=2;
@@ -1496,7 +1496,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 				switch (alt8) {
 				case 1 :
-					// src\\alia\\AliaCodeGeneratorStringTemplate.g:97:6: s+= identifier
+					// src\\alia\\AliaCodeGeneratorStringTemplate.g:96:6: s+= identifier
 					{
 					pushFollow(FOLLOW_identifier_in_varlist1805);
 					s=identifier();
@@ -1513,7 +1513,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 			}
 
 			// TEMPLATE REWRITE
-			// 98:5: -> statements(instructions=$s)
+			// 97:5: -> statements(instructions=$s)
 			{
 				retval.st = templateLib.getInstanceOf("statements",new STAttrMap().put("instructions", list_s));
 			}
@@ -1546,7 +1546,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 
 	// $ANTLR start "exprlist"
-	// src\\alia\\AliaCodeGeneratorStringTemplate.g:100:1: exprlist :s+= expr (s+= expr )* -> statements(instructions=$s);
+	// src\\alia\\AliaCodeGeneratorStringTemplate.g:99:1: exprlist :s+= expr (s+= expr )* -> statements(instructions=$s);
 	public final AliaCodeGeneratorStringTemplate.exprlist_return exprlist() throws RecognitionException {
 		AliaCodeGeneratorStringTemplate.exprlist_return retval = new AliaCodeGeneratorStringTemplate.exprlist_return();
 		retval.start = input.LT(1);
@@ -1554,8 +1554,8 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 		List<Object> list_s=null;
 		RuleReturnScope s = null;
 		try {
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:101:5: (s+= expr (s+= expr )* -> statements(instructions=$s))
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:101:7: s+= expr (s+= expr )*
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:100:5: (s+= expr (s+= expr )* -> statements(instructions=$s))
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:100:7: s+= expr (s+= expr )*
 			{
 			pushFollow(FOLLOW_expr_in_exprlist1835);
 			s=expr();
@@ -1563,7 +1563,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 			if (list_s==null) list_s=new ArrayList<Object>();
 			list_s.add(s.getTemplate());
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:102:5: (s+= expr )*
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:101:5: (s+= expr )*
 			loop9:
 			while (true) {
 				int alt9=2;
@@ -1574,7 +1574,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 				switch (alt9) {
 				case 1 :
-					// src\\alia\\AliaCodeGeneratorStringTemplate.g:102:6: s+= expr
+					// src\\alia\\AliaCodeGeneratorStringTemplate.g:101:6: s+= expr
 					{
 					pushFollow(FOLLOW_expr_in_exprlist1844);
 					s=expr();
@@ -1591,7 +1591,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 			}
 
 			// TEMPLATE REWRITE
-			// 103:5: -> statements(instructions=$s)
+			// 102:5: -> statements(instructions=$s)
 			{
 				retval.st = templateLib.getInstanceOf("statements",new STAttrMap().put("instructions", list_s));
 			}
@@ -1624,13 +1624,13 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 
 	// $ANTLR start "type"
-	// src\\alia\\AliaCodeGeneratorStringTemplate.g:106:1: type : ( INTEGER | CHAR | BOOL );
+	// src\\alia\\AliaCodeGeneratorStringTemplate.g:105:1: type : ( INTEGER | CHAR | BOOL );
 	public final AliaCodeGeneratorStringTemplate.type_return type() throws RecognitionException {
 		AliaCodeGeneratorStringTemplate.type_return retval = new AliaCodeGeneratorStringTemplate.type_return();
 		retval.start = input.LT(1);
 
 		try {
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:107:5: ( INTEGER | CHAR | BOOL )
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:106:5: ( INTEGER | CHAR | BOOL )
 			// src\\alia\\AliaCodeGeneratorStringTemplate.g:
 			{
 			if ( (input.LA(1) >= BOOL && input.LA(1) <= CHAR)||input.LA(1)==INTEGER ) {
@@ -1766,7 +1766,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 	public static final BitSet FOLLOW_statements_in_elsemaybe1558 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_identifier_in_operand1613 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_NUMBER_in_operand1637 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_CHAR_EXPR_in_operand1674 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_CHAR_EXPR_in_operand1679 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_TRUE_in_operand1714 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_FALSE_in_operand1718 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_IDENTIFIER_in_identifier1754 = new BitSet(new long[]{0x0000000000000004L});
