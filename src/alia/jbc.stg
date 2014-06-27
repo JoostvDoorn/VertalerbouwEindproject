@@ -42,8 +42,17 @@ readstmt() ::= <<
 identifier(addr) ::= <<
 iload_<addr>
 >>
-number(n) ::= <<
-iconst_<n.intType> <n.shortType>
+number(n, numberType) ::= <<
+$if(numberType.lessthanfive)$
+iconst_<n>
+$elseif(numberType.minusone)$
+iconst_m1
+$elseif(numberType.byteType)$
+bipush <n>
+$elseif(numberType.shortType)$
+sipush <n>
+$elseif(numberType.intType)$
+ldc <n>
 >>
 character(c) ::= <<
 

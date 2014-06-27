@@ -83,9 +83,8 @@ elsemaybe :
        ;
 operand
     :   i=identifier			 -> statement(instruction={$i.st})
-    |   n=NUMBER                 -> number(n={new NumberType(true,false)})
+    |   n=NUMBER                 -> number(n={$n.toString()}, numberType={whatNumber(Integer.parseInt($n.toString()))})
     |   c=CHAR_EXPR              -> character(c={(int) c.toString().charAt(1)})
-    //|   n=NUMBER                 -> number(n={$n}, whatNumber($n)[0], whatNumber($n)[1],whatNumber($n)[2],whatNumber($n)[3],whatNumber($n)[4], whatNumber($n)[5])
     |   b=(TRUE | FALSE)         -> boolean(b={$b})
     ;
 
