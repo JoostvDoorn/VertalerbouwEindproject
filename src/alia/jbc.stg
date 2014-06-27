@@ -10,14 +10,30 @@ statements(instructions) ::= <<
 <instructions; separator="\n">
 >>
 
-
-whilestmt() ::= <<>>
-printstmt() ::= <<>>
-readstmt() ::= <<>>
-id() ::= <<>>
-number() ::= <<>>
-character() ::= <<>>
-boolean() ::= <<>>
+statement(instruction) ::= <<
+<instruction>
+>>
+whilestmt() ::= <<
+// WHILE
+>>
+printstmt() ::= <<
+// PRINT
+>>
+readstmt() ::= <<
+// READ
+>>
+identifier(addr) ::= <<
+iload_<addr>
+>>
+number() ::= <<
+//NUMBER
+>>
+character() ::= <<
+//CHARACTER
+>>
+boolean() ::= <<
+//BOOLEAN
+>>
 
 declare(var, addr) ::= <<
 PUSH        1
@@ -35,8 +51,8 @@ CALL        puteol                      // print end-of-line
 >>
 
 binexpr(x, y, instr) ::= <<
-<x>
-<y>
+<x> // expr1
+<y> // expr2
 i<instr>
 >>
 
