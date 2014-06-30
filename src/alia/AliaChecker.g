@@ -146,6 +146,7 @@ expr returns [_Type type]
 	   |   ^(CONST id=IDENTIFIER BECOMES prim=primitive (COLON typ=type)?)
           { _Type declType = checkEqualType($prim.type, $typ.type);
             declareConst($id.text, declType);
+            $type = declType;
             String typename = String.valueOf($type);
             String identifier = String.valueOf(getIdentifier($id.text));
             }

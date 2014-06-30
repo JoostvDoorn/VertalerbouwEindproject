@@ -73,6 +73,7 @@ expr
     |   ^(BECOMES ^(id=IDENTIFIER t=TYPE a=ID) t1=expr) -> assign(var={$id},addr={$a}, expr={$t1.st})
     |   ^(COMPOUND t=TYPE s=statements)                 -> statements(instructions={$s.st})
     ;
+    //add code generation for constant
 elseif :
   	^(ELSEIF stelseif1=statements
           ^(DO   stelseif2=statements)
