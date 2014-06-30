@@ -74,9 +74,16 @@ public abstract class CheckerAux extends TreeParser {
 	
 	
 	//Symbol table related functions
-	protected void declare(String name, _Type t) throws AliaException{
+	protected IdEntry declare(String name, _Type t) throws AliaException{
 		IdEntry entry = new IdEntry();
 		entry.setType(t);
+		try {
+			if(symTab.retrieve(name).isConstant()){
+				throw new AliaTypeException("Attempting to redefine constant.");
+			}
+		} catch (SymbolTableException e1) {
+			//ignore
+		}
 		if(!symTab.isDefined(name)) {
 			try {
 				symTab.enter(name, entry);
@@ -84,6 +91,12 @@ public abstract class CheckerAux extends TreeParser {
 				// Ignore
 			}
 		}
+		return entry;
+	}
+	
+	protected void declareConst(String name, _Type t) throws AliaException{
+		IdEntry entry = declare(name, t);
+		entry.setConstant();
 	}
 
 	protected _Type getType(String name) throws AliaException {
