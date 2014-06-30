@@ -113,11 +113,11 @@ expr returns [_Type type]
 	   			checkBoolType($t.type);
 	   			symTab.closeScope(); // Close scope for the first statement
 	   		}
-   			te=elseif
+   			texp=elseif
    			{
    				symTab.closeScope(); // Close scope for the conditional statements
 	   			checkBoolType($t.type);
-	   			$type = checkTypesIf($ts.type,$te.type);
+	   			$type = checkTypesIf($ts.type,$texp.type);
    			}
    		)
    		

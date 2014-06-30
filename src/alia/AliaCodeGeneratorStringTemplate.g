@@ -59,7 +59,7 @@ expr
     |   ^(TIMES t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"mul"})
     |   ^(DIV t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"div"})
     |   ^(MOD t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
-    | ^(WHILE cond=expr ^(DO t2=statements))  -> whilestmt(x={$cond.st}, y={$t2.st})
+    | ^(WHILE cond=expr ^(DO t2=statements))  -> whilestmt(expr={$cond.st}, statement={$t2.st}, labelCond={newLabel()}, labelWhile={newLabel()})
     | ^(PRINT t=TYPE exp=exprlist)                   -> printstmt(statements={$exp.st})
     | ^(READ t=TYPE v=varlist)                     -> readstmt(x={$v.st})
     | ^(NOT o=operand t=TYPE)                    -> unarynot(x={$o.st}, instr={"not"})
@@ -68,18 +68,16 @@ expr
     |   ^(IF
         stif1=statements
         ^(DO stif2=statements)
-        (elseif)*
-        (elsemaybe)?
-      )                                             -> if(x={$stif1.st}, y={$stif2.st}) //TODO from statements pass String?
+        (elsestmnts=elseif)?
+      )                                             -> ifstmnt(cond={$stif1.st}, statements={$stif2.st}, elseStmnts={elsestmnts}, labelElse={newLabel()}, labelNext={newLabel()})
     |   ^(BECOMES ^(id=IDENTIFIER t=TYPE a=ID) t1=expr) -> assign(var={$id},addr={$a}, expr={$t1.st})
     |   ^(COMPOUND t=TYPE s=statements)                 -> statements(instructions={$s.st})
     ;
 elseif :
-  ELSEIF stelseif1=statements
-          ^(DO   stelseif2=statements)            ->  elseif(x={$stelseif1.st}, y={$stelseif2.st}) 
-       ;
-elsemaybe :
-  ^(ELSE stelse=statements)                       -> elsemaybe(x={$stelse.st})
+  	^(ELSEIF stelseif1=statements
+          ^(DO   stelseif2=statements)
+          elsestmnts=statements)            ->  elseifstmnt(cond={$stelseif1.st}, statements={$stelseif2.st}, elseStmnts={elsestmnts}, labelElse={newLabel()}, labelNext={newLabel()})
+  | ^(ELSE stelse=statements)                       -> elsemaybestmnt(statements={$stelse.st}) 
        ;
 operand
     :   i=identifier			 -> statement(instruction={$i.st})

@@ -6,6 +6,7 @@ import org.antlr.runtime.tree.TreeParser;
 
 public class CodeGeneratorAux extends TreeParser {
 	
+	protected int labelId = 0;
 	
 	public CodeGeneratorAux(TreeNodeStream input) {
 		super(input);
@@ -32,6 +33,10 @@ public class CodeGeneratorAux extends TreeParser {
 		} 
 		NumberType numbool = new NumberType(lessthanfive, minusone, isbyte, isshort, isint);
 		return numbool;
+	}
+	
+	public int newLabel() {
+		return labelId++;
 	}
 
 
