@@ -31,17 +31,11 @@ public abstract class CheckerAux extends TreeParser {
 		}
 	}
 	
-	protected _Type checkTypesIf(List<_Type> list) throws AliaException{
-		_Type t = new _Bool();
-		if(list.isEmpty()){
-			System.out.println("2");
-			throw new AliaException("No types to be checked.");
-		} else {
-			_Type c = list.get(0);
-			for(_Type x : list){
-				if(!x.equals(c)){
-					t = new _Void();
-				}
+	protected _Type checkTypesIf(_Type a, _Type b) throws AliaException{
+		_Type t = a;
+		if(b != null) { // This is done for those functions that have an optional value b.
+			if(!a.equals(b)){
+				t = new _Void();
 			}
 		}
 		return t;
@@ -50,7 +44,6 @@ public abstract class CheckerAux extends TreeParser {
 	protected _Type checkEqualType(_Type a, _Type b) throws AliaTypeException{
 		if(b != null) { // This is done for those functions that have an optional value b.
 			if(!a.equals(b)){
-				System.out.println("3");
 				throw new AliaTypeException("Type " + a.toString() + " is not equal to " + b.toString() + ".");
 			}
 		}
