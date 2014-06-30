@@ -1,0 +1,14 @@
+x = 0
+
+while x < 13 do
+	x = x + 1
+	print(x)
+	
+i = 0
+
+while i < 13 do
+	i = i + 1
+	print(i)
+end
+	
+end
