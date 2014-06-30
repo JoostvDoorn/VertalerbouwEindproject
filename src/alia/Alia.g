@@ -87,7 +87,7 @@ statement : (expr_assignment | const_assignment) (COLON type)? end_statement |
 			
 end_statement : NEWLINE! | SEMICOLON! | EOF!;
 
-const_assignment : CONST^ IDENTIFIER BECOMES;
+const_assignment : CONST^ IDENTIFIER BECOMES primitive;
 
 // Syntactic predicate to recognize assignments
 // Syntactic predicates can be easily left out if we do not allow expr as statements
@@ -107,12 +107,12 @@ operand : read |
 	   	  if_stmnt |
 	   	  LPAREN! expr RPAREN! |
 	   	  compound_stmnt |
-	   	  NUMBER |
-	   	  CHAR_EXPR |
-	   	  boolean_expr |
+	   	  primitive |
 	   	  func_identifier;
 
 compound_stmnt : BEGIN statements END -> ^(COMPOUND statements);
+
+primitive : NUMBER | CHAR_EXPR | boolean_expr;
 
 char_expr : SQUOTE! LETTER SQUOTE!;
 
