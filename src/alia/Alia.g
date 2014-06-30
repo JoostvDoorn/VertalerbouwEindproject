@@ -124,8 +124,12 @@ func_identifier : IDENTIFIER
 
 while_stmnt : WHILE expr DO statements END -> ^(WHILE expr ^(DO statements));
 
-if_stmnt : IF^ statements (DO^ statements) (ELSEIF expr (DO^ statements))* (ELSE^ statements)? END!;
+if_stmnt : IF^ statements (DO^ statements) else_stmnt END!;
 
+else_stmnt
+    : (ELSEIF^ expr (DO^ statements) else_stmnt)
+	| (ELSE^ statements)
+	; 
 print : PRINT^ LPAREN! exprlist RPAREN!;
 read : READ^ LPAREN! varlist RPAREN!;
 
