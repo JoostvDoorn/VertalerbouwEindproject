@@ -110,38 +110,14 @@ expr returns [_Type type]
    			}
    			^(DO ts=statements)
 	   		{
-	   			List<_Type> types = new ArrayList();
-		   		types.add($ts.type);
 	   			checkBoolType($t.type);
 	   			symTab.closeScope(); // Close scope for the first statement
 	   		}
-   			(ELSEIF t=statements
-   				^(DO
-	   			{
-	   				symTab.openScope(); // Open scope for this elseif statement
-	   			}
-   				ts=statements
-		   		{
-		   			types.add($ts.type);
-		   			checkBoolType($t.type);
-		   			symTab.closeScope();
-		   		}
-		   		)
-		   	)*
-   			(^(ELSE
-	   			{
-	   				symTab.openScope(); // Open scope for the else statement
-	   			}
-   				ts=statements
-		   		{
-		   			types.add($ts.type);
-	   				symTab.closeScope(); // Open scope for the else statement
-		   		}
-		   	))?
+   			te=elseif
    			{
    				symTab.closeScope(); // Close scope for the conditional statements
 	   			checkBoolType($t.type);
-	   			$type = checkTypesIf(types);
+	   			$type = checkTypesIf($ts.type,$te.type);
    			}
    		)
    		
@@ -175,7 +151,34 @@ expr returns [_Type type]
             }
       -> ^(CONST ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) prim))
     ;
-    
+   
+elseif returns [_Type type]
+	:
+		^(ELSEIF t=statements
+			^(DO
+   			{
+   				symTab.openScope(); // Open scope for this elseif statement
+   			}
+			ts=statements
+	   		)
+	   		te=elseif
+	   		{
+	   			checkBoolType($t.type);
+	   			$type = checkTypesIf($ts.type, $te.type);
+	   			symTab.closeScope();
+	   		}
+		)
+	|	^(ELSE
+   			{
+   				symTab.openScope(); // Open scope for the else statement
+   			}
+			ts=statements
+	   		{
+	   			$type = $ts.type;
+   				symTab.closeScope(); // Open scope for the else statement
+	   		}
+	   	)
+	; 
 
 
 operand returns [_Type type]
