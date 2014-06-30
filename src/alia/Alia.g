@@ -58,6 +58,7 @@ tokens {
     WHILE       =   'while'     ;
     TRUE		=   'true'    ;
     FALSE		=   'false'    ;
+    CONST       = 'const'   ;
     DEF         =   'def'        ;
     BEGIN       =   'begin'        ;
     
@@ -81,10 +82,12 @@ package alia;
 program : (declaration | statement | NEWLINE!)*;
 declaration : func_def;
 statements : (statement | NEWLINE!)*;
-statement : expr_assignment (COLON type)? end_statement |
+statement : (expr_assignment | const_assignment) (COLON type)? end_statement |
 			while_stmnt;
 			
 end_statement : NEWLINE! | SEMICOLON! | EOF!;
+
+const_assignment : CONST^ IDENTIFIER BECOMES;
 
 // Syntactic predicate to recognize assignments
 // Syntactic predicates can be easily left out if we do not allow expr as statements
