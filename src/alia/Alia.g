@@ -13,6 +13,8 @@ tokens {
     SEMICOLON   =   ';'     ;
     LPAREN      =   '('     ;
     RPAREN      =   ')'     ;
+    LCURLY      =   '{'     ;
+    RCURLY      =   '}'     ;
     SQUOTE      =   '\''     ;
 
     // operators
@@ -79,12 +81,13 @@ package alia;
 
 
 
-program : (declaration | statement | NEWLINE!)*;
+program : (declaration | (statement end_statement) | NEWLINE!)*;
 declaration : func_def;
-statements : (statement | NEWLINE!)*;
-statement : (expr_assignment | const_assignment) (COLON type)? end_statement |
-			while_stmnt;
-			
+
+statements_cond : statement (end_statement statements)? | NEWLINE! statements_cond;
+statements : (statement (end_statement statements)? | NEWLINE! statements_cond)?;
+statement : (expr_assignment | const_assignment) (COLON type)?
+			| while_stmnt;
 end_statement : NEWLINE! | SEMICOLON! | EOF!;
 
 const_assignment : CONST^ IDENTIFIER BECOMES primitive;
@@ -122,12 +125,13 @@ func_identifier : IDENTIFIER
 
 
 
-while_stmnt : WHILE expr DO statements END -> ^(WHILE expr ^(DO statements));
+while_stmnt : WHILE statements_cond DO statements END -> ^(WHILE statements_cond ^(DO statements));
 
-if_stmnt : IF^ statements (DO^ statements) else_stmnt END!;
+if_stmnt : IF statements_cond DO statements else_stmnt? END ->
+		   ^(IF statements statements else_stmnt);
 
 else_stmnt
-    : (ELSEIF^ expr (DO^ statements) else_stmnt)
+    : (ELSEIF^ statements_cond (DO^ statements) else_stmnt?)
 	| (ELSE^ statements)
 	; 
 print : PRINT^ LPAREN! exprlist RPAREN!;
