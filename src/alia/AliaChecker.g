@@ -143,6 +143,13 @@ expr returns [_Type type]
         	String typename = String.valueOf($type);
         }
 	   	-> ^(COMPOUND TYPE[typename] statements)
+	   |   ^(CONST^ id=IDENTIFIER BECOMES prim=PRIMITIVE (COLON typ=type)?)
+          { _Type declType = checkEqualType($prim.type, $typ.type);
+            declareConst($id.text, declType);
+            String typename = String.valueOf($type);
+            String identifier = String.valueOf(getIdentifier($id.text));
+            }
+      -> ^(CONST ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) prim))
     ;
    
 elseif returns [_Type type]
