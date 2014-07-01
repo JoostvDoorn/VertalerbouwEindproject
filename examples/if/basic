@@ -2,7 +2,7 @@ x = 5
 
 if x < 3 do
 	x = 50
-elseif x < 5 do
+elseif x <= 5 do
 
 	x = 4
 end
