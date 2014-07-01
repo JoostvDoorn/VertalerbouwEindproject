@@ -12,48 +12,25 @@
    .limit stack 20
    .limit locals 20
    
-   iconst_0
+   iconst_5
 
    istore_0                  ; store value into x
-   goto COND2		; Jump to while condition
-   WHILE3:
-   iload_0 ; expr1
-   iconst_1
-    ; expr2
-   iadd
-   istore_0                  ; store value into x
+     iload_0
+     iconst_3
+
+     if_icmplt $+7 ; Go to iconst_1 if it is true
+     iconst_0
+     goto $+4 ; Go to the line after iconst_1
+     iconst_1
+     ifeq ELSE0
+     bipush 50
+     istore_0                  ; store value into x
+     goto NEXT1
+     ELSE0:
+     NEXT1:
    getstatic java/lang/System/out Ljava/io/PrintStream;
    iload_0
    invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
-   iconst_0
-
-   istore_1                  ; store value into i
-   goto COND0		; Jump to while condition
-   WHILE1:
-   iload_1 ; expr1
-   iconst_1
-    ; expr2
-   iadd
-   istore_1                  ; store value into i
-   getstatic java/lang/System/out Ljava/io/PrintStream;
-   iload_1
-   invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
-   COND0:
-   iload_1
-   bipush 13
-   if_icmplt $+7 ; Go to iconst_1 if it is true
-   iconst_0
-   goto $+4 ; Go to the line after iconst_1
-   iconst_1		; Execute condition
-   ifne WHILE1		; Jump to start of inner while statement
-   COND2:
-   iload_0
-   bipush 13
-   if_icmplt $+7 ; Go to iconst_1 if it is true
-   iconst_0
-   goto $+4 ; Go to the line after iconst_1
-   iconst_1		; Execute condition
-   ifne WHILE3		; Jump to start of inner while statement
 
    return
 .end method

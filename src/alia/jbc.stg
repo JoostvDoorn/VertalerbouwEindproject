@@ -118,9 +118,9 @@ unarymin(x, instr) ::=  <<
 i<instr>
 >>
 
-ifsmnt(cond, statements, elseStmnts, labelElse, labelNext) ::= <<
+ifstmnt(cond, statements, elseStmnts, labelElse, labelNext) ::= <<
   <cond>
-  if_icmpne ELSE<labelElse>
+  ifeq ELSE<labelElse>
   <statements>
   goto NEXT<labelNext>
   ELSE<labelElse>:
@@ -130,7 +130,7 @@ ifsmnt(cond, statements, elseStmnts, labelElse, labelNext) ::= <<
 
 elseifstmnt(cond, statements, elseStmnts, labelElse, labelNext) ::= <<
   <cond>
-  if_icmpne ELSE<labelElse>
+  ifeq ELSE<labelElse>
   <statements>
   goto NEXT<labelNext>
   ELSE<labelElse>:
