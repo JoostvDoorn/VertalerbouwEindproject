@@ -1,4 +1,4 @@
-// $ANTLR 3.5.2 src\\alia\\AliaCodeGeneratorStringTemplate.g 2014-07-03 14:31:51
+// $ANTLR 3.5.2 src\\alia\\AliaCodeGeneratorStringTemplate.g 2014-07-03 16:23:42
 
 package alia;
 import alia.symtab.SymbolTable;
@@ -288,7 +288,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 
 	// $ANTLR start "expr"
-	// src\\alia\\AliaCodeGeneratorStringTemplate.g:45:1: expr : (o= operand -> statement(instruction=$o.st)| ^( OR t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"or\")| ^( OR_ALT t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"or\")| ^( AND t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"and\")| ^( AND_ALT t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"and\")| ^( EQ t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"eq\")| ^( NQ t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"ne\")| ^( LE t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"le\")| ^( GE t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"ge\")| ^( GT t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"gt\")| ^( LT t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"lt\")| ^( PLUS t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"add\")| ^( MINUS t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"sub\")| ^( TIMES t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"mul\")| ^( DIV t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"div\")| ^( MOD t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"rem\")| ^( WHILE cond= expr ^( DO t2= statements ) ) -> whilestmt(expr=$cond.ststatement=$t2.stlabelCond=newLabel()labelWhile=newLabel())| ^( PRINT t= TYPE (exp+= expr )* ) -> printstmt(statements=$expvoid=$t.toString().equals(\"void\"))| ^( READ t= TYPE v= varlist ) -> readstmt(x=$v.st)| ^( NOT o= operand t= TYPE ) -> unarynot(x=$o.stinstr=\"not\")| ^( PLUS_OP o= operand t= TYPE ) -> unaryplus(x=$o.stinstr=\"plus\")| ^( MINUS_OP o= operand t= TYPE ) -> unarymin(x=$o.stinstr=\"neg\")| ^( IF stif1= statements ^( DO stif2= statements ) (elsestmnts= elseif )? ) -> ifstmnt(cond=$stif1.ststatements=$stif2.stelseStmnts=elsestmntslabelElse=newLabel()labelNext=newLabel())| ^( BECOMES ^(id= IDENTIFIER t= TYPE a= ID ) t1= expr ) -> assign(var=$idaddr=$aexpr=$t1.st)| ^( COMPOUND t= TYPE s= statements ) -> statements(instructions=$s.st));
+	// src\\alia\\AliaCodeGeneratorStringTemplate.g:45:1: expr : (o= operand -> statement(instruction=$o.st)| ^( OR t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"or\")| ^( OR_ALT t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"or\")| ^( AND t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"and\")| ^( AND_ALT t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"and\")| ^( EQ t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"eq\")| ^( NQ t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"ne\")| ^( LE t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"le\")| ^( GE t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"ge\")| ^( GT t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"gt\")| ^( LT t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"lt\")| ^( PLUS t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"add\")| ^( MINUS t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"sub\")| ^( TIMES t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"mul\")| ^( DIV t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"div\")| ^( MOD t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"rem\")| ^( WHILE cond= expr ^( DO t2= statements ) ) -> whilestmt(expr=$cond.ststatement=$t2.stlabelCond=newLabel()labelWhile=newLabel())| ^( PRINT t= TYPE exp+= expr (exp+= exprPrint )* ) -> printstmt(statements=$expvoid=$t.toString().equals(\"void\"))| ^( READ t= TYPE v= varlist ) -> readstmt(statements=$v.st)| ^( NOT o= operand t= TYPE ) -> unarynot(x=$o.stinstr=\"not\")| ^( PLUS_OP o= operand t= TYPE ) -> unaryplus(x=$o.stinstr=\"plus\")| ^( MINUS_OP o= operand t= TYPE ) -> unarymin(x=$o.stinstr=\"neg\")| ^( IF stif1= statements ^( DO stif2= statements ) (elsestmnts= elseif )? ) -> ifstmnt(cond=$stif1.ststatements=$stif2.stelseStmnts=elsestmntslabelElse=newLabel()labelNext=newLabel())| ^( BECOMES ^(id= IDENTIFIER t= TYPE a= ID ) t1= expr ) -> assign(var=$idaddr=$aexpr=$t1.st)| ^( COMPOUND t= TYPE s= statements ) -> statements(instructions=$s.st));
 	public final AliaCodeGeneratorStringTemplate.expr_return expr() throws RecognitionException {
 		AliaCodeGeneratorStringTemplate.expr_return retval = new AliaCodeGeneratorStringTemplate.expr_return();
 		retval.start = input.LT(1);
@@ -308,7 +308,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 		TreeRuleReturnScope s =null;
 		RuleReturnScope exp = null;
 		try {
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:46:5: (o= operand -> statement(instruction=$o.st)| ^( OR t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"or\")| ^( OR_ALT t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"or\")| ^( AND t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"and\")| ^( AND_ALT t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"and\")| ^( EQ t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"eq\")| ^( NQ t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"ne\")| ^( LE t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"le\")| ^( GE t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"ge\")| ^( GT t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"gt\")| ^( LT t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"lt\")| ^( PLUS t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"add\")| ^( MINUS t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"sub\")| ^( TIMES t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"mul\")| ^( DIV t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"div\")| ^( MOD t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"rem\")| ^( WHILE cond= expr ^( DO t2= statements ) ) -> whilestmt(expr=$cond.ststatement=$t2.stlabelCond=newLabel()labelWhile=newLabel())| ^( PRINT t= TYPE (exp+= expr )* ) -> printstmt(statements=$expvoid=$t.toString().equals(\"void\"))| ^( READ t= TYPE v= varlist ) -> readstmt(x=$v.st)| ^( NOT o= operand t= TYPE ) -> unarynot(x=$o.stinstr=\"not\")| ^( PLUS_OP o= operand t= TYPE ) -> unaryplus(x=$o.stinstr=\"plus\")| ^( MINUS_OP o= operand t= TYPE ) -> unarymin(x=$o.stinstr=\"neg\")| ^( IF stif1= statements ^( DO stif2= statements ) (elsestmnts= elseif )? ) -> ifstmnt(cond=$stif1.ststatements=$stif2.stelseStmnts=elsestmntslabelElse=newLabel()labelNext=newLabel())| ^( BECOMES ^(id= IDENTIFIER t= TYPE a= ID ) t1= expr ) -> assign(var=$idaddr=$aexpr=$t1.st)| ^( COMPOUND t= TYPE s= statements ) -> statements(instructions=$s.st))
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:46:5: (o= operand -> statement(instruction=$o.st)| ^( OR t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"or\")| ^( OR_ALT t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"or\")| ^( AND t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"and\")| ^( AND_ALT t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"and\")| ^( EQ t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"eq\")| ^( NQ t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"ne\")| ^( LE t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"le\")| ^( GE t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"ge\")| ^( GT t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"gt\")| ^( LT t1= expr t2= expr t= TYPE ) -> binexprcomp(x=$t1.sty=$t2.stinstr=\"lt\")| ^( PLUS t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"add\")| ^( MINUS t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"sub\")| ^( TIMES t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"mul\")| ^( DIV t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"div\")| ^( MOD t1= expr t2= expr t= TYPE ) -> binexpr(x=$t1.sty=$t2.stinstr=\"rem\")| ^( WHILE cond= expr ^( DO t2= statements ) ) -> whilestmt(expr=$cond.ststatement=$t2.stlabelCond=newLabel()labelWhile=newLabel())| ^( PRINT t= TYPE exp+= expr (exp+= exprPrint )* ) -> printstmt(statements=$expvoid=$t.toString().equals(\"void\"))| ^( READ t= TYPE v= varlist ) -> readstmt(statements=$v.st)| ^( NOT o= operand t= TYPE ) -> unarynot(x=$o.stinstr=\"not\")| ^( PLUS_OP o= operand t= TYPE ) -> unaryplus(x=$o.stinstr=\"plus\")| ^( MINUS_OP o= operand t= TYPE ) -> unarymin(x=$o.stinstr=\"neg\")| ^( IF stif1= statements ^( DO stif2= statements ) (elsestmnts= elseif )? ) -> ifstmnt(cond=$stif1.ststatements=$stif2.stelseStmnts=elsestmntslabelElse=newLabel()labelNext=newLabel())| ^( BECOMES ^(id= IDENTIFIER t= TYPE a= ID ) t1= expr ) -> assign(var=$idaddr=$aexpr=$t1.st)| ^( COMPOUND t= TYPE s= statements ) -> statements(instructions=$s.st))
 			int alt5=25;
 			switch ( input.LA(1) ) {
 			case CHAR_EXPR:
@@ -885,12 +885,18 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 					}
 					break;
 				case 18 :
-					// src\\alia\\AliaCodeGeneratorStringTemplate.g:63:7: ^( PRINT t= TYPE (exp+= expr )* )
+					// src\\alia\\AliaCodeGeneratorStringTemplate.g:63:7: ^( PRINT t= TYPE exp+= expr (exp+= exprPrint )* )
 					{
 					match(input,PRINT,FOLLOW_PRINT_in_expr1025); 
 					match(input, Token.DOWN, null); 
 					t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_expr1029); 
-					// src\\alia\\AliaCodeGeneratorStringTemplate.g:63:22: (exp+= expr )*
+					pushFollow(FOLLOW_expr_in_expr1033);
+					exp=expr();
+					state._fsp--;
+
+					if (list_exp==null) list_exp=new ArrayList<Object>();
+					list_exp.add(exp.getTemplate());
+					// src\\alia\\AliaCodeGeneratorStringTemplate.g:63:32: (exp+= exprPrint )*
 					loop3:
 					while (true) {
 						int alt3=2;
@@ -901,10 +907,10 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 						switch (alt3) {
 						case 1 :
-							// src\\alia\\AliaCodeGeneratorStringTemplate.g:63:23: exp+= expr
+							// src\\alia\\AliaCodeGeneratorStringTemplate.g:63:33: exp+= exprPrint
 							{
-							pushFollow(FOLLOW_expr_in_expr1034);
-							exp=expr();
+							pushFollow(FOLLOW_exprPrint_in_expr1038);
+							exp=exprPrint();
 							state._fsp--;
 
 							if (list_exp==null) list_exp=new ArrayList<Object>();
@@ -920,7 +926,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 					match(input, Token.UP, null); 
 
 					// TEMPLATE REWRITE
-					// 63:54: -> printstmt(statements=$expvoid=$t.toString().equals(\"void\"))
+					// 63:69: -> printstmt(statements=$expvoid=$t.toString().equals(\"void\"))
 					{
 						retval.st = templateLib.getInstanceOf("printstmt",new STAttrMap().put("statements", list_exp).put("void", t.toString().equals("void")));
 					}
@@ -932,19 +938,19 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 				case 19 :
 					// src\\alia\\AliaCodeGeneratorStringTemplate.g:64:7: ^( READ t= TYPE v= varlist )
 					{
-					match(input,READ,FOLLOW_READ_in_expr1077); 
+					match(input,READ,FOLLOW_READ_in_expr1081); 
 					match(input, Token.DOWN, null); 
-					t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_expr1081); 
-					pushFollow(FOLLOW_varlist_in_expr1085);
+					t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_expr1085); 
+					pushFollow(FOLLOW_varlist_in_expr1089);
 					v=varlist();
 					state._fsp--;
 
 					match(input, Token.UP, null); 
 
 					// TEMPLATE REWRITE
-					// 64:52: -> readstmt(x=$v.st)
+					// 64:52: -> readstmt(statements=$v.st)
 					{
-						retval.st = templateLib.getInstanceOf("readstmt",new STAttrMap().put("x", (v!=null?((StringTemplate)v.getTemplate()):null)));
+						retval.st = templateLib.getInstanceOf("readstmt",new STAttrMap().put("statements", (v!=null?((StringTemplate)v.getTemplate()):null)));
 					}
 
 
@@ -954,13 +960,13 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 				case 20 :
 					// src\\alia\\AliaCodeGeneratorStringTemplate.g:65:7: ^( NOT o= operand t= TYPE )
 					{
-					match(input,NOT,FOLLOW_NOT_in_expr1124); 
+					match(input,NOT,FOLLOW_NOT_in_expr1128); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_operand_in_expr1128);
+					pushFollow(FOLLOW_operand_in_expr1132);
 					o=operand();
 					state._fsp--;
 
-					t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_expr1132); 
+					t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_expr1136); 
 					match(input, Token.UP, null); 
 
 					// TEMPLATE REWRITE
@@ -976,13 +982,13 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 				case 21 :
 					// src\\alia\\AliaCodeGeneratorStringTemplate.g:66:7: ^( PLUS_OP o= operand t= TYPE )
 					{
-					match(input,PLUS_OP,FOLLOW_PLUS_OP_in_expr1175); 
+					match(input,PLUS_OP,FOLLOW_PLUS_OP_in_expr1179); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_operand_in_expr1179);
+					pushFollow(FOLLOW_operand_in_expr1183);
 					o=operand();
 					state._fsp--;
 
-					t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_expr1183); 
+					t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_expr1187); 
 					match(input, Token.UP, null); 
 
 					// TEMPLATE REWRITE
@@ -998,13 +1004,13 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 				case 22 :
 					// src\\alia\\AliaCodeGeneratorStringTemplate.g:67:7: ^( MINUS_OP o= operand t= TYPE )
 					{
-					match(input,MINUS_OP,FOLLOW_MINUS_OP_in_expr1224); 
+					match(input,MINUS_OP,FOLLOW_MINUS_OP_in_expr1228); 
 					match(input, Token.DOWN, null); 
-					pushFollow(FOLLOW_operand_in_expr1228);
+					pushFollow(FOLLOW_operand_in_expr1232);
 					o=operand();
 					state._fsp--;
 
-					t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_expr1232); 
+					t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_expr1236); 
 					match(input, Token.UP, null); 
 
 					// TEMPLATE REWRITE
@@ -1020,17 +1026,17 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 				case 23 :
 					// src\\alia\\AliaCodeGeneratorStringTemplate.g:68:9: ^( IF stif1= statements ^( DO stif2= statements ) (elsestmnts= elseif )? )
 					{
-					match(input,IF,FOLLOW_IF_in_expr1274); 
+					match(input,IF,FOLLOW_IF_in_expr1278); 
 					if ( input.LA(1)==Token.DOWN ) {
 						match(input, Token.DOWN, null); 
-						pushFollow(FOLLOW_statements_in_expr1286);
+						pushFollow(FOLLOW_statements_in_expr1290);
 						stif1=statements();
 						state._fsp--;
 
-						match(input,DO,FOLLOW_DO_in_expr1297); 
+						match(input,DO,FOLLOW_DO_in_expr1301); 
 						if ( input.LA(1)==Token.DOWN ) {
 							match(input, Token.DOWN, null); 
-							pushFollow(FOLLOW_statements_in_expr1301);
+							pushFollow(FOLLOW_statements_in_expr1305);
 							stif2=statements();
 							state._fsp--;
 
@@ -1047,7 +1053,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 							case 1 :
 								// src\\alia\\AliaCodeGeneratorStringTemplate.g:71:10: elsestmnts= elseif
 								{
-								pushFollow(FOLLOW_elseif_in_expr1315);
+								pushFollow(FOLLOW_elseif_in_expr1319);
 								elsestmnts=elseif();
 								state._fsp--;
 
@@ -1072,15 +1078,15 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 				case 24 :
 					// src\\alia\\AliaCodeGeneratorStringTemplate.g:73:9: ^( BECOMES ^(id= IDENTIFIER t= TYPE a= ID ) t1= expr )
 					{
-					match(input,BECOMES,FOLLOW_BECOMES_in_expr1409); 
+					match(input,BECOMES,FOLLOW_BECOMES_in_expr1413); 
 					match(input, Token.DOWN, null); 
-					id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_expr1414); 
+					id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_expr1418); 
 					match(input, Token.DOWN, null); 
-					t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_expr1418); 
-					a=(CommonTree)match(input,ID,FOLLOW_ID_in_expr1422); 
+					t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_expr1422); 
+					a=(CommonTree)match(input,ID,FOLLOW_ID_in_expr1426); 
 					match(input, Token.UP, null); 
 
-					pushFollow(FOLLOW_expr_in_expr1427);
+					pushFollow(FOLLOW_expr_in_expr1431);
 					t1=expr();
 					state._fsp--;
 
@@ -1099,10 +1105,10 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 				case 25 :
 					// src\\alia\\AliaCodeGeneratorStringTemplate.g:74:9: ^( COMPOUND t= TYPE s= statements )
 					{
-					match(input,COMPOUND,FOLLOW_COMPOUND_in_expr1457); 
+					match(input,COMPOUND,FOLLOW_COMPOUND_in_expr1461); 
 					match(input, Token.DOWN, null); 
-					t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_expr1461); 
-					pushFollow(FOLLOW_statements_in_expr1465);
+					t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_expr1465); 
+					pushFollow(FOLLOW_statements_in_expr1469);
 					s=statements();
 					state._fsp--;
 
@@ -1175,24 +1181,24 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 				case 1 :
 					// src\\alia\\AliaCodeGeneratorStringTemplate.g:78:4: ^( ELSEIF stelseif1= statements ^( DO stelseif2= statements ) elsestmnts= statements )
 					{
-					match(input,ELSEIF,FOLLOW_ELSEIF_in_elseif1512); 
+					match(input,ELSEIF,FOLLOW_ELSEIF_in_elseif1516); 
 					if ( input.LA(1)==Token.DOWN ) {
 						match(input, Token.DOWN, null); 
-						pushFollow(FOLLOW_statements_in_elseif1516);
+						pushFollow(FOLLOW_statements_in_elseif1520);
 						stelseif1=statements();
 						state._fsp--;
 
-						match(input,DO,FOLLOW_DO_in_elseif1529); 
+						match(input,DO,FOLLOW_DO_in_elseif1533); 
 						if ( input.LA(1)==Token.DOWN ) {
 							match(input, Token.DOWN, null); 
-							pushFollow(FOLLOW_statements_in_elseif1535);
+							pushFollow(FOLLOW_statements_in_elseif1539);
 							stelseif2=statements();
 							state._fsp--;
 
 							match(input, Token.UP, null); 
 						}
 
-						pushFollow(FOLLOW_statements_in_elseif1550);
+						pushFollow(FOLLOW_statements_in_elseif1554);
 						elsestmnts=statements();
 						state._fsp--;
 
@@ -1212,10 +1218,10 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 				case 2 :
 					// src\\alia\\AliaCodeGeneratorStringTemplate.g:81:5: ^( ELSE stelse= statements )
 					{
-					match(input,ELSE,FOLLOW_ELSE_in_elseif1599); 
+					match(input,ELSE,FOLLOW_ELSE_in_elseif1603); 
 					if ( input.LA(1)==Token.DOWN ) {
 						match(input, Token.DOWN, null); 
-						pushFollow(FOLLOW_statements_in_elseif1603);
+						pushFollow(FOLLOW_statements_in_elseif1607);
 						stelse=statements();
 						state._fsp--;
 
@@ -1302,7 +1308,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 				case 1 :
 					// src\\alia\\AliaCodeGeneratorStringTemplate.g:84:9: i= identifier
 					{
-					pushFollow(FOLLOW_identifier_in_operand1659);
+					pushFollow(FOLLOW_identifier_in_operand1663);
 					i=identifier();
 					state._fsp--;
 
@@ -1319,7 +1325,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 				case 2 :
 					// src\\alia\\AliaCodeGeneratorStringTemplate.g:85:9: n= NUMBER
 					{
-					n=(CommonTree)match(input,NUMBER,FOLLOW_NUMBER_in_operand1683); 
+					n=(CommonTree)match(input,NUMBER,FOLLOW_NUMBER_in_operand1687); 
 					// TEMPLATE REWRITE
 					// 85:34: -> number(n=$n.toString()numberType=whatNumber(Integer.parseInt($n.toString())))
 					{
@@ -1333,7 +1339,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 				case 3 :
 					// src\\alia\\AliaCodeGeneratorStringTemplate.g:86:9: c= CHAR_EXPR
 					{
-					c=(CommonTree)match(input,CHAR_EXPR,FOLLOW_CHAR_EXPR_in_operand1725); 
+					c=(CommonTree)match(input,CHAR_EXPR,FOLLOW_CHAR_EXPR_in_operand1729); 
 					// TEMPLATE REWRITE
 					// 86:34: -> character(c=(int) c.toString().charAt(1))
 					{
@@ -1367,13 +1373,13 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 						case 1 :
 							// src\\alia\\AliaCodeGeneratorStringTemplate.g:87:12: TRUE
 							{
-							b=(CommonTree)match(input,TRUE,FOLLOW_TRUE_in_operand1760); 
+							b=(CommonTree)match(input,TRUE,FOLLOW_TRUE_in_operand1764); 
 							}
 							break;
 						case 2 :
 							// src\\alia\\AliaCodeGeneratorStringTemplate.g:87:19: FALSE
 							{
-							b=(CommonTree)match(input,FALSE,FOLLOW_FALSE_in_operand1764); 
+							b=(CommonTree)match(input,FALSE,FOLLOW_FALSE_in_operand1768); 
 							}
 							break;
 
@@ -1407,6 +1413,55 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 	// $ANTLR end "operand"
 
 
+	public static class exprPrint_return extends TreeRuleReturnScope {
+		public StringTemplate st;
+		public Object getTemplate() { return st; }
+		public String toString() { return st==null?null:st.toString(); }
+	};
+
+
+	// $ANTLR start "exprPrint"
+	// src\\alia\\AliaCodeGeneratorStringTemplate.g:90:1: exprPrint : exp= expr -> printexpr(statements=$exp.st);
+	public final AliaCodeGeneratorStringTemplate.exprPrint_return exprPrint() throws RecognitionException {
+		AliaCodeGeneratorStringTemplate.exprPrint_return retval = new AliaCodeGeneratorStringTemplate.exprPrint_return();
+		retval.start = input.LT(1);
+
+		TreeRuleReturnScope exp =null;
+
+		try {
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:90:11: (exp= expr -> printexpr(statements=$exp.st))
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:91:2: exp= expr
+			{
+			pushFollow(FOLLOW_expr_in_exprPrint1806);
+			exp=expr();
+			state._fsp--;
+
+			// TEMPLATE REWRITE
+			// 91:11: -> printexpr(statements=$exp.st)
+			{
+				retval.st = templateLib.getInstanceOf("printexpr",new STAttrMap().put("statements", (exp!=null?((StringTemplate)exp.getTemplate()):null)));
+			}
+
+
+
+			}
+
+		}
+		 
+		    catch (RecognitionException e) { 
+		    System.out.println("Exception!:"+e.getMessage());
+		        throw e; 
+		        // TODO: Fix this
+		    } 
+
+		finally {
+			// do for sure before leaving
+		}
+		return retval;
+	}
+	// $ANTLR end "exprPrint"
+
+
 	public static class identifier_return extends TreeRuleReturnScope {
 		public StringTemplate st;
 		public Object getTemplate() { return st; }
@@ -1415,7 +1470,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 
 	// $ANTLR start "identifier"
-	// src\\alia\\AliaCodeGeneratorStringTemplate.g:90:1: identifier : ^(id= IDENTIFIER t= TYPE a= ID ) -> identifier(addr=$a);
+	// src\\alia\\AliaCodeGeneratorStringTemplate.g:94:1: identifier : ^(id= IDENTIFIER t= TYPE a= ID ) -> identifier(addr=$a);
 	public final AliaCodeGeneratorStringTemplate.identifier_return identifier() throws RecognitionException {
 		AliaCodeGeneratorStringTemplate.identifier_return retval = new AliaCodeGeneratorStringTemplate.identifier_return();
 		retval.start = input.LT(1);
@@ -1425,17 +1480,17 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 		CommonTree a=null;
 
 		try {
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:91:3: ( ^(id= IDENTIFIER t= TYPE a= ID ) -> identifier(addr=$a))
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:91:5: ^(id= IDENTIFIER t= TYPE a= ID )
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:95:3: ( ^(id= IDENTIFIER t= TYPE a= ID ) -> identifier(addr=$a))
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:95:5: ^(id= IDENTIFIER t= TYPE a= ID )
 			{
-			id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifier1800); 
+			id=(CommonTree)match(input,IDENTIFIER,FOLLOW_IDENTIFIER_in_identifier1830); 
 			match(input, Token.DOWN, null); 
-			t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_identifier1804); 
-			a=(CommonTree)match(input,ID,FOLLOW_ID_in_identifier1808); 
+			t=(CommonTree)match(input,TYPE,FOLLOW_TYPE_in_identifier1834); 
+			a=(CommonTree)match(input,ID,FOLLOW_ID_in_identifier1838); 
 			match(input, Token.UP, null); 
 
 			// TEMPLATE REWRITE
-			// 91:44: -> identifier(addr=$a)
+			// 95:44: -> identifier(addr=$a)
 			{
 				retval.st = templateLib.getInstanceOf("identifier",new STAttrMap().put("addr", a));
 			}
@@ -1468,7 +1523,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 
 	// $ANTLR start "varlist"
-	// src\\alia\\AliaCodeGeneratorStringTemplate.g:93:1: varlist :s+= identifier (s+= identifier )* -> statements(instructions=$s);
+	// src\\alia\\AliaCodeGeneratorStringTemplate.g:97:1: varlist :s+= identifier (s+= identifier )* -> statements(instructions=$s);
 	public final AliaCodeGeneratorStringTemplate.varlist_return varlist() throws RecognitionException {
 		AliaCodeGeneratorStringTemplate.varlist_return retval = new AliaCodeGeneratorStringTemplate.varlist_return();
 		retval.start = input.LT(1);
@@ -1476,16 +1531,16 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 		List<Object> list_s=null;
 		RuleReturnScope s = null;
 		try {
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:94:3: (s+= identifier (s+= identifier )* -> statements(instructions=$s))
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:94:5: s+= identifier (s+= identifier )*
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:98:3: (s+= identifier (s+= identifier )* -> statements(instructions=$s))
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:98:5: s+= identifier (s+= identifier )*
 			{
-			pushFollow(FOLLOW_identifier_in_varlist1842);
+			pushFollow(FOLLOW_identifier_in_varlist1872);
 			s=identifier();
 			state._fsp--;
 
 			if (list_s==null) list_s=new ArrayList<Object>();
 			list_s.add(s.getTemplate());
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:95:5: (s+= identifier )*
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:99:5: (s+= identifier )*
 			loop9:
 			while (true) {
 				int alt9=2;
@@ -1496,9 +1551,9 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 				switch (alt9) {
 				case 1 :
-					// src\\alia\\AliaCodeGeneratorStringTemplate.g:95:6: s+= identifier
+					// src\\alia\\AliaCodeGeneratorStringTemplate.g:99:6: s+= identifier
 					{
-					pushFollow(FOLLOW_identifier_in_varlist1851);
+					pushFollow(FOLLOW_identifier_in_varlist1881);
 					s=identifier();
 					state._fsp--;
 
@@ -1513,7 +1568,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 			}
 
 			// TEMPLATE REWRITE
-			// 96:5: -> statements(instructions=$s)
+			// 100:5: -> statements(instructions=$s)
 			{
 				retval.st = templateLib.getInstanceOf("statements",new STAttrMap().put("instructions", list_s));
 			}
@@ -1546,7 +1601,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 
 	// $ANTLR start "exprlist"
-	// src\\alia\\AliaCodeGeneratorStringTemplate.g:100:1: exprlist :s+= expr (s+= expr )* -> statements(instructions=$s);
+	// src\\alia\\AliaCodeGeneratorStringTemplate.g:104:1: exprlist :s+= expr (s+= expr )* -> statements(instructions=$s);
 	public final AliaCodeGeneratorStringTemplate.exprlist_return exprlist() throws RecognitionException {
 		AliaCodeGeneratorStringTemplate.exprlist_return retval = new AliaCodeGeneratorStringTemplate.exprlist_return();
 		retval.start = input.LT(1);
@@ -1554,16 +1609,16 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 		List<Object> list_s=null;
 		RuleReturnScope s = null;
 		try {
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:101:5: (s+= expr (s+= expr )* -> statements(instructions=$s))
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:101:7: s+= expr (s+= expr )*
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:105:5: (s+= expr (s+= expr )* -> statements(instructions=$s))
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:105:7: s+= expr (s+= expr )*
 			{
-			pushFollow(FOLLOW_expr_in_exprlist1883);
+			pushFollow(FOLLOW_expr_in_exprlist1913);
 			s=expr();
 			state._fsp--;
 
 			if (list_s==null) list_s=new ArrayList<Object>();
 			list_s.add(s.getTemplate());
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:102:5: (s+= expr )*
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:106:5: (s+= expr )*
 			loop10:
 			while (true) {
 				int alt10=2;
@@ -1574,9 +1629,9 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 				switch (alt10) {
 				case 1 :
-					// src\\alia\\AliaCodeGeneratorStringTemplate.g:102:6: s+= expr
+					// src\\alia\\AliaCodeGeneratorStringTemplate.g:106:6: s+= expr
 					{
-					pushFollow(FOLLOW_expr_in_exprlist1892);
+					pushFollow(FOLLOW_expr_in_exprlist1922);
 					s=expr();
 					state._fsp--;
 
@@ -1591,7 +1646,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 			}
 
 			// TEMPLATE REWRITE
-			// 103:5: -> statements(instructions=$s)
+			// 107:5: -> statements(instructions=$s)
 			{
 				retval.st = templateLib.getInstanceOf("statements",new STAttrMap().put("instructions", list_s));
 			}
@@ -1624,13 +1679,13 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 
 	// $ANTLR start "type"
-	// src\\alia\\AliaCodeGeneratorStringTemplate.g:106:1: type : ( INTEGER | CHAR | BOOL );
+	// src\\alia\\AliaCodeGeneratorStringTemplate.g:110:1: type : ( INTEGER | CHAR | BOOL );
 	public final AliaCodeGeneratorStringTemplate.type_return type() throws RecognitionException {
 		AliaCodeGeneratorStringTemplate.type_return retval = new AliaCodeGeneratorStringTemplate.type_return();
 		retval.start = input.LT(1);
 
 		try {
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:107:5: ( INTEGER | CHAR | BOOL )
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:111:5: ( INTEGER | CHAR | BOOL )
 			// src\\alia\\AliaCodeGeneratorStringTemplate.g:
 			{
 			if ( (input.LA(1) >= BOOL && input.LA(1) <= CHAR)||input.LA(1)==INTEGER ) {
@@ -1730,50 +1785,52 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 	public static final BitSet FOLLOW_DO_in_expr985 = new BitSet(new long[]{0x0000000000000004L});
 	public static final BitSet FOLLOW_statements_in_expr989 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_PRINT_in_expr1025 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_TYPE_in_expr1029 = new BitSet(new long[]{0x4C27FBC4DA844478L});
-	public static final BitSet FOLLOW_expr_in_expr1034 = new BitSet(new long[]{0x4C27FBC4DA844478L});
-	public static final BitSet FOLLOW_READ_in_expr1077 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_TYPE_in_expr1081 = new BitSet(new long[]{0x0000000040000000L});
-	public static final BitSet FOLLOW_varlist_in_expr1085 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_NOT_in_expr1124 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_operand_in_expr1128 = new BitSet(new long[]{0x1000000000000000L});
-	public static final BitSet FOLLOW_TYPE_in_expr1132 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_PLUS_OP_in_expr1175 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_operand_in_expr1179 = new BitSet(new long[]{0x1000000000000000L});
-	public static final BitSet FOLLOW_TYPE_in_expr1183 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_MINUS_OP_in_expr1224 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_operand_in_expr1228 = new BitSet(new long[]{0x1000000000000000L});
-	public static final BitSet FOLLOW_TYPE_in_expr1232 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_IF_in_expr1274 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_statements_in_expr1286 = new BitSet(new long[]{0x0000000000080000L});
-	public static final BitSet FOLLOW_DO_in_expr1297 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_statements_in_expr1301 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_elseif_in_expr1315 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_BECOMES_in_expr1409 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_IDENTIFIER_in_expr1414 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_TYPE_in_expr1418 = new BitSet(new long[]{0x0000000020000000L});
-	public static final BitSet FOLLOW_ID_in_expr1422 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_expr_in_expr1427 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_COMPOUND_in_expr1457 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_TYPE_in_expr1461 = new BitSet(new long[]{0x4C27FBC4DA844478L});
-	public static final BitSet FOLLOW_statements_in_expr1465 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_ELSEIF_in_elseif1512 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_statements_in_elseif1516 = new BitSet(new long[]{0x0000000000080000L});
-	public static final BitSet FOLLOW_DO_in_elseif1529 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_statements_in_elseif1535 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_statements_in_elseif1550 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_ELSE_in_elseif1599 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_statements_in_elseif1603 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_identifier_in_operand1659 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_NUMBER_in_operand1683 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_CHAR_EXPR_in_operand1725 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_TRUE_in_operand1760 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_FALSE_in_operand1764 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IDENTIFIER_in_identifier1800 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_TYPE_in_identifier1804 = new BitSet(new long[]{0x0000000020000000L});
-	public static final BitSet FOLLOW_ID_in_identifier1808 = new BitSet(new long[]{0x0000000000000008L});
-	public static final BitSet FOLLOW_identifier_in_varlist1842 = new BitSet(new long[]{0x0000000040000002L});
-	public static final BitSet FOLLOW_identifier_in_varlist1851 = new BitSet(new long[]{0x0000000040000002L});
-	public static final BitSet FOLLOW_expr_in_exprlist1883 = new BitSet(new long[]{0x4C27FBC4DA844472L});
-	public static final BitSet FOLLOW_expr_in_exprlist1892 = new BitSet(new long[]{0x4C27FBC4DA844472L});
+	public static final BitSet FOLLOW_TYPE_in_expr1029 = new BitSet(new long[]{0x4C27FBC4DA844470L});
+	public static final BitSet FOLLOW_expr_in_expr1033 = new BitSet(new long[]{0x4C27FBC4DA844478L});
+	public static final BitSet FOLLOW_exprPrint_in_expr1038 = new BitSet(new long[]{0x4C27FBC4DA844478L});
+	public static final BitSet FOLLOW_READ_in_expr1081 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_TYPE_in_expr1085 = new BitSet(new long[]{0x0000000040000000L});
+	public static final BitSet FOLLOW_varlist_in_expr1089 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_NOT_in_expr1128 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_operand_in_expr1132 = new BitSet(new long[]{0x1000000000000000L});
+	public static final BitSet FOLLOW_TYPE_in_expr1136 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_PLUS_OP_in_expr1179 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_operand_in_expr1183 = new BitSet(new long[]{0x1000000000000000L});
+	public static final BitSet FOLLOW_TYPE_in_expr1187 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_MINUS_OP_in_expr1228 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_operand_in_expr1232 = new BitSet(new long[]{0x1000000000000000L});
+	public static final BitSet FOLLOW_TYPE_in_expr1236 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_IF_in_expr1278 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_statements_in_expr1290 = new BitSet(new long[]{0x0000000000080000L});
+	public static final BitSet FOLLOW_DO_in_expr1301 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_statements_in_expr1305 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_elseif_in_expr1319 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_BECOMES_in_expr1413 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_IDENTIFIER_in_expr1418 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_TYPE_in_expr1422 = new BitSet(new long[]{0x0000000020000000L});
+	public static final BitSet FOLLOW_ID_in_expr1426 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_expr_in_expr1431 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_COMPOUND_in_expr1461 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_TYPE_in_expr1465 = new BitSet(new long[]{0x4C27FBC4DA844478L});
+	public static final BitSet FOLLOW_statements_in_expr1469 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_ELSEIF_in_elseif1516 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_statements_in_elseif1520 = new BitSet(new long[]{0x0000000000080000L});
+	public static final BitSet FOLLOW_DO_in_elseif1533 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_statements_in_elseif1539 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_statements_in_elseif1554 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_ELSE_in_elseif1603 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_statements_in_elseif1607 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_identifier_in_operand1663 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_NUMBER_in_operand1687 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_CHAR_EXPR_in_operand1729 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_TRUE_in_operand1764 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_FALSE_in_operand1768 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_expr_in_exprPrint1806 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IDENTIFIER_in_identifier1830 = new BitSet(new long[]{0x0000000000000004L});
+	public static final BitSet FOLLOW_TYPE_in_identifier1834 = new BitSet(new long[]{0x0000000020000000L});
+	public static final BitSet FOLLOW_ID_in_identifier1838 = new BitSet(new long[]{0x0000000000000008L});
+	public static final BitSet FOLLOW_identifier_in_varlist1872 = new BitSet(new long[]{0x0000000040000002L});
+	public static final BitSet FOLLOW_identifier_in_varlist1881 = new BitSet(new long[]{0x0000000040000002L});
+	public static final BitSet FOLLOW_expr_in_exprlist1913 = new BitSet(new long[]{0x4C27FBC4DA844472L});
+	public static final BitSet FOLLOW_expr_in_exprlist1922 = new BitSet(new long[]{0x4C27FBC4DA844472L});
 }
