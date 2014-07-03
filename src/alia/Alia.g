@@ -86,7 +86,7 @@ declaration : func_def;
 
 statements_cond : statement (end_statement statements)? | NEWLINE! statements_cond;
 statements : (statement (end_statement statements)? | NEWLINE! statements)?;
-statement : (expr_assignment | const_assignment) (COLON type)?
+statement : (expr_assignment | const_assignment) (COLON^ type)?
 			| while_stmnt;
 end_statement : NEWLINE! | SEMICOLON! | EOF!;
 

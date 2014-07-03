@@ -12,7 +12,7 @@ file(instructions) ::= <<
 .end method
 
 .method public static main([Ljava/lang/String;)V
-   .limit stack 20
+   .limit stack 40
    .limit locals 20
    
    <instructions; separator="\n">

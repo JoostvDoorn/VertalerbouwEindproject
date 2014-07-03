@@ -122,12 +122,20 @@ expr returns [_Type type]
 	   			$type = checkTypesIf($ts.type,$texp.type);
    			}
    		)
-   		
-   	|   ^(BECOMES id=IDENTIFIER t1=expr (COLON typ=type)?)
+   	|   ^(COLON ^(BECOMES id=IDENTIFIER t1=expr) typ=type)
         {   
         	_Type declType = checkEqualType($t1.type, $typ.type);
         	declare($id.text, declType);
     		$type = declType;
+    		
+        	String typename = String.valueOf($type);
+        	String identifier = String.valueOf(getIdentifier($id.text));
+        }
+        -> ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) expr)
+   	|   ^(BECOMES id=IDENTIFIER t1=expr)
+        {   
+        	declare($id.text, $t1.type);
+    		$type = $t1.type;
     		
         	String typename = String.valueOf($type);
         	String identifier = String.valueOf(getIdentifier($id.text));
@@ -238,7 +246,7 @@ exprlist returns [_Type type]
 
 
 type returns [_Type type]
-    :   INTEGER
+    :   INT
         { $type = new _Int(); }
     |   CHAR
         { $type = new _Char(); }

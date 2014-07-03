@@ -58,7 +58,6 @@ TYPE=60
 UPPER=61
 WHILE=62
 WS=63
-INTEGER=64
 '!'=43
 '!='=44
 '%'=41
