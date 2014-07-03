@@ -155,12 +155,14 @@ expr returns [_Type type]
 	   	-> ^(COMPOUND TYPE[typename] statements)
 	   |   ^(CONST id=IDENTIFIER BECOMES prim=primitive (COLON typ=type)?)
           { _Type declType = checkEqualType($prim.type, $typ.type);
-            declareConst($id.text, declType);
+            declareConst($id.text, declType, prim);
             $type = declType;
             String typename = String.valueOf($type);
             String identifier = String.valueOf(getIdentifier($id.text));
+            
             }
-      -> ^(CONST ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) primitive))
+      -> //^(CONST ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) primitive))
+         // constants are not used after checking fase, thus they are removed
     ;
    
 else_stmnt returns [_Type type]
@@ -208,11 +210,16 @@ identifier returns [_Type type]
 	id=IDENTIFIER
 		{
 			$type = getType($id.text);
-        	String typename = String.valueOf($type);
-        	String identifier = String.valueOf(getIdentifier($id.text));
+      String typename = String.valueOf($type);
+      String identifier = String.valueOf(getIdentifier($id.text));
         	// TODO: In functions type inference should also be included here. Example function test(x) x = x + 1
-        	
+      Boolean constant = retrieve($id.text).isConstant();
+      Token value = getConstant($id.text); //possibly only if constant?
 		}
+	-> {constant && typename.equals("int") }? ^(NUMBER[value])
+	-> {constant && typename.equals("char") }? ^(CHAR_EXPR[value])
+	-> {constant && typename.equals("bool") && value.getText().equals("true")  }? ^(TRUE[value])
+	-> {constant && typename.equals("bool") && value.getText().equals("false")  }? ^(FALSE[value])
 	-> ^(IDENTIFIER TYPE[typename] ID[identifier])
 	;
 

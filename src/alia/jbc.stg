@@ -28,6 +28,7 @@ statements(instructions) ::= <<
 statement(instruction) ::= <<
 <instruction>
 >>
+
 whilestmt(statement, expr, labelCond, labelWhile) ::= <<
 goto COND<labelCond>		; Jump to while condition
 WHILE<labelWhile>:
@@ -36,6 +37,7 @@ COND<labelCond>:
 <expr>		; Execute condition
 ifne WHILE<labelWhile>		; Jump to start of inner while statement
 >>
+
 printstmt(statements, void) ::= <<
 getstatic java/lang/System/out Ljava/io/PrintStream;
 <statements; separator="\n">
@@ -64,9 +66,11 @@ istore_0
 iload_0
 <statements>
 >>
+
 identifier(addr) ::= <<
 iload <addr>
 >>
+
 number(n, numberType) ::= <<
 <if(numberType.lessthanfive)>
 iconst_<n>
@@ -80,10 +84,11 @@ sipush <n>
 ldc <n>
 <endif>
 >>
-character(c) ::= <<
 
+character(c) ::= <<
 bipush <c> ; Char
 >>
+
 boolean(b) ::= <<
 iconst_<if(b)>1<else>0<endif> ; Bool
 >>

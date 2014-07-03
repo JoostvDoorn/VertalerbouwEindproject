@@ -17,4 +17,5 @@ public class IdEntry {
     public void  setIdentifier(int identifier) { this.identifier = identifier; }
     public void  setConstant()			{isConstant = true;}
     public boolean isConstant()			{ return isConstant;} ;
+    //add primitive value to keep track of what value to place if constant?
 }

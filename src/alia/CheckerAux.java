@@ -1,6 +1,7 @@
 package alia;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import alia.types.*;
 
@@ -13,6 +14,7 @@ import alia.symtab.*;
 public abstract class CheckerAux extends TreeParser {
 	
     protected SymbolTable<IdEntry> symTab = new SymbolTable<IdEntry>();
+    protected Map<String, TreeRuleReturnScope> constants = new HashMap<String, TreeRuleReturnScope>();
 
 	
 	public CheckerAux(TreeNodeStream input) {
@@ -65,7 +67,6 @@ public abstract class CheckerAux extends TreeParser {
 		}
 	}
 	
-	
 	//Symbol table related functions
 	protected IdEntry declare(String name, _Type t) throws AliaException{
 		IdEntry entry = new IdEntry();
@@ -87,9 +88,30 @@ public abstract class CheckerAux extends TreeParser {
 		return entry;
 	}
 	
-	protected void declareConst(String name, _Type t) throws AliaException{
+	/**
+	 * Declares a constant in the symbol table, marking it as constant and saving its value for replacement.
+	 * @param name - identifier of the constant
+	 * @param t - type of the constant
+	 * @param value - value of the constant
+	 * @throws AliaException
+	 */
+	protected void declareConst(String name, _Type t, TreeRuleReturnScope value) throws AliaException{
 		IdEntry entry = declare(name, t);
 		entry.setConstant();
+		constants.put(name, value);
+	}
+	
+	protected Token getConstant(String name){
+		TreeRuleReturnScope nodes = null;
+		Token token = null;
+		if(constants.containsKey(name)){
+			nodes = constants.get(name); //returns a TreeRuleReturnScope, which possible contains a tree of nodes
+			CommonTree wrapper = (CommonTree) nodes.getStart(); //returns a commontree containing a node
+			token = wrapper.token; //the node contained
+		} else {
+			token = new CommonToken(0, "default"); //dummy result if not a constant, result is then not used.
+		}
+		return token;
 	}
 
 	protected _Type getType(String name) throws AliaException {
@@ -112,6 +134,15 @@ public abstract class CheckerAux extends TreeParser {
 			throw new AliaException("test"+e.getMessage());
 		}
 		return id.getIdentifier();
+	}
+	
+	//Calls symtab retrieve while catching the exception and throwing alia exception
+	protected IdEntry retrieve(String name) throws AliaException{
+		try {
+			return symTab.retrieve(name);
+		} catch (SymbolTableException e) {
+			throw new AliaException(e.getMessage());
+		}
 	}
 	
 	
