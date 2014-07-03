@@ -28,6 +28,7 @@ statements(instructions) ::= <<
 statement(instruction) ::= <<
 <instruction>
 >>
+
 whilestmt(statement, expr, labelCond, labelWhile) ::= <<
 goto COND<labelCond>		; Jump to while condition
 WHILE<labelWhile>:
@@ -36,17 +37,21 @@ COND<labelCond>:
 <expr>		; Execute condition
 ifne WHILE<labelWhile>		; Jump to start of inner while statement
 >>
+
 printstmt(statements) ::= <<
 getstatic java/lang/System/out Ljava/io/PrintStream;
 <statements>
 invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
 >>
+
 readstmt() ::= <<
 ; READ
 >>
+
 identifier(addr) ::= <<
 iload_<addr>
 >>
+
 number(n, numberType) ::= <<
 <if(numberType.lessthanfive)>
 iconst_<n>
@@ -60,10 +65,11 @@ sipush <n>
 ldc <n>
 <endif>
 >>
-character(c) ::= <<
 
+character(c) ::= <<
 bipush <c> ; Char
 >>
+
 boolean(b) ::= <<
 iconst_<if(b)>1<else>0<endif> ; Bool
 >>
