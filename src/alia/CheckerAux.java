@@ -120,7 +120,7 @@ public abstract class CheckerAux extends TreeParser {
 			id = symTab.retrieve(name);
 		} catch (SymbolTableException e) {
 			System.out.println("6");
-			throw new AliaException("test"+e.getMessage());
+			throw new AliaException(e.getMessage());
 		}
 		return id.getType();
 	}

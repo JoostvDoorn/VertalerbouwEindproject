@@ -61,7 +61,7 @@ expr
     |   ^(MOD t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
     | ^(WHILE cond=expr ^(DO t2=statements))  -> whilestmt(expr={$cond.st}, statement={$t2.st}, labelCond={newLabel()}, labelWhile={newLabel()})
     | ^(PRINT t=TYPE exp+=expr (exp+=exprPrint)*)                   -> printstmt(statements={$exp},void={$t.toString().equals("void")})
-    | ^(READ t=TYPE v=varlist)                     -> readstmt(statements={$v.st})
+    | ^(READ t=TYPE ^(id=IDENTIFIER t=TYPE a=ID) (v+=varRead)*)                     -> readstmt(statements={$v},addr={$a},void={$t.toString().equals("void")})
     | ^(NOT o=operand t=TYPE)                    -> unarynot(x={$o.st}, instr={"not"})
     | ^(PLUS_OP o=operand t=TYPE)                  -> unaryplus(x={$o.st}, instr={"plus"})
     | ^(MINUS_OP o=operand t=TYPE)                 -> unarymin(x={$o.st}, instr={"neg"})
@@ -72,7 +72,6 @@ expr
       )                                             -> ifstmnt(cond={$stif1.st}, statements={$stif2.st}, elseStmnts={elsestmnts}, labelElse={newLabel()}, labelNext={newLabel()})
     |   ^(BECOMES ^(id=IDENTIFIER t=TYPE a=ID) t1=expr) -> assign(var={$id},addr={$a}, expr={$t1.st})
     |   ^(COMPOUND t=TYPE s=statements)                 -> statements(instructions={$s.st})
-    |   ^(CONST ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) primitive))
     ;
     //add code generation for constant
 elseif :
@@ -90,6 +89,10 @@ operand
     
 exprPrint :
 	exp=expr -> printexpr(statements={$exp.st})
+	;
+	
+varRead :
+	^(id=IDENTIFIER t=TYPE a=ID) -> readvar(var={$id},addr={$a})
 	;
 
 identifier

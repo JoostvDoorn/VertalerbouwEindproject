@@ -1,5 +1,5 @@
 x = 'c' : char
 z = 1000000
-y = read(x)
-print(10)
-print(y)
+y = 5;
+read(x,y,z)
+print(x,y,z)
