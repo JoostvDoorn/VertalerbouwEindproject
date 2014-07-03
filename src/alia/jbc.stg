@@ -54,6 +54,7 @@ iload_0 ; repush the value to the stack if it is used again
 <endif>
 >>
 
+<<<<<<< HEAD
 printexpr(statements) ::= <<
 invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
 getstatic java/lang/System/out Ljava/io/PrintStream;
@@ -71,6 +72,10 @@ iload_0
 <endif>
 
 <statements>
+=======
+readstmt() ::= <<
+iconst_0 ; TODO: implement
+>>>>>>> b30395e88962f685b59518fa703539ed247dbec0
 >>
 
 identifier(addr) ::= <<
