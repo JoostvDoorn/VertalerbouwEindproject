@@ -14,6 +14,20 @@ Voor verslag
 5. vertaalregels
 6. beschrijving java-programmatuur
 
+Minimum eisen:
+1. declarations (constant or variable)
+2. arithmetic expression (as in table A.3)
+3. assignment statement 
+4. read statement
+5. print statement
+6. compound expression
+
+Bonus:
+1. minimum eisen in JVM
+2. if & while
+
+
+
 
 
 Problemen:
