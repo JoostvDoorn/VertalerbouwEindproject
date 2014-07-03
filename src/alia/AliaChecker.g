@@ -43,7 +43,7 @@ statements returns [_Type type = new _Void()]
 	)*;
     
 statement returns [_Type type = new _Void()]
-    :   ^(WHILE t=expr ^(DO statements))
+    :   ^(WHILE t=statements ^(DO statements))
     { checkBoolType($t.type); }
     |   t=expr
 	{ $type = $t.type; }
@@ -108,24 +108,34 @@ expr returns [_Type type]
    			{
    				symTab.openScope(); // Open scope for the first statement
    			}
-   			^(DO ts=statements)
+   			^(DO
+   			ts=statements
 	   		{
 	   			checkBoolType($t.type);
 	   			symTab.closeScope(); // Close scope for the first statement
 	   		}
-   			texp=elseif
+   			)
+   			texp=else_stmnt?
    			{
    				symTab.closeScope(); // Close scope for the conditional statements
 	   			checkBoolType($t.type);
 	   			$type = checkTypesIf($ts.type,$texp.type);
    			}
    		)
-   		
-   	|   ^(BECOMES id=IDENTIFIER t1=expr (COLON typ=type)?)
+   	|   ^(COLON ^(BECOMES id=IDENTIFIER t1=expr) typ=type)
         {   
         	_Type declType = checkEqualType($t1.type, $typ.type);
         	declare($id.text, declType);
     		$type = declType;
+    		
+        	String typename = String.valueOf($type);
+        	String identifier = String.valueOf(getIdentifier($id.text));
+        }
+        -> ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) expr)
+   	|   ^(BECOMES id=IDENTIFIER t1=expr)
+        {   
+        	declare($id.text, $t1.type);
+    		$type = $t1.type;
     		
         	String typename = String.valueOf($type);
         	String identifier = String.valueOf(getIdentifier($id.text));
@@ -155,7 +165,7 @@ expr returns [_Type type]
          // constants are not used after checking fase, thus they are removed
     ;
    
-elseif returns [_Type type]
+else_stmnt returns [_Type type]
 	:
 		^(ELSEIF t=statements
 			^(DO
@@ -163,8 +173,8 @@ elseif returns [_Type type]
    				symTab.openScope(); // Open scope for this elseif statement
    			}
 			ts=statements
-	   		)
-	   		te=elseif
+			)
+	   		te=else_stmnt?
 	   		{
 	   			checkBoolType($t.type);
 	   			$type = checkTypesIf($ts.type, $te.type);
@@ -243,7 +253,7 @@ exprlist returns [_Type type]
 
 
 type returns [_Type type]
-    :   INTEGER
+    :   INT
         { $type = new _Int(); }
     |   CHAR
         { $type = new _Char(); }

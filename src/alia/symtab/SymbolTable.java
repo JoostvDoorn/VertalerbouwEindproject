@@ -11,7 +11,7 @@ import java.util.Stack;
 public class SymbolTable<Entry extends IdEntry> {
 	private Map<String, Stack<Entry>> symtab;
 	private Stack<List<String>> scopeStack; 
-	private int currentIdentifier = 0;
+	private int currentIdentifier = 1;
 	private int level = -1;
     /**
      * Constructor.

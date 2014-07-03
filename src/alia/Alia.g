@@ -85,8 +85,8 @@ program : (declaration | (statement end_statement) | NEWLINE!)*;
 declaration : func_def;
 
 statements_cond : statement (end_statement statements)? | NEWLINE! statements_cond;
-statements : (statement (end_statement statements)? | NEWLINE! statements_cond)?;
-statement : (expr_assignment | const_assignment) (COLON type)?
+statements : (statement (end_statement statements)? | NEWLINE! statements)?;
+statement : (expr_assignment | const_assignment) (COLON^ type)?
 			| while_stmnt;
 end_statement : NEWLINE! | SEMICOLON! | EOF!;
 
@@ -128,10 +128,11 @@ func_identifier : IDENTIFIER
 while_stmnt : WHILE statements_cond DO statements END -> ^(WHILE statements_cond ^(DO statements));
 
 if_stmnt : IF statements_cond DO statements else_stmnt? END ->
-		   ^(IF statements statements else_stmnt);
+			^(IF statements_cond ^(DO statements) else_stmnt?);
 
 else_stmnt
-    : (ELSEIF^ statements_cond (DO^ statements) else_stmnt?)
+    : ELSEIF statements_cond DO statements else_stmnt? ->
+    	^(ELSEIF statements_cond ^(DO statements) else_stmnt?)
 	| (ELSE^ statements)
 	; 
 print : PRINT^ LPAREN! exprlist RPAREN!;

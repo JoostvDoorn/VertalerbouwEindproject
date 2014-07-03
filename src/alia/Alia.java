@@ -2,6 +2,7 @@ package alia;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ import org.antlr.runtime.tree.DOTTreeGenerator;
 import org.antlr.runtime.tree.TreeNodeStream;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
+import jasmin.Main;
 
 
 /**
@@ -95,6 +97,15 @@ public class Alia {
                 // 3. Get the stringtemplate output and print it.
                 StringTemplate output = (StringTemplate) r.getTemplate();
                 System.out.println(output.toString());
+                
+                // Write to file
+                PrintWriter writer = new PrintWriter("bin/test.j", "UTF-8");
+                writer.println(output.toString());
+                writer.close();
+                
+                // Run Jasmin
+                String[] arguments = new String[] {"bin/test.j"};
+                Main.main(arguments);
             }
 
             if (options.contains(Option.AST)) {          // print the AST as string
