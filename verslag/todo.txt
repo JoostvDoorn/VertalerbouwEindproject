@@ -3,6 +3,7 @@
 3. Type hierarchy so that functions are better supported.
 4. Kijk of er iets staat in @members AliaChecker
 5. Meerzeggende exception handling
+6. iload 0,1,2,3 zouden specifieke instructies kunnen krijgen net als bij ints
 
 
 Voor verslag
