@@ -53,6 +53,7 @@ invokevirtual java/io/PrintStream/println(I)V ; add right constant pool referenc
 iload_0 ; repush the value to the stack if it is used again
 <endif>
 >>
+
 printexpr(statements) ::= <<
 invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
 getstatic java/lang/System/out Ljava/io/PrintStream;
@@ -62,8 +63,13 @@ getstatic java/lang/System/out Ljava/io/PrintStream;
 readstmt(statements, void) ::= <<
 getstatic java/lang/System/in Ljava/io/InputStream;
 invokevirtual java/io/InputStream/read()I ; add right constant pool reference bytes for println
+
+<if(void)>
+<else>
 istore_0
 iload_0
+<endif>
+
 <statements>
 >>
 
