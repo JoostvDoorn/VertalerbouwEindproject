@@ -12,25 +12,168 @@
    .limit stack 20
    .limit locals 20
    
-   iconst_5
+   iconst_0
 
-   istore_0                  ; store value into x
-     iload_0
-     iconst_3
+   istore_0                  ; store value into ivar2
+   iload_0				   ; put value on the stack TODO: decide if this is good enough
+   istore_1                  ; store value into ivar1
+   iload_1				   ; put value on the stack TODO: decide if this is good enough
+   ; READ
+   getstatic java/lang/System/out Ljava/io/PrintStream;
+   iload_1
+   iload_0
+   invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
+   ; TODO: repush the value to the stack if it is used again
+   iconst_1
 
-     if_icmplt $+7 ; Go to iconst_1 if it is true
-     iconst_0
-     goto $+4 ; Go to the line after iconst_1
-     iconst_1
-     ifeq ELSE0
-     bipush 50
-     istore_0                  ; store value into x
-     goto NEXT1
-     ELSE0:
-     NEXT1:
+   istore_2                  ; store value into iconst1
+   iload_2				   ; put value on the stack TODO: decide if this is good enough
+   iconst_2
+
+   istore_3                  ; store value into iconst2
+   iload_3				   ; put value on the stack TODO: decide if this is good enough
+     ; does nothing, is feature
+   bipush 16
+    ; expr1
+   iconst_2
+    ; expr1
+   bipush 8
+   ineg ; expr2
+   imul ; expr2
+   iadd
+   istore_1                  ; store value into ivar1
+   iload_1				   ; put value on the stack TODO: decide if this is good enough
+   istore_0                  ; store value into ivar2
+   iload_0				   ; put value on the stack TODO: decide if this is good enough
+   getstatic java/lang/System/out Ljava/io/PrintStream;
+   iload_1
+   iload_0
+   if_icmplt $+7 ; Go to iconst_1 if it is true
+   iconst_0
+   goto $+4 ; Go to the line after iconst_1
+   iconst_1 ; expr1
+   iload_2
+   iload_3
+   if_icmple $+7 ; Go to iconst_1 if it is true
+   iconst_0
+   goto $+4 ; Go to the line after iconst_1
+   iconst_1 ; expr2
+   iand
+   iload_2 ; expr1
+   iload_3 ; expr2
+   imul
+   iload_0 ; expr1
+   iload_1 ; expr2
+   isub
+   if_icmpgt $+7 ; Go to iconst_1 if it is true
+   iconst_0
+   goto $+4 ; Go to the line after iconst_1
+   iconst_1
+   invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
+   ; TODO: repush the value to the stack if it is used again
+   iload_1
+   ; READ
+   if_icmplt $+7 ; Go to iconst_1 if it is true
+   iconst_0
+   goto $+4 ; Go to the line after iconst_1
+   iconst_1 ; expr1
+   iload_2
+   iload_3
+   if_icmple $+7 ; Go to iconst_1 if it is true
+   iconst_0
+   goto $+4 ; Go to the line after iconst_1
+   iconst_1 ; expr2
+   iand
    getstatic java/lang/System/out Ljava/io/PrintStream;
    iload_0
    invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
+   ; TODO: repush the value to the stack if it is used again ; expr1
+   iconst_1
+    ; expr2
+   iadd
+   istore_0                  ; store value into ivar2
+   iload_0				   ; put value on the stack TODO: decide if this is good enough ; expr1
+   iconst_1
+    ; expr2
+   iadd
+   istore_0                  ; store value into ivar
+   iload_0				   ; put value on the stack TODO: decide if this is good enough
+   iconst_1 ; Bool
+   istore_1                  ; store value into bvar
+   iload_1				   ; put value on the stack TODO: decide if this is good enough
+   ; READ
+   getstatic java/lang/System/out Ljava/io/PrintStream;
+   iload_1
+   invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
+   ; TODO: repush the value to the stack if it is used again
+   bipush 12
+    ; expr1
+   iconst_5
+    ; expr2
+   idiv ; expr1
+   iconst_5
+    ; expr2
+   imul ; expr1
+   bipush 12
+    ; expr1
+   iconst_5
+    ; expr2
+   irem ; expr2
+   iadd
+   bipush 12
+   if_icmpeq $+7 ; Go to iconst_1 if it is true
+   iconst_0
+   goto $+4 ; Go to the line after iconst_1
+   iconst_1 ; expr1
+   bipush 6
+   bipush 6
+   if_icmpge $+7 ; Go to iconst_1 if it is true
+   iconst_0
+   goto $+4 ; Go to the line after iconst_1
+   iconst_1 ; expr2
+   iand
+   istore_1                  ; store value into bvar
+   iload_1				   ; put value on the stack TODO: decide if this is good enough
+   iconst_1 ; Bool
+   istore_2                  ; store value into bconst
+   iload_2				   ; put value on the stack TODO: decide if this is good enough
+   getstatic java/lang/System/out Ljava/io/PrintStream;
+   iconst_1 ; Bool   ; if x is 0 make it 1, if x is 1 make it 0
+   ifeq $+7 ; Go to iconst_1 if it is false
+   iconst_0
+   goto $+4 ; Go to the line after iconst_1
+   iconst_1 ; if original was 0, load 1 ; expr1
+   iload_1
+   iload_2
+   if_icmpeq $+7 ; Go to iconst_1 if it is true
+   iconst_0
+   goto $+4 ; Go to the line after iconst_1
+   iconst_1 ; expr2
+   iand ; expr1
+   iconst_1 ; Bool
+   iconst_1 ; Bool
+   if_icmpne $+7 ; Go to iconst_1 if it is true
+   iconst_0
+   goto $+4 ; Go to the line after iconst_1
+   iconst_1 ; expr2
+   ior
+   invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
+   ; TODO: repush the value to the stack if it is used again
+   iconst_1 ; Bool
+   iand
+   istore_1                  ; store value into bvar
+   iload_1				   ; put value on the stack TODO: decide if this is good enough
 
+   bipush 99 ; Char
+   istore_2                  ; store value into cvar1
+   iload_2				   ; put value on the stack TODO: decide if this is good enough
+   ; READ
+
+   bipush 99 ; Char
+   istore_3                  ; store value into cconst
+   iload_3				   ; put value on the stack TODO: decide if this is good enough
+
+   bipush 122 ; Char
+   istore_4
    return
 .end method

@@ -36,16 +36,26 @@ COND<labelCond>:
 <expr>		; Execute condition
 ifne WHILE<labelWhile>		; Jump to start of inner while statement
 >>
-printstmt(statements) ::= <<
+printstmt(statements, void) ::= <<
 getstatic java/lang/System/out Ljava/io/PrintStream;
-<statements>
+<statements; separator="\ninvokevirtual java/io/PrintStream/println(I)V\ngetstatic java/lang/System/out Ljava/io/PrintStream;\n">
+<if(void)>
+<else>
+istore_1
+iload_1
+<endif>
+
 invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
+<if(void)>
+<else>
+iload_1 ; repush the value to the stack if it is used again
+<endif>
 >>
 readstmt() ::= <<
-; READ
+iconst_0 ; TODO: implement
 >>
 identifier(addr) ::= <<
-iload_<addr>
+iload <addr>
 >>
 number(n, numberType) ::= <<
 <if(numberType.lessthanfive)>
@@ -68,15 +78,12 @@ boolean(b) ::= <<
 iconst_<if(b)>1<else>0<endif> ; Bool
 >>
 
-declare(var, addr) ::= <<
-PUSH        1
->>
 
 assign(var, addr, expr) ::= <<
 <expr>
-istore_<addr>                  ; store value into <var>
+istore <addr>                  ; store value into <var>
+iload <addr>				   ; put value on the stack TODO: decide if this is good enough
 >>
-
 
 binexpr(x, y, instr) ::= <<
 <x> ; expr1
@@ -103,9 +110,9 @@ LOADL       <val>
 
 unarynot(x, instr) ::=  <<
 <x>   ; if x is 0 make it 1, if x is 1 make it 0
-ifeq ; jump forward if 0        jump current+7
-iconst_0  ; if original was 1, load 0
-goto ; add addr    ;jump to current +4
+ifeq $+7 ; Go to iconst_1 if it is false
+iconst_0
+goto $+4 ; Go to the line after iconst_1
 iconst_1 ; if original was 0, load 1
 >>
 

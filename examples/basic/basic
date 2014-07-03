@@ -1,0 +1,12 @@
+ivar = begin
+		ivar1 = ivar2 = 0
+		read(ivar1);
+		print(ivar1, ivar2);
+		iconst1 = 1;
+		iconst2 = 2;
+		ivar2 = ivar1 = +16 + 2 * -8;
+		print(ivar1 < ivar2 && iconst1 <= iconst2);
+		ivar1 < read(ivar2) && iconst1 <= iconst2;
+		ivar2 = print(ivar2) + 1;
+	end + 1
+print(ivar);

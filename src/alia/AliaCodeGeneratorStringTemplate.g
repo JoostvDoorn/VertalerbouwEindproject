@@ -60,7 +60,7 @@ expr
     |   ^(DIV t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"div"})
     |   ^(MOD t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
     | ^(WHILE cond=expr ^(DO t2=statements))  -> whilestmt(expr={$cond.st}, statement={$t2.st}, labelCond={newLabel()}, labelWhile={newLabel()})
-    | ^(PRINT t=TYPE exp=exprlist)                   -> printstmt(statements={$exp.st})
+    | ^(PRINT t=TYPE (exp+=expr)*)                   -> printstmt(statements={$exp},void={$t.toString().equals("void")})
     | ^(READ t=TYPE v=varlist)                     -> readstmt(x={$v.st})
     | ^(NOT o=operand t=TYPE)                    -> unarynot(x={$o.st}, instr={"not"})
     | ^(PLUS_OP o=operand t=TYPE)                  -> unaryplus(x={$o.st}, instr={"plus"})
@@ -94,6 +94,8 @@ varlist
   : s+=identifier
     (s+=identifier)*
     ->  statements(instructions={$s});
+
+
 
 exprlist
     : s+=expr
