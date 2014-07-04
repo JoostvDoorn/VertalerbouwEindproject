@@ -43,8 +43,8 @@ statements returns [_Type type = new _Void()]
 	)*;
     
 statement returns [_Type type = new _Void()]
-    :   ^(WHILE t=statements ^(DO statements))
-    { checkBoolType($t.type); }
+    :   ^(WHILE stat=statements ^(DO statements))
+    { checkBoolType($stat.type); }
     |   t=expr
 	{ $type = $t.type; }
     ; 
