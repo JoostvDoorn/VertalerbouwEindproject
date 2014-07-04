@@ -43,17 +43,18 @@ getstatic java/lang/System/out Ljava/io/PrintStream;
 <firststatement; separator="\n">
 <if(type._void)>
 <else>
-istore_0 ; TODO: bepaal welke lokale variabele we gebruiken voor dit doeleinde
-iload_0 ; Deze lokale variabele is niet goed, want die kan hergebruikt worden door een andere print...
+istore_1 ; TODO: bepaal welke lokale variabele we gebruiken voor dit doeleinde
+iload_1 ; Deze lokale variabele is niet goed, want die kan hergebruikt worden door een andere print...
 <endif>
 
 invokevirtual java/io/PrintStream/println(<t>)V ; add right constant pool reference bytes for println
-<if(type._void)>
-<else>
-iload_0 ; repush the value to the stack if it is used again
-<endif>
+
 <statements; separator="\n">
 
+<if(type._void)>
+<else>
+iload_1 ; repush the value to the stack if it is used again
+<endif>
 
 >>
 
@@ -79,15 +80,15 @@ invokevirtual java/lang/String/charAt(I)C
 
 <if(type._void)>
 <else>
-istore_0
-iload_0
+istore_1
+iload_1
 <endif>
 
 istore <addr>                  ; store value
 <statements>
 <if(void)>
 <else>
-iload_0 ; repush the value to the stack if it is used again
+iload_1 ; repush the value to the stack if it is used again
 <endif>
 >>
 
