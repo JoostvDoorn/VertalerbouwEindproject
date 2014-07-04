@@ -238,12 +238,12 @@ varlist returns [_Type type]
 	;
 	
 exprlist returns [_Type type]
-    : t=expr
+    : tl=exprentry
 		{
-			checkNotVoid($t.type);
-			$type = $t.type;
+			checkNotVoid($tl.type);
+			$type = $tl.type;
 		}
-		(t=expr
+		(t=exprentry
 			{
 				checkNotVoid($t.type);
 				$type = new _Void();
@@ -251,6 +251,13 @@ exprlist returns [_Type type]
 		)*
 	;
 
+exprentry returns [_Type type]
+	: t=expr
+	{
+		$type = $t.type;
+      	String typename = String.valueOf($t.type);
+	} -> TYPE[typename] expr
+	;
 
 type returns [_Type type]
     :   INT

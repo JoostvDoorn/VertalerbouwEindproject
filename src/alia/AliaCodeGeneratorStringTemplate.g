@@ -60,8 +60,8 @@ expr
     |   ^(DIV t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"div"})
     |   ^(MOD t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
     | ^(WHILE cond=expr ^(DO t2=statements))  -> whilestmt(expr={$cond.st}, statement={$t2.st}, labelCond={newLabel()}, labelWhile={newLabel()})
-    | ^(PRINT t=TYPE exp+=expr (exp+=exprPrint)*)                   -> printstmt(statements={$exp},void={$t.toString().equals("void")})
-    | ^(READ t=TYPE ^(id=IDENTIFIER t=TYPE a=ID) (v+=varRead)*)                     -> readstmt(statements={$v},addr={$a},void={$t.toString().equals("void")})
+    | ^(PRINT t=TYPE te=TYPE fexp=expr (exp+=exprPrint)*)                   -> printstmt(firststatement={$fexp.st},statements={$exp},type={getType($t.toString())},t={getType($te.toString()).T})
+    | ^(READ t=TYPE ^(id=IDENTIFIER t=TYPE a=ID) (v+=varRead)*)                     -> readstmt(statements={$v},addr={$a},type={getType($t.toString())},t={getType($t.toString()).T},void={$t.toString().equals("void")})
     | ^(NOT o=operand t=TYPE)                    -> unarynot(x={$o.st}, instr={"not"})
     | ^(PLUS_OP o=operand t=TYPE)                  -> unaryplus(x={$o.st}, instr={"plus"})
     | ^(MINUS_OP o=operand t=TYPE)                 -> unarymin(x={$o.st}, instr={"neg"})
@@ -88,7 +88,7 @@ operand
     ;
     
 exprPrint :
-	exp=expr -> printexpr(statements={$exp.st})
+	t=TYPE exp=expr -> printexpr(statements={$exp.st},t={getType($t.toString()).T})
 	;
 	
 varRead :

@@ -4,6 +4,8 @@ import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.tree.TreeNodeStream;
 import org.antlr.runtime.tree.TreeParser;
 
+import alia.types.*;
+
 public class CodeGeneratorAux extends TreeParser {
 	
 	protected int labelId = 0;
@@ -37,6 +39,20 @@ public class CodeGeneratorAux extends TreeParser {
 	
 	public int newLabel() {
 		return labelId++;
+	}
+	
+	public _Type getType(String type) {
+		_Type result = new _Void();
+		if(type == "bool") {
+			result = new _Bool();
+		}
+		else if(type == "int") {
+			result = new _Int();
+		}
+		else if(type == "char") {
+			result = new _Char();
+		}
+		return result;
 	}
 
 
