@@ -9,6 +9,8 @@ import alia.types.*;
 public class CodeGeneratorAux extends TreeParser {
 	
 	protected int labelId = 0;
+	protected int stackMax = 0;
+	protected int stackPointer = 0;
 	
 	public CodeGeneratorAux(TreeNodeStream input) {
 		super(input);
@@ -39,6 +41,18 @@ public class CodeGeneratorAux extends TreeParser {
 	
 	public int newLabel() {
 		return labelId++;
+	}
+
+	public void incStack() {
+		stackPointer++;
+	}
+
+	public void decStack() {
+		stackPointer--;
+	}
+	
+	public void changeStack(int stackSize) {
+		stackPointer+=stackSize;
 	}
 	
 	public _Type getType(String type) {
