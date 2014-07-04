@@ -1,7 +1,7 @@
 program = (declaration | statement)*;
 declaration = func_def;
 statements = (statement)*;
-statement = assignment (\n | ";") |
+statement = (assignment | const_assignment) (: type)? (\n | ";") |
 			expr  (\n | ";") |
 			while;
 
@@ -15,12 +15,15 @@ operand : read |
 	   	  print |
 	   	  boolean |
 	   	  number |
+		  character |
 	   	  func |
 	   	  if |
 	   	  "(" expr ")" |
 	   	  IDENTIFIER;
 
-assignment = (identifier "=")+ expr (: type)?;
+assignment = (identifier "=")+ expr ;
+
+const_assignment = CONST identifier "=" (number | boolean | character);
 
 while = WHILE expr DO statements END;
 
