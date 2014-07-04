@@ -60,8 +60,8 @@ expr
     |   ^(DIV t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"div"})
     |   ^(MOD t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
     | ^(WHILE cond=expr ^(DO t2=statements))  -> whilestmt(expr={$cond.st}, statement={$t2.st}, labelCond={newLabel()}, labelWhile={newLabel()})
-    | ^(PRINT t=TYPE exp=exprlist)                   -> printstmt(statements={$exp.st})
-    | ^(READ t=TYPE v=varlist)                     -> readstmt(x={$v.st})
+    | ^(PRINT t=TYPE exp+=expr (exp+=exprPrint)*)                   -> printstmt(statements={$exp},void={$t.toString().equals("void")})
+    | ^(READ t=TYPE ^(id=IDENTIFIER t=TYPE a=ID) (v+=varRead)*)                     -> readstmt(statements={$v},addr={$a},void={$t.toString().equals("void")})
     | ^(NOT o=operand t=TYPE)                    -> unarynot(x={$o.st}, instr={"not"})
     | ^(PLUS_OP o=operand t=TYPE)                  -> unaryplus(x={$o.st}, instr={"plus"})
     | ^(MINUS_OP o=operand t=TYPE)                 -> unarymin(x={$o.st}, instr={"neg"})
@@ -72,7 +72,6 @@ expr
       )                                             -> ifstmnt(cond={$stif1.st}, statements={$stif2.st}, elseStmnts={elsestmnts}, labelElse={newLabel()}, labelNext={newLabel()})
     |   ^(BECOMES ^(id=IDENTIFIER t=TYPE a=ID) t1=expr) -> assign(var={$id},addr={$a}, expr={$t1.st})
     |   ^(COMPOUND t=TYPE s=statements)                 -> statements(instructions={$s.st})
-    |   ^(CONST ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) primitive))
     ;
     //add code generation for constant
 elseif :
@@ -87,6 +86,14 @@ operand
     |   c=CHAR_EXPR              -> character(c={(int) c.toString().charAt(1)})
     |   b=(TRUE | FALSE)         -> boolean(b={$b})
     ;
+    
+exprPrint :
+	exp=expr -> printexpr(statements={$exp.st})
+	;
+	
+varRead :
+	^(id=IDENTIFIER t=TYPE a=ID) -> readvar(var={$id},addr={$a})
+	;
 
 identifier
   : ^(id=IDENTIFIER t=TYPE a=ID)           -> identifier(addr={$a})

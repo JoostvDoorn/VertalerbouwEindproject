@@ -54,28 +54,36 @@ iload_0 ; repush the value to the stack if it is used again
 <endif>
 >>
 
-<<<<<<< HEAD
 printexpr(statements) ::= <<
 invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
 getstatic java/lang/System/out Ljava/io/PrintStream;
 <statements; separator="\n">
 >>
 
-readstmt(statements, void) ::= <<
-getstatic java/lang/System/in Ljava/io/InputStream;
-invokevirtual java/io/InputStream/read()I ; add right constant pool reference bytes for println
-
+readstmt(statements, addr, void) ::= <<
+invokestatic java/lang/System/console()Ljava/io/Console;
+invokevirtual java/io/Console/readLine()Ljava/lang/String;
+invokestatic java/lang/Integer/parseInt(Ljava/lang/String;)I
 <if(void)>
 <else>
 istore_0
 iload_0
 <endif>
 
+istore <addr>                  ; store value
 <statements>
-=======
-readstmt() ::= <<
-iconst_0 ; TODO: implement
->>>>>>> b30395e88962f685b59518fa703539ed247dbec0
+<if(void)>
+<else>
+iload_0 ; repush the value to the stack if it is used again
+<endif>
+>>
+
+readvar(var, addr, expr) ::= <<
+invokestatic java/lang/System/console()Ljava/io/Console;
+invokevirtual java/io/Console/readLine()Ljava/lang/String;
+invokestatic java/lang/Integer/parseInt(Ljava/lang/String;)I
+istore <addr>                  ; store value into <var>
+
 >>
 
 identifier(addr) ::= <<
