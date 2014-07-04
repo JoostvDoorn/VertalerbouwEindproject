@@ -104,8 +104,6 @@ varlist
     (s+=identifier)*
     ->  statements(instructions={$s});
 
-
-
 exprlist
     : s+=expr
     (s+=expr)*
