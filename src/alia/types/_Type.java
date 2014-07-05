@@ -14,4 +14,9 @@ public abstract class _Type {
 	public String toString(){
 		return this.typename;
 	}
+	public boolean _void = true;
+	public boolean _char = false;
+	public boolean _int = false;
+	public boolean _bool = false;
+	public char T = 'V';
 }

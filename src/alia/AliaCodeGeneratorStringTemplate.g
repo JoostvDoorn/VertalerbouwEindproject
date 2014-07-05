@@ -42,45 +42,46 @@ statements
             ->  statements(instructions={$s});
     
 
-expr
-    :   o=operand							-> statement(instruction={$o.st})
+expr @init { }
+	 @after {}
+    :   o=operand 						-> statement(instruction={$o.st})
     |   ^(OR t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
     |   ^(OR_ALT t1=expr t2=expr t=TYPE)   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
     |   ^(AND t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
     |   ^(AND_ALT t1=expr t2=expr t=TYPE)   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
     |   ^(EQ t1=expr t2=expr t=TYPE)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"eq"})
     |   ^(NQ t1=expr t2=expr t=TYPE)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"ne"})
-    |   ^(LE t1=expr t2=expr t=TYPE)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"le"})
+    |   { startExpression(); }^(LE t1=expr t2=expr t=TYPE){ decStack();endExpression(); }   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"le"})
     |   ^(GE t1=expr t2=expr t=TYPE)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"ge"})
     |   ^(GT t1=expr t2=expr t=TYPE)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"gt"})
-    |   ^(LT t1=expr t2=expr t=TYPE)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"lt"})
+    |   { startExpression(); }^(LT t1=expr t2=expr t=TYPE){ decStack();endExpression(); }   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"lt"})
     |   ^(PLUS t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"add"})
     |   ^(MINUS t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"sub"})
     |   ^(TIMES t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"mul"})
     |   ^(DIV t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"div"})
     |   ^(MOD t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
     | ^(WHILE cond=expr ^(DO t2=statements))  -> whilestmt(expr={$cond.st}, statement={$t2.st}, labelCond={newLabel()}, labelWhile={newLabel()})
-    | ^(PRINT t=TYPE exp+=expr (exp+=exprPrint)*)                   -> printstmt(statements={$exp},void={$t.toString().equals("void")})
-    | ^(READ t=TYPE ^(id=IDENTIFIER t=TYPE a=ID) (v+=varRead)*)                     -> readstmt(statements={$v},addr={$a},void={$t.toString().equals("void")})
+    | ^(PRINT t=TYPE te=TYPE fexp=expr (exp+=exprPrint)*)                   -> printstmt(firststatement={$fexp.st},statements={$exp},type={getType($t.toString())},t={getType($te.toString()).T})
+    | ^(READ t=TYPE ^(id=IDENTIFIER t=TYPE a=ID) (v+=varRead)*)                     -> readstmt(statements={$v},addr={$a},type={getType($t.toString())},t={getType($t.toString()).T},void={$t.toString().equals("void")})
     | ^(NOT o=operand t=TYPE)                    -> unarynot(x={$o.st}, instr={"not"})
     | ^(PLUS_OP o=operand t=TYPE)                  -> unaryplus(x={$o.st}, instr={"plus"})
     | ^(MINUS_OP o=operand t=TYPE)                 -> unarymin(x={$o.st}, instr={"neg"})
-    |   ^(IF
-        stif1=statements
+    |   { startExpression(); } ^(IF
+        { startExpression(); } stif1=statements {endExpression(); } 
         ^(DO stif2=statements)
         (elsestmnts=elseif)?
-      )                                             -> ifstmnt(cond={$stif1.st}, statements={$stif2.st}, elseStmnts={elsestmnts}, labelElse={newLabel()}, labelNext={newLabel()})
-    |   ^(BECOMES ^(id=IDENTIFIER t=TYPE a=ID) t1=expr) -> assign(var={$id},addr={$a}, expr={$t1.st})
+      ) { decStack();endExpression(); }                                             -> ifstmnt(cond={$stif1.st}, statements={$stif2.st}, elseStmnts={elsestmnts}, labelElse={newLabel()}, labelNext={newLabel()})
+    |   { startExpression(); }^(BECOMES ^(id=IDENTIFIER t=TYPE a=ID) t1=expr){ decStack();endExpression(); } -> assign(var={$id},addr={$a}, expr={$t1.st})
     |   ^(COMPOUND t=TYPE s=statements)                 -> statements(instructions={$s.st})
     ;
-    //add code generation for constant
+    // TODO: add code generation for constant
 elseif :
   	^(ELSEIF stelseif1=statements
           ^(DO   stelseif2=statements)
           elsestmnts=statements)            ->  elseifstmnt(cond={$stelseif1.st}, statements={$stelseif2.st}, elseStmnts={elsestmnts}, labelElse={newLabel()}, labelNext={newLabel()})
   | ^(ELSE stelse=statements)                       -> elsemaybestmnt(statements={$stelse.st}) 
        ;
-operand
+operand @init {incStack();}
     :   i=identifier			 -> statement(instruction={$i.st})
     |   n=NUMBER                 -> number(n={$n.toString()}, numberType={whatNumber(Integer.parseInt($n.toString()))})
     |   c=CHAR_EXPR              -> character(c={(int) c.toString().charAt(1)})
@@ -88,7 +89,7 @@ operand
     ;
     
 exprPrint :
-	exp=expr -> printexpr(statements={$exp.st})
+	t=TYPE exp=expr -> printexpr(statements={$exp.st},t={getType($t.toString()).T})
 	;
 	
 varRead :

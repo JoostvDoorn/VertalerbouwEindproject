@@ -35,6 +35,8 @@ Scope definitie. Doordat we geen expliciete declaraties hebben kunnen we niet ee
 
 String template expressions: We mogen van StringTemplate geen expressies evalueren in de string template zelf. Dit willen we omdat we in Java een andere operatie willen aanroepen voor het op de stack zetten van integers onder de 6, en dit niet in andere talen zouden willen. Dit lijkt express niet mogelijk in de StringTemplate dus we geven een argument mee bij operand of een integer kleiner is dan 6, groter dan -1, of -1
 
+Andere nadelen aan String templates. Geeft geen duidelijke plaatst binnen ANTLR voor java code. Het is lastiger om code repetitie te voorkomen (Do not repeat yourself).
+
 We hebben gekozen om de optimalisatie van het vervangen van constanten uit te werken in de checker. In de checker is er namelijk een makelijke manier om de waarden die ze kregen bij de eerste declaratie op te slaan. Deze declaraties worden in de checker fase dan ook gelijk uit de ast gehaald, omdat ze hiernaa niet meer gebruikt worden. Voor een perfecte scheiding van logica zou deze in een optimalisatie fase moeten tussen de checker en de code generatie.
 
 Notes:

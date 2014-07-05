@@ -3,3 +3,8 @@ z = 1000000
 y = 5;
 read(x,y,z)
 print(x,y,z)
+
+
+x1 = true
+read(x1)
+print(x1)

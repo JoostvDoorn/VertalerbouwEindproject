@@ -12,8 +12,8 @@ file(instructions) ::= <<
 .end method
 
 .method public static main([Ljava/lang/String;)V
-   .limit stack 40
-   .limit locals 20
+   .limit stack 40 ; TODO: Deze waarde bepalen
+   .limit locals 20 ; TODO: Deze waarde bepalen
    
    <instructions; separator="\n">
 
@@ -38,50 +38,74 @@ COND<labelCond>:
 ifne WHILE<labelWhile>		; Jump to start of inner while statement
 >>
 
-printstmt(statements, void) ::= <<
+printstmt(firststatement, statements, type, t) ::= <<
 getstatic java/lang/System/out Ljava/io/PrintStream;
-<statements; separator="\n">
-<if(void)>
+<firststatement; separator="\n">
+<if(type._void)>
 <else>
-istore_0
-iload_0
+istore_1 ; TODO: bepaal welke lokale variabele we gebruiken voor dit doeleinde
+iload_1 ; Deze lokale variabele is niet goed, want die kan hergebruikt worden door een andere print...
 <endif>
 
-invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
-<if(void)>
+invokevirtual java/io/PrintStream/println(<t>)V ; add right constant pool reference bytes for println
+
+<statements; separator="\n">
+
+<if(type._void)>
 <else>
-iload_0 ; repush the value to the stack if it is used again
+iload_1 ; repush the value to the stack if it is used again
 <endif>
+
 >>
 
-printexpr(statements) ::= <<
-invokevirtual java/io/PrintStream/println(I)V ; add right constant pool reference bytes for println
+printexpr(statements, t) ::= <<
 getstatic java/lang/System/out Ljava/io/PrintStream;
 <statements; separator="\n">
+invokevirtual java/io/PrintStream/println(<t>)V ; add right constant pool reference bytes for println
 >>
 
-readstmt(statements, addr, void) ::= <<
+readstmt(statements, addr, void, type) ::= <<
 invokestatic java/lang/System/console()Ljava/io/Console;
 invokevirtual java/io/Console/readLine()Ljava/lang/String;
+
+<if(type._int)>
 invokestatic java/lang/Integer/parseInt(Ljava/lang/String;)I
-<if(void)>
+<elseif(type._bool)>
+invokestatic java/lang/Boolean/parseBoolean(Ljava/lang/String;)Z
+<elseif(type._char)>
+iconst_0
+invokevirtual java/lang/String/charAt(I)C
+<endif>
+
+
+<if(type._void)>
 <else>
-istore_0
-iload_0
+istore_1
+iload_1
 <endif>
 
 istore <addr>                  ; store value
 <statements>
 <if(void)>
 <else>
-iload_0 ; repush the value to the stack if it is used again
+iload_1 ; repush the value to the stack if it is used again
 <endif>
 >>
 
 readvar(var, addr, expr) ::= <<
 invokestatic java/lang/System/console()Ljava/io/Console;
 invokevirtual java/io/Console/readLine()Ljava/lang/String;
+
+<if(type._int)>
 invokestatic java/lang/Integer/parseInt(Ljava/lang/String;)I
+<elseif(type._bool)>
+invokestatic java/lang/Boolean/parseBoolean(Ljava/lang/String;)Z
+<elseif(type._char)>
+iconst_0
+invokevirtual java/lang/String/charAt(I)C
+<endif>
+
+
 istore <addr>                  ; store value into <var>
 
 >>
