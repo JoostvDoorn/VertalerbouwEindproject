@@ -50,7 +50,15 @@ public class CodeGeneratorAux extends TreeParser {
 	 */
 	public int endExpression() {
 		int result = stackPointer - stackScope.pop();
-		System.out.println("Stack diff: "+result+" stack:"+stackPointer);
+		return result;
+	}
+	
+	public String pops(int n) {
+		String result = "";
+		for(int i = 0; i<n; i++) {
+			result += "pop\n";
+			decStack();
+		}
 		return result;
 	}
 	
@@ -59,13 +67,22 @@ public class CodeGeneratorAux extends TreeParser {
 	}
 
 	public void incStack() {
-		System.out.println("Stack:"+stackPointer);
 		stackPointer++;
+		stackMax = stackMax < stackPointer ? stackPointer : stackMax;
 	}
 
 	public void decStack() {
-		System.out.println("Stack:"+stackPointer);
 		stackPointer--;
+	}
+	
+	public void decStackIfVoid(_Type type) {
+		if(type.equals(new _Void())) {
+			stackPointer--;
+		}
+	}
+	
+	public int getStackMax() {
+		return stackMax;
 	}
 	
 	public void changeStack(int stackSize) {

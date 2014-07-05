@@ -34,10 +34,13 @@ public abstract class CheckerAux extends TreeParser {
 	}
 	
 	protected _Type checkTypesIf(_Type a, _Type b) throws AliaException{
-		_Type t = a == null ? new _Void() : a;
+		_Type t = new _Void();
 		if(b != null) { // This is done for those functions that have an optional value b.
 			if(!a.equals(b)){
 				t = new _Void();
+			}
+			else {
+				t = a;
 			}
 		}
 		return t;
