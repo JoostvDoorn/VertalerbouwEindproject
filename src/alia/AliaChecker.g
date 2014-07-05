@@ -35,6 +35,7 @@ program
     :   { symTab.openScope(); }
     	(statement)+
     	{ symTab.closeScope(); }
+    	-> LOCALSIZE[getLocalSize()] (statement)+
     ;
 
 statements returns [_Type type = new _Void()]

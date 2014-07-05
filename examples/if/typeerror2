@@ -7,8 +7,6 @@ elseif x <= 5 do
 	5
 	5
 	x = 4
-else
-	5
 end
 
 print(x)

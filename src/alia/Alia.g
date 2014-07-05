@@ -69,6 +69,7 @@ tokens {
     COMPOUND;
     TYPE;
     ID;
+    LOCALSIZE;
 }
 
 @lexer::header {

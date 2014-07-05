@@ -32,53 +32,65 @@ import java.util.HashSet;
 
 program
     :
-      (s+=expr)+
-            ->  file(instructions={$s})
+      localSize=LOCALSIZE (s+=exprPop)+
+            ->  file(instructions={$s},stackMax={getStackMax()},localSize={$localSize},filename={"Test"})
     ;
 
-statements
-  : (s+=expr
-  )*
-            ->  statements(instructions={$s});
-    
+statements @init { startExpression(); }
+		   @after { endExpression(); }
+  : (s+=exprPopInterleaved)* ->  statements(instructions={$s});
+
+statementsPop @init { startExpression(); }
+		   @after { endExpression(); }
+  : (s+=exprPop)* ->  statements(instructions={$s});
+            
+exprPopInterleaved @init { String pop = ""; }
+  : {pop=pops(endExpression());startExpression();}
+  	s=expr ->  exprPopInterleaved(instruction={$s.st}, pop={pop});
+            
+exprPop @init { String pop = ""; }
+  : {startExpression();}
+  	s=expr
+  	{pop=pops(endExpression());} ->  exprPop(instruction={$s.st}, pop={pop});
 
 expr @init { }
 	 @after {}
     :   o=operand 						-> statement(instruction={$o.st})
-    |   ^(OR t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
-    |   ^(OR_ALT t1=expr t2=expr t=TYPE)   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
-    |   ^(AND t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
-    |   ^(AND_ALT t1=expr t2=expr t=TYPE)   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
-    |   ^(EQ t1=expr t2=expr t=TYPE)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"eq"})
-    |   ^(NQ t1=expr t2=expr t=TYPE)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"ne"})
-    |   { startExpression(); }^(LE t1=expr t2=expr t=TYPE){ decStack();endExpression(); }   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"le"})
-    |   ^(GE t1=expr t2=expr t=TYPE)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"ge"})
-    |   ^(GT t1=expr t2=expr t=TYPE)   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"gt"})
-    |   { startExpression(); }^(LT t1=expr t2=expr t=TYPE){ decStack();endExpression(); }   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"lt"})
-    |   ^(PLUS t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"add"})
-    |   ^(MINUS t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"sub"})
-    |   ^(TIMES t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"mul"})
-    |   ^(DIV t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"div"})
-    |   ^(MOD t1=expr t2=expr t=TYPE)   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
-    | ^(WHILE cond=expr ^(DO t2=statements))  -> whilestmt(expr={$cond.st}, statement={$t2.st}, labelCond={newLabel()}, labelWhile={newLabel()})
-    | ^(PRINT t=TYPE te=TYPE fexp=expr (exp+=exprPrint)*)                   -> printstmt(firststatement={$fexp.st},statements={$exp},type={getType($t.toString())},t={getType($te.toString()).T})
-    | ^(READ t=TYPE ^(id=IDENTIFIER t=TYPE a=ID) (v+=varRead)*)                     -> readstmt(statements={$v},addr={$a},type={getType($t.toString())},t={getType($t.toString()).T},void={$t.toString().equals("void")})
+    |   ^(OR t1=expr t2=expr t=TYPE) {decStack();}   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
+    |   ^(OR_ALT t1=expr t2=expr t=TYPE) {decStack();}   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"or"})
+    |   ^(AND t1=expr t2=expr t=TYPE) {decStack();}   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
+    |   ^(AND_ALT t1=expr t2=expr t=TYPE) {decStack();}   	-> binexpr(x={$t1.st}, y={$t2.st}, instr={"and"})
+    |   ^(EQ t1=expr t2=expr t=TYPE) {decStack();}   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"eq"})
+    |   ^(NQ t1=expr t2=expr t=TYPE) {decStack();}   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"ne"})
+    |   ^(LE t1=expr t2=expr t=TYPE) {decStack();}   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"le"})
+    |   ^(GE t1=expr t2=expr t=TYPE) {decStack();}   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"ge"})
+    |   ^(GT t1=expr t2=expr t=TYPE) {decStack();}   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"gt"})
+    |   ^(LT t1=expr t2=expr t=TYPE) {decStack();}   		-> binexprcomp(x={$t1.st}, y={$t2.st}, instr={"lt"})
+    |   ^(PLUS t1=expr t2=expr t=TYPE) {decStack();}  		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"add"})
+    |   ^(MINUS t1=expr t2=expr t=TYPE) {decStack();}   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"sub"})
+    |   ^(TIMES t1=expr t2=expr t=TYPE) {decStack();}   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"mul"})
+    |   ^(DIV t1=expr t2=expr t=TYPE) {decStack();}   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"div"})
+    |   ^(MOD t1=expr t2=expr t=TYPE) {decStack();}   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
+    | ^(WHILE cond=statements {decStack();} ^(DO t2=statementsPop))  -> whilestmt(expr={$cond.st}, statement={$t2.st}, labelCond={newLabel()}, labelWhile={newLabel()})
+    | ^(PRINT t=TYPE te=TYPE fexp=expr (exp+=exprPrint)*) {decStackIfVoid(getType($t.toString()));}                   -> printstmt(firststatement={$fexp.st},statements={$exp},type={getType($t.toString())},t={getType($te.toString()).T})
+    | ^(READ t=TYPE ^(id=IDENTIFIER t=TYPE a=ID) {incStack();} (v+=varRead)*) {decStackIfVoid(getType($t.toString()));}                     -> readstmt(statements={$v},addr={$a},type={getType($t.toString())},t={getType($t.toString()).T},void={$t.toString().equals("void")})
     | ^(NOT o=operand t=TYPE)                    -> unarynot(x={$o.st}, instr={"not"})
     | ^(PLUS_OP o=operand t=TYPE)                  -> unaryplus(x={$o.st}, instr={"plus"})
     | ^(MINUS_OP o=operand t=TYPE)                 -> unarymin(x={$o.st}, instr={"neg"})
     |   { startExpression(); } ^(IF
-        { startExpression(); } stif1=statements {endExpression(); } 
+        stif1=statements
         ^(DO stif2=statements)
         (elsestmnts=elseif)?
       ) { decStack();endExpression(); }                                             -> ifstmnt(cond={$stif1.st}, statements={$stif2.st}, elseStmnts={elsestmnts}, labelElse={newLabel()}, labelNext={newLabel()})
-    |   { startExpression(); }^(BECOMES ^(id=IDENTIFIER t=TYPE a=ID) t1=expr){ decStack();endExpression(); } -> assign(var={$id},addr={$a}, expr={$t1.st})
+    |   ^(BECOMES ^(id=IDENTIFIER t=TYPE a=ID) {incStack();} t1=expr {decStack();}) -> assign(var={$id},addr={$a}, expr={$t1.st})
     |   ^(COMPOUND t=TYPE s=statements)                 -> statements(instructions={$s.st})
     ;
     // TODO: add code generation for constant
-elseif :
+elseif @init { decStack(); }
+   :
   	^(ELSEIF stelseif1=statements
-          ^(DO   stelseif2=statements)
-          elsestmnts=statements)            ->  elseifstmnt(cond={$stelseif1.st}, statements={$stelseif2.st}, elseStmnts={elsestmnts}, labelElse={newLabel()}, labelNext={newLabel()})
+          ^(DO   stelseif2=statements)  {decStack();}
+          elsestmnts=elseif)            ->  elseifstmnt(cond={$stelseif1.st}, statements={$stelseif2.st}, elseStmnts={elsestmnts}, labelElse={newLabel()}, labelNext={newLabel()})
   | ^(ELSE stelse=statements)                       -> elsemaybestmnt(statements={$stelse.st}) 
        ;
 operand @init {incStack();}
@@ -88,12 +100,12 @@ operand @init {incStack();}
     |   b=(TRUE | FALSE)         -> boolean(b={$b})
     ;
     
-exprPrint :
+exprPrint @init {decStack();} :
 	t=TYPE exp=expr -> printexpr(statements={$exp.st},t={getType($t.toString()).T})
 	;
 	
-varRead :
-	^(id=IDENTIFIER t=TYPE a=ID) -> readvar(var={$id},addr={$a})
+varRead @init {incStack();decStack();} :
+	^(id=IDENTIFIER t=TYPE a=ID) -> readvar(var={$id},addr={$a},type={getType($t.toString())})
 	;
 
 identifier

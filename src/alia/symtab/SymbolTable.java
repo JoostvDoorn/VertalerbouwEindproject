@@ -12,6 +12,7 @@ public class SymbolTable<Entry extends IdEntry> {
 	private Map<String, Stack<Entry>> symtab;
 	private Stack<List<String>> scopeStack; 
 	private int currentIdentifier = 2;
+	private int maxIdentifier = 1;
 	private int level = -1;
     /**
      * Constructor.
@@ -80,6 +81,7 @@ public class SymbolTable<Entry extends IdEntry> {
         	entry.setLevel(level);
         	entry.setIdentifier(currentIdentifier);
         	currentIdentifier++;
+        	maxIdentifier = maxIdentifier < currentIdentifier ? currentIdentifier : maxIdentifier;
         	scopeStack.peek().add(id);
         	entryStack.push(entry);
     	}
@@ -107,6 +109,14 @@ public class SymbolTable<Entry extends IdEntry> {
     public boolean isDefined(String id) {
     	Stack<Entry> resultStack = symtab.get(id);
         return !(resultStack == null || resultStack.empty());
+    }
+    
+    /**
+     * Returns the current identifier
+     * @return current identifier id.
+     */
+    public int maxIdentifier() {
+    	return maxIdentifier;
     }
 }
 
