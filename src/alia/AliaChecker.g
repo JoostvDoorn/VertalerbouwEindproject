@@ -136,6 +136,7 @@ expr returns [_Type type]
         {   
         	declare($id.text, $t1.type);
     		$type = $t1.type;
+    		checkNotVoid($type);
     		
         	String typename = String.valueOf($type);
         	String identifier = String.valueOf(getIdentifier($id.text));

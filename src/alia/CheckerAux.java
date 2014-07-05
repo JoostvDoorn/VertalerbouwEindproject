@@ -34,7 +34,7 @@ public abstract class CheckerAux extends TreeParser {
 	}
 	
 	protected _Type checkTypesIf(_Type a, _Type b) throws AliaException{
-		_Type t = a;
+		_Type t = a == null ? new _Void() : a;
 		if(b != null) { // This is done for those functions that have an optional value b.
 			if(!a.equals(b)){
 				t = new _Void();
@@ -61,8 +61,6 @@ public abstract class CheckerAux extends TreeParser {
 	
 	protected void checkNotVoid(_Type a) throws AliaTypeException{
 		if(a == null || a.equals(new _Void())){
-			System.out.println(a);
-			System.out.println("5");
 			throw new AliaTypeException("Type is void.");
 		}
 	}
