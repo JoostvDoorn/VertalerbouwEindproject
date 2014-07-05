@@ -1,5 +1,7 @@
 package alia;
 
+import java.util.Stack;
+
 import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.tree.TreeNodeStream;
 import org.antlr.runtime.tree.TreeParser;
@@ -11,6 +13,7 @@ public class CodeGeneratorAux extends TreeParser {
 	protected int labelId = 0;
 	protected int stackMax = 0;
 	protected int stackPointer = 0;
+	protected Stack<Integer> stackScope = new Stack<Integer>();
 	
 	public CodeGeneratorAux(TreeNodeStream input) {
 		super(input);
@@ -38,16 +41,30 @@ public class CodeGeneratorAux extends TreeParser {
 		NumberType numbool = new NumberType(lessthanfive, minusone, isbyte, isshort, isint);
 		return numbool;
 	}
+
+	public void startExpression() {
+		stackScope.push(stackPointer);
+	}
+	/*
+	 * Returns the difference in stack height
+	 */
+	public int endExpression() {
+		int result = stackPointer - stackScope.pop();
+		System.out.println("Stack diff: "+result+" stack:"+stackPointer);
+		return result;
+	}
 	
 	public int newLabel() {
 		return labelId++;
 	}
 
 	public void incStack() {
+		System.out.println("Stack:"+stackPointer);
 		stackPointer++;
 	}
 
 	public void decStack() {
+		System.out.println("Stack:"+stackPointer);
 		stackPointer--;
 	}
 	
