@@ -1,9 +1,10 @@
 1. Concatonation with + (currently not allowed in checker)
-2. Explain lots of code in checker in report.
+
 3. Type hierarchy so that functions are better supported.
 4. Kijk of er iets staat in @members AliaChecker
 5. Meerzeggende exception handling
 6. iload 0,1,2,3 zouden specifieke instructies kunnen krijgen net als bij ints
+7. lazy evaluation voor boolean expressies
 
 
 Voor verslag
@@ -13,6 +14,7 @@ Voor verslag
 4. problemen en oplossingen
 5. vertaalregels
 6. beschrijving java-programmatuur
+7. Explain lots of code in checker in report.
 
 Minimum eisen:
 1. declarations (constant or variable)
