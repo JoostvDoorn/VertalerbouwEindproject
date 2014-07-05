@@ -1,4 +1,4 @@
-// $ANTLR 3.5.2 src\\alia\\AliaCodeGeneratorStringTemplate.g 2014-07-03 16:57:40
+// $ANTLR 3.5.2 src\\alia\\AliaCodeGeneratorStringTemplate.g 2014-07-04 10:22:26
 
 package alia;
 import alia.symtab.SymbolTable;
@@ -1684,7 +1684,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 
 	// $ANTLR start "exprlist"
-	// src\\alia\\AliaCodeGeneratorStringTemplate.g:109:1: exprlist :s+= expr (s+= expr )* -> statements(instructions=$s);
+	// src\\alia\\AliaCodeGeneratorStringTemplate.g:107:1: exprlist :s+= expr (s+= expr )* -> statements(instructions=$s);
 	public final AliaCodeGeneratorStringTemplate.exprlist_return exprlist() throws RecognitionException {
 		AliaCodeGeneratorStringTemplate.exprlist_return retval = new AliaCodeGeneratorStringTemplate.exprlist_return();
 		retval.start = input.LT(1);
@@ -1692,16 +1692,16 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 		List<Object> list_s=null;
 		RuleReturnScope s = null;
 		try {
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:110:5: (s+= expr (s+= expr )* -> statements(instructions=$s))
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:110:7: s+= expr (s+= expr )*
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:108:5: (s+= expr (s+= expr )* -> statements(instructions=$s))
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:108:7: s+= expr (s+= expr )*
 			{
-			pushFollow(FOLLOW_expr_in_exprlist1976);
+			pushFollow(FOLLOW_expr_in_exprlist1974);
 			s=expr();
 			state._fsp--;
 
 			if (list_s==null) list_s=new ArrayList<Object>();
 			list_s.add(s.getTemplate());
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:111:5: (s+= expr )*
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:109:5: (s+= expr )*
 			loop11:
 			while (true) {
 				int alt11=2;
@@ -1712,9 +1712,9 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 				switch (alt11) {
 				case 1 :
-					// src\\alia\\AliaCodeGeneratorStringTemplate.g:111:6: s+= expr
+					// src\\alia\\AliaCodeGeneratorStringTemplate.g:109:6: s+= expr
 					{
-					pushFollow(FOLLOW_expr_in_exprlist1985);
+					pushFollow(FOLLOW_expr_in_exprlist1983);
 					s=expr();
 					state._fsp--;
 
@@ -1729,7 +1729,7 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 			}
 
 			// TEMPLATE REWRITE
-			// 112:5: -> statements(instructions=$s)
+			// 110:5: -> statements(instructions=$s)
 			{
 				retval.st = templateLib.getInstanceOf("statements",new STAttrMap().put("instructions", list_s));
 			}
@@ -1762,13 +1762,13 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 
 
 	// $ANTLR start "type"
-	// src\\alia\\AliaCodeGeneratorStringTemplate.g:115:1: type : ( INTEGER | CHAR | BOOL );
+	// src\\alia\\AliaCodeGeneratorStringTemplate.g:113:1: type : ( INTEGER | CHAR | BOOL );
 	public final AliaCodeGeneratorStringTemplate.type_return type() throws RecognitionException {
 		AliaCodeGeneratorStringTemplate.type_return retval = new AliaCodeGeneratorStringTemplate.type_return();
 		retval.start = input.LT(1);
 
 		try {
-			// src\\alia\\AliaCodeGeneratorStringTemplate.g:116:5: ( INTEGER | CHAR | BOOL )
+			// src\\alia\\AliaCodeGeneratorStringTemplate.g:114:5: ( INTEGER | CHAR | BOOL )
 			// src\\alia\\AliaCodeGeneratorStringTemplate.g:
 			{
 			if ( (input.LA(1) >= BOOL && input.LA(1) <= CHAR)||input.LA(1)==INTEGER ) {
@@ -1920,6 +1920,6 @@ public class AliaCodeGeneratorStringTemplate extends CodeGeneratorAux {
 	public static final BitSet FOLLOW_ID_in_identifier1900 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_identifier_in_varlist1935 = new BitSet(new long[]{0x0000000040000002L});
 	public static final BitSet FOLLOW_identifier_in_varlist1944 = new BitSet(new long[]{0x0000000040000002L});
-	public static final BitSet FOLLOW_expr_in_exprlist1976 = new BitSet(new long[]{0x4C27FBC4DA844472L});
-	public static final BitSet FOLLOW_expr_in_exprlist1985 = new BitSet(new long[]{0x4C27FBC4DA844472L});
+	public static final BitSet FOLLOW_expr_in_exprlist1974 = new BitSet(new long[]{0x4C27FBC4DA844472L});
+	public static final BitSet FOLLOW_expr_in_exprlist1983 = new BitSet(new long[]{0x4C27FBC4DA844472L});
 }
