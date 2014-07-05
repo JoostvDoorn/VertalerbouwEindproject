@@ -67,7 +67,7 @@ expr @init { }
     | ^(PLUS_OP o=operand t=TYPE)                  -> unaryplus(x={$o.st}, instr={"plus"})
     | ^(MINUS_OP o=operand t=TYPE)                 -> unarymin(x={$o.st}, instr={"neg"})
     |   { startExpression(); } ^(IF
-        stif1=statements
+        { startExpression(); } stif1=statements {endExpression(); } 
         ^(DO stif2=statements)
         (elsestmnts=elseif)?
       ) { decStack();endExpression(); }                                             -> ifstmnt(cond={$stif1.st}, statements={$stif2.st}, elseStmnts={elsestmnts}, labelElse={newLabel()}, labelNext={newLabel()})

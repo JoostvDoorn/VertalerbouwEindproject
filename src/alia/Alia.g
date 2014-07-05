@@ -128,11 +128,11 @@ func_identifier : IDENTIFIER
 while_stmnt : WHILE statements_cond DO statements END -> ^(WHILE statements_cond ^(DO statements));
 
 if_stmnt : IF statements_cond DO statements else_stmnt? END ->
-			^(IF statements_cond ^(DO statements) else_stmnt?);
+			^(IF statements_cond ^(DO statements?) else_stmnt?);
 
 else_stmnt
     : ELSEIF statements_cond DO statements else_stmnt? ->
-    	^(ELSEIF statements_cond ^(DO statements) else_stmnt?)
+    	^(ELSEIF statements_cond ^(DO statements?) else_stmnt?)
 	| (ELSE^ statements)
 	; 
 print : PRINT^ LPAREN! exprlist RPAREN!;

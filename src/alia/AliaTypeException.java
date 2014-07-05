@@ -4,7 +4,6 @@ import org.antlr.runtime.tree.Tree;
 
 public class AliaTypeException extends AliaException {
 
-	private String msg;
 	private static final long serialVersionUID = 1L;
     // Ctor which only requires the error message to be printed.
 	public AliaTypeException(String msg) {
@@ -17,8 +16,4 @@ public class AliaTypeException extends AliaException {
         super(tree,msg);
     }
 
-    @Override
-    public String getMessage() {
-        return this.msg;
-    }
 }
