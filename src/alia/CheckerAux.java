@@ -191,5 +191,12 @@ public abstract class CheckerAux extends TreeParser {
 		}
 	}
 	
+	/**
+	 * Returns the required size of the local variables for the JVM
+	 * @return Local size for the method
+	 */
+	protected String getLocalSize() {
+		return symTab.maxIdentifier()+"";
+	}
 	
 }

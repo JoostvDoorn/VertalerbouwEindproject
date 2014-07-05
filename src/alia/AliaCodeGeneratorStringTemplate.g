@@ -32,8 +32,8 @@ import java.util.HashSet;
 
 program
     :
-      (s+=exprPop)+
-            ->  file(instructions={$s},stackMax={getStackMax()})
+      localSize=LOCALSIZE (s+=exprPop)+
+            ->  file(instructions={$s},stackMax={getStackMax()},localSize={$localSize},filename={"Test"})
     ;
 
 statements @init { startExpression(); }

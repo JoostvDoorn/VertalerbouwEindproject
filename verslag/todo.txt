@@ -1,4 +1,7 @@
-1. Concatonation with + (currently not allowed in checker)
+1. Strings
+2. Concatonation with + (currently not allowed in checker)
+3. Functies
+4. Tests maken voor scope in if & while
 
 3. Type hierarchy so that functions are better supported.
 4. Kijk of er iets staat in @members AliaChecker
