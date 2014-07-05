@@ -1,41 +1,55 @@
-program = (declaration | statement)*;
-declaration = func_def;
-statements = (statement)*;
-statement = (assignment | const_assignment) (: type)? (\n | ";") |
-			expr  (\n | ";") |
-			while;
+program = (func_def | (statement end_statement) | \n)*;
 
-expr : expr1 (OR expr1)*;
-expr1 : expr2 (AND expr2)*;
-expr2 : expr3 ((GT | GE | LT | LE | EQ | NQ) expr3)*;
-expr3 : expr4 ((PLUS | MINUS) expr4)*;
-expr4 : expr5 ((TIMES | DIV | MOD) expr5)*;
-expr5 : (NOT | PLUS | MINUS) operand
-operand : read |
+statements = (statement (end_statement statements)? | \n statements)?;
+statements_cond = (statement (end_statement statements)? | \n statements_cond )?;
+
+statement = (expr_assignment | const_assignment) (; type)?
+			| while_stmnt 
+			;
+
+end_statement = \n | ";" | EOF;
+
+expr_assignment = (identifier "=") expr_assignment
+				| expr 
+				;
+
+const_assignment = CONST identifier "=" primitive;
+
+expr = expr1 ((or | "||") expr1)*;
+expr1 = expr2 ((and | "&&") expr2)*;
+expr2 = expr3 ((">" | ">=" | "<" | "<=" | "==" | "!=" )^ expr3)*;
+expr3 = expr4 (("+" | "-")^ expr4)*;
+expr4 = expr5 (("*" | "/" | "%")^ expr5)*;
+expr5 = "!" operand | operand | expr_minus | expr_plus;
+expr_minus = "-" operand;
+expr_plus = "+" operand;
+operand = read |
 	   	  print |
-	   	  boolean |
-	   	  number |
-		  character |
-	   	  func |
-	   	  if |
+	   	  if_stmnt |
 	   	  "(" expr ")" |
-	   	  IDENTIFIER;
+	   	  compound_stmnt |
+	   	  primitive |
+	   	  func_identifier
+		;
+		  
+compound_stmnt = begin statements end;
 
-assignment = (identifier "=")+ expr ;
+primitive = number | character | boolean;
 
-const_assignment = CONST identifier "=" (number | boolean | character);
+func_identifier = identifier ( "(" exprlist? ")" )?;
 
-while = WHILE expr DO statements END;
+while_stmnt = WHILE statements_cond DO statements END;
 
-if = IF expr DO statements (ELSEIF expr DO statements)* (ELSE statements)? END;
+if_stmnt = IF statements_cond DO statements else_stmnt? END;
 
-print = PRINT "(" exprlist ")";
-read = READ "(" varlist ")";
+else_stmnt = ELSEIF statements_cond DO statements else_stmnt?
+			| (ELSE statements)
+			;
 
-varlist = var (COMMA var)*;
+print = PRINT "(" exprlist ") ;
+read = READ "(" varlist ") ;
 
-exprlist = expr (COMMA expr)*;
+varlist = identifier ("," identifier)*;
+exprlist = expr ("," expr)*;
 
-func_def = DEF identifier "("  ")" statements END;
-
-func = identifier "(" exprlist ")";
+func_def = DEF identifier "(" varlist ")";

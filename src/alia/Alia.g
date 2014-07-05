@@ -80,22 +80,20 @@ package alia;
 }
 
 
+program : (func_def | (statement end_statement) | NEWLINE!)*;
 
-program : (declaration | (statement end_statement) | NEWLINE!)*;
-declaration : func_def;
-
-statements_cond : statement (end_statement statements)? | NEWLINE! statements_cond;
 statements : (statement (end_statement statements)? | NEWLINE! statements)?;
+statements_cond : statement (end_statement statements)? | NEWLINE! statements_cond;
 statement : (expr_assignment | const_assignment) (COLON^ type)?
 			| while_stmnt;
 end_statement : NEWLINE! | SEMICOLON! | EOF!;
-
-const_assignment : CONST^ IDENTIFIER BECOMES primitive;
 
 // Syntactic predicate to recognize assignments
 // Syntactic predicates can be easily left out if we do not allow expr as statements
 expr_assignment : (IDENTIFIER BECOMES) => (IDENTIFIER BECOMES^) expr_assignment |
 			expr ;
+			
+const_assignment : CONST^ IDENTIFIER BECOMES primitive;
 
 expr : expr1 ((OR | OR_ALT)^ expr1)*;
 expr1 : expr2 ((AND | AND_ALT)^ expr2)*;
@@ -121,9 +119,6 @@ char_expr : SQUOTE! LETTER SQUOTE!;
 
 func_identifier : IDENTIFIER 
 				(LPAREN^ exprlist? RPAREN)?;
-//
-
-
 
 while_stmnt : WHILE statements_cond DO statements END -> ^(WHILE statements_cond ^(DO statements));
 
@@ -135,27 +130,20 @@ else_stmnt
     	^(ELSEIF statements_cond ^(DO statements?) else_stmnt?)
 	| (ELSE^ statements)
 	; 
+	
 print : PRINT^ LPAREN! exprlist RPAREN!;
 read : READ^ LPAREN! varlist RPAREN!;
 
 varlist : IDENTIFIER (COMMA! IDENTIFIER)*;
-
 exprlist : expr (COMMA! expr)*;
 
-func_def : DEF IDENTIFIER LPAREN!  RPAREN! statements END;
-
-
-
-
+func_def : DEF IDENTIFIER LPAREN! varlist RPAREN! statements END;
 
 // Lexer rules
-
 
 boolean_expr : TRUE | FALSE;
 
 type : CHAR | INT | BOOL;
-
-
 
 CHAR_EXPR : SQUOTE LETTER SQUOTE;
 
@@ -183,6 +171,3 @@ fragment LETTER :   LOWER | UPPER ;
 fragment DIGIT  :   ('0'..'9') ;
 fragment LOWER  :   ('a'..'z') ;
 fragment UPPER  :   ('A'..'Z') ;
-
-
-//TODO: Constanten
