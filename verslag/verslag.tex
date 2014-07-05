@@ -1,4 +1,4 @@
-\documentclass[paper=a4, fontsize=11pt]{report}
+\documentclass[paper=a4, fontsize=11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage{fourier}
 
@@ -41,27 +41,92 @@
 %%% Begin document
 \begin{document}
 \maketitle
+\newpage
 \section*{Introduction}
 The Alia programming language was built for the subject compiler engineering at the University of Twente for the final project. In this final project a programming language is specified and implemented in antlr(ANother Tool for Language Recognition). A compiler is built to translate code into a type of machine instructions. The type of machine instructions can be vary from language to language. Over the first half of compiler engineering several small pieces of the process of building a compiler are individually learned and tested, brought to culmination in the final project where the entire track is gone through and a usable language is produced. 
 
 This document serves as a specification of the Alia Programming Language (Alia for short) as well as an explanation of the Alia compiler. In it we will give a short description of the Alia Programming Language in the context of programming languages, explain some of the problems faced and solutions concoted during the construction of the Alia compiler,  give a specification of the Alia language with the help of the syntax, context-constraints and semantics. Also in this document are the transformations that show how the symbols of the language are turned into JVM instructions, a description of all the auxiliary java code made for the compiler, a set of tests is described to give confidence in the correctness of the compiler and lastly conclusions are drawn from the project.
 
-\chapter{Alia Programming Language}
+\section{Alia Programming Language}
 %De programmeertaal
 %Maximaal een A4
 
 %Typer inference
 %Expression language
 
-\chapter{Problems and solutions}
+\section{Problems and solutions}
+During the construction of the Alia compiler we ran into some problems, as is to be expected during any first time construction of a compiler. In this section we will explain some of the bigger problems that we faced as well as the solutions that we applied.
+
+Scope definition: Because we do not have explicit declarations we cannot redefine a variable inside a new scope. There would be no way to distinguish between redefining a variable in a new scope and reassigning the value that was given to a variable to be used later. With a new variable that overwrites an old one for a temporary scope you would need to assign a new space in memory. We have decided that we want this in our programming language, this is because if you can redeclare a variable inside a new scope then you are only making it more confusing for yourself as a coder. On the other hand not being able to assign a new value to a variable in a new scope destroys a large part of the functionality of language. For these reasons we have chosen to leave it as is.
+
+
+
 %uitleg over de wijze waarop je de problemen die je bent tegengekomen bij het maken van de opdracht hebt opgelost (maximaal twee A4-tjes)
 
-\chapter{Syntax, context-constraints and semantics}
+\section{Syntax, context-constraints and semantics}
+The syntax of Alia is defined as follows:
 
+\begin{verbatim}
+program = (func_def | (statement end_statement) | \n)*;
 
-\chapter{Translation rules} %Vertaalregels, hoofdstuk 7 van Watt & Brown
+statements = (statement (end_statement statements)? | \n statements)?;
+statements_cond = (statement (end_statement statements)? | \n statements_cond )?;
 
-\chapter{Java-code}t
+statement = (expr_assignment | const_assignment) (; type)?
+			| while_stmnt 
+			;
+
+end_statement = \n | ";" | EOF;
+
+expr_assignment = (identifier "=") expr_assignment
+				| expr 
+				;
+
+const_assignment = CONST identifier "=" primitive;
+
+expr = expr1 ((or | "||") expr1)*;
+expr1 = expr2 ((and | "&&") expr2)*;
+expr2 = expr3 ((">" | ">=" | "<" | "<=" | "==" | "!=" )^ expr3)*;
+expr3 = expr4 (("+" | "-")^ expr4)*;
+expr4 = expr5 (("*" | "/" | "%")^ expr5)*;
+expr5 = "!" operand | operand | expr_minus | expr_plus;
+expr_minus = "-" operand;
+expr_plus = "+" operand;
+operand = read |
+	   	  print |
+	   	  if_stmnt |
+	   	  "(" expr ")" |
+	   	  compound_stmnt |
+	   	  primitive |
+	   	  func_identifier
+		;
+		  
+compound_stmnt = begin statements end;
+
+primitive = number | character | boolean;
+
+func_identifier = identifier ( "(" exprlist? ")" )?;
+
+while_stmnt = WHILE statements_cond DO statements END;
+
+if_stmnt = IF statements_cond DO statements else_stmnt? END;
+
+else_stmnt = ELSEIF statements_cond DO statements else_stmnt?
+			| (ELSE statements)
+			;
+
+print = PRINT "(" exprlist ") ;
+read = READ "(" varlist ") ;
+
+varlist = identifier ("," identifier)*;
+exprlist = expr ("," expr)*;
+
+func_def = DEF identifier "(" varlist ")";
+\end{verbatim}
+
+\section{Translation rules} %Vertaalregels, hoofdstuk 7 van Watt & Brown
+
+\section{Java-code}t
 The checker uses an auxiliary class CheckerAux that handles a large portion of the logic of the checking, such as if two types are the same. This class also declares variables and constants into the symbol table. CheckerAux also has methods to access the symbolTable so that it throws AliaExceptions instead of more general exceptions. The symbol table has a HashMap of Names, IdEntries and a scopestack that has all identifiers declared on a scope. Like every symbolTable it keeps track of what identifiers have been declared on what levels. The IdEntries also store information about whether the identifier is a constant and what type it is.
 
 Most of the logic for type checking is implemented in CheckerAux, to do the type checking a set of type classes are used, such as \_Int and \_Bool. All of these classes inherit from \_Type and have a string with their typename. We chose to make all types into distinct classes instead of an enum because this will allow for extension of say the \_Int class with a \_Float class or of the \_Char class with a \_String class. In this way we can more easily add addtional types to Alia and a future \_Long and \_Float could be compared using inheritence.
@@ -71,10 +136,10 @@ The code generation makes use of CodeGeneratorAux. This seperates some of the lo
 For error handling AliaException and AliaTypeException are used. These exceptions are thrown in the checker when ever a type is violated. If there is a syntactical mistake then the classes generated by antlr will throw exceptions. For run time errors standard java exceptions are also used.
 
 After the checking fase has been completed a decorated AST is returned. The decorated AST stores the type information that was found in the corresponding nodes, such as for all binary expressions. We also store the identifying numbers for all applied usages of identifiers (except for constants which are replaced), these ascending numbers are gotten from the IdEntries using CheckerAux and are stored with the nodes, for later use in the code generation.
-\chapter{Tests}
+\section{Tests}
 
-\chapter{Conclusion}
-\chapter{Appendices}
+\section{Conclusion}
+\section{Appendices}
 %ANTLR LEXER
 %ANTLR PARSER
 %ANTLR TREEPARSER
