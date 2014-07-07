@@ -11,13 +11,16 @@
 
 
 Voor verslag
-1. syntax updaten?
-2. context-beperkingen
-3. semantiek
-4. problemen en oplossingen
-5. vertaalregels
-6. beschrijving java-programmatuur
+0. Beknopte beschrijving // Joost
+1. syntax updaten? // Fedor
+2. context-beperkingen // Fedor
+3. semantiek // Fedor
+4. problemen en oplossingen // Fedor
+5. vertaalregels // Joost
+6. beschrijving java-programmatuur // Fedor
 7. Explain lots of code in checker in report.
+8. Test plan & Test resultaten // Joost
+9. Conclusies
 
 Minimum eisen:
 1. declarations (constant or variable)
