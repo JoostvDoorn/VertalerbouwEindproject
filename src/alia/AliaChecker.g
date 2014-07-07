@@ -95,12 +95,20 @@ expr returns [_Type type]
         	String typename = String.valueOf($type);
         }
 	   	-> ^(READ TYPE[typename] varlist)
-	|	^(c=(NOT | PLUS_OP | MINUS_OP) to=operand)
+	|	^(c=(NOT) to=operand)
     	{
-    		$type = $to.type;
+    		  $type = $to.type;
         	String typename = String.valueOf($type);
+        	checkBoolType($to.type);
         }
 	   	-> ^($c operand TYPE[typename])
+	  | ^(c=( PLUS_OP | MINUS_OP ) o=operand)
+	    {
+	        $type = $o.type;
+          String typename = String.valueOf($type);
+          checkEqualType($o.type, new _Int());
+	    }
+	    -> ^($c operand TYPE[typename])
    	|   ^(IF
    			{
    				symTab.openScope(); // Open scope for conditional statements, the scope is the same for the IF and ELSEIF conditions
