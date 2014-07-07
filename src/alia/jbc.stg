@@ -168,13 +168,6 @@ goto $+4 ; Go to the line after iconst_1
 iconst_1
 >>
 
-loadvar(var, addr) ::= <<
-LOAD(1)     <addr>[SB]                  ; load value of <var>
->>
-
-loadnum(val) ::= <<
-LOADL       <val>
->>
 
 unarynot(x, instr) ::=  <<
 <x>   ; if x is 0 make it 1, if x is 1 make it 0

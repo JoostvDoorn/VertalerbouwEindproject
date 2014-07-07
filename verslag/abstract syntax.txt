@@ -1,0 +1,80 @@
+Abstract Syntax:
+
+program = statement+;
+
+statements = statement*;
+
+statement = 	WHILE statements DO statements
+			|	expr
+			;
+
+
+expr = 	expr ((or | "||") expr)*
+	|	expr ((and | "&&") expr)*
+	|	expr ((">" | ">=" | "<" | "<=" | "==" | "!=" )^ expr)*
+	|	expr (("+" | "-")^ expr)*
+	|	expr (("*" | "/" | "%")^ expr)*
+	|	"!" operand | operand
+	|	"-" operand
+	|	"+" operand
+	
+expr = operand
+	|	(OR expr expr
+    |   OR_ALT expr expr
+    |   AND expr expr
+    |   AND_ALT expr expr
+    |   EQ expr expr
+   	|   NQ expr expr
+   	|   LE expr expr
+   	|   GE expr expr
+   	|   GT expr expr
+   	|   LT expr expr)
+	
+	|   (PLUS expr expr
+    |   MINUS expr expr
+    |   TIMES expr expr
+    |   DIV expr expr
+    |   MOD expr expr)
+	
+	| PRINT exprlist
+	| READ varlist
+	
+	| (NOT | PLUS_OP | MINUS_OP) operand)
+	|   IF
+   			statements
+   			DO statements
+   			else_stmnt?
+   	|   COLON BECOMES IDENTIFIER expr type
+	|   BECOMES IDENTIFIER expr
+	|   COMPOUND statements
+	|   CONST IDENTIFIER BECOMES primitive (COLON type)?
+	
+else_stmnt = ELSEIF statements
+			DO statements
+			else_stmnt?
+		|	ELSE statements
+	   	;
+
+operand = 	identifier
+		|	NUMBER
+		| 	CHAR_EXPR
+		|	boolean
+		;
+		
+identifier = IDENTIFIER;		
+
+varlist = identifier (identifier)*;
+
+exprlist = expr (expr)*;
+
+type =		INT
+		|	CHAR
+		|	BOOL
+		;
+		
+primitive =	NUMBER
+		|	CHAR_EXPR
+		|	boolean_expr
+		;
+		
+boolean_expr = TRUE | FALSE;
