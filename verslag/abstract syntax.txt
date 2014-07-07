@@ -44,8 +44,7 @@ expr = operand
    			statements
    			DO statements
    			else_stmnt?
-   	|   COLON BECOMES IDENTIFIER expr type
-	|   BECOMES IDENTIFIER expr
+   	|   BECOMES IDENTIFIER expr type?
 	|   COMPOUND statements
 	|   CONST IDENTIFIER BECOMES primitive (COLON type)?
 	
@@ -55,13 +54,11 @@ else_stmnt = ELSEIF statements
 		|	ELSE statements
 	   	;
 
-operand = 	identifier
+operand = 	IDENTIFIER
 		|	NUMBER
 		| 	CHAR_EXPR
-		|	boolean
-		;
-		
-identifier = IDENTIFIER;		
+		|	BOOLEAN
+		;	
 
 varlist = identifier (identifier)*;
 
@@ -74,7 +71,5 @@ type =		INT
 		
 primitive =	NUMBER
 		|	CHAR_EXPR
-		|	boolean_expr
+		|	BOOLEAN
 		;
-		
-boolean_expr = TRUE | FALSE;
