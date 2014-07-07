@@ -59,8 +59,15 @@ expr returns [_Type type]
     |   (^(c=OR t1=expr t2=expr)
     |   ^(c=OR_ALT t1=expr t2=expr)
     |   ^(c=AND t1=expr t2=expr)
-    |   ^(c=AND_ALT t1=expr t2=expr)
-    |   ^(c=EQ t1=expr t2=expr)
+    |   ^(c=AND_ALT t1=expr t2=expr))
+      {
+          checkEqualType($t1.type, $t2.type);
+          checkBoolType($t1.type);
+          $type = new _Bool();
+          String typename = String.valueOf($type);
+      }
+      -> ^($c expr expr TYPE[typename])
+    |   (^(c=EQ t1=expr t2=expr)
    	|   ^(c=NQ t1=expr t2=expr)
    	|   ^(c=LE t1=expr t2=expr)
    	|   ^(c=GE t1=expr t2=expr)
