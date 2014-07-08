@@ -32,6 +32,7 @@ public class Alia {
     private static final Set<Option> options = EnumSet.noneOf(Option.class);
     private static String inputFile;
     private static String outputFile;
+    private static int count = 0;
 
     public static void parseOptions(String[] args) {
     	options.clear();
@@ -128,8 +129,8 @@ public class Alia {
                 // Run Jasmin
                 String[] arguments = new String[] {"bin/test.j","-d","bin"};
                 Main.main(arguments);
+
             }
-            System.out.println("test");
             if (options.contains(Option.RUN)) {
                 // Run the file by loading the class file dynamicly
                 try {
@@ -142,9 +143,11 @@ public class Alia {
 	                String[] my = { "" };
 	                Object myarg[] = { my };
 	                m.invoke(null, myarg);
+	                m = null;
 	                sysLoader = null;
                 }
                 catch(InvocationTargetException ex) {
+                	System.out.println(count);
                 	System.err.println("Could not run compiled file!");
                 	System.err.println(ex.getCause().getMessage());
                 	ex.getCause().printStackTrace();
