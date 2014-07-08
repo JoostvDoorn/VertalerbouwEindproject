@@ -1,11 +1,1 @@
-x = begin
-   5
-   6
-   6
-end
-
-begin
-	5
-	z = 3
-	4
-end
+a = 5/0
