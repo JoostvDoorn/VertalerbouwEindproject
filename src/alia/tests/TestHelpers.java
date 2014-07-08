@@ -13,16 +13,19 @@ public class TestHelpers {
 		run++;
 	    // Save System.out
 	    PrintStream oldOut = System.out;
+	    PrintStream oldErr = System.err;
 	    InputStream oldIn = System.in;
 
 	    System.setOut(new PrintStream(new ByteArrayOutputStream()));
+	    System.setErr(new PrintStream(new ByteArrayOutputStream()));
 		String[] args = { "-ast", "-code_generator", "-o","run"+run, filePath };
 		Alia.runCompiler(args);
 		System.setIn(new ByteArrayInputStream(input.getBytes()));
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	    PrintStream ps = new PrintStream(baos);
-	    // Tell Java to use your special stream
+	    // Tell Java to use our stream
 	    System.setOut(ps);
+	    System.setErr(ps);
 	    
 	    // Run file
 		String[] argsRun = { "-run", "-o","run"+run, filePath };
@@ -30,7 +33,9 @@ public class TestHelpers {
 
 	    // Put old System.out back
 	    System.out.flush();
+	    System.err.flush();
 	    System.setOut(oldOut);
+	    System.setErr(oldErr);
 	    // Put old System.in back
 	    System.setIn(oldIn);
 	    // Show what happened

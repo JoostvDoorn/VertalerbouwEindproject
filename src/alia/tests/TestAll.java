@@ -1,11 +1,12 @@
-package alia.tests.basic;
+package alia.tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+
 @RunWith(Suite.class)
-@SuiteClasses({ BasicTest.class, ConstantTest.class })
-public class BasicSuite {
+@SuiteClasses({ BasicTest.class })
+public class TestAll {
 
 } 
