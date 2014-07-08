@@ -3,19 +3,23 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.EnumSet;
 import java.util.Set;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.tree.BufferedTreeNodeStream;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.runtime.tree.DOTTreeGenerator;
-import org.antlr.runtime.tree.TreeNodeStream;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import jasmin.Main;
 
 
@@ -29,6 +33,9 @@ public class Alia {
     private static String inputFile;
 
     public static void parseOptions(String[] args) {
+    	options.clear();
+    	inputFile = "";
+    	
         if (args.length == 0) {
             System.err.println(USAGE_MESSAGE);
             System.exit(1);
@@ -55,8 +62,13 @@ public class Alia {
     }
 
     public static void main(String[] args) {
-        parseOptions(args);
+    	runCompiler(args);
+    }
 
+    public static void runCompiler(String[] args) {
+
+        parseOptions(args);
+        
         try {
             InputStream in = inputFile == null ? System.in : new FileInputStream(inputFile);
             AliaLexer lexer = new AliaLexer(new ANTLRInputStream(in));
@@ -104,8 +116,27 @@ public class Alia {
                 writer.close();
                 
                 // Run Jasmin
-                String[] arguments = new String[] {"bin/test.j"};
+                String[] arguments = new String[] {"bin/test.j","-d","bin"};
                 Main.main(arguments);
+            }
+            if (options.contains(Option.RUN)) {
+                // Run the file by loading the class file dynamicly
+                try {
+	                URL classUrl = new URL(new URL("file:"), "bin/");
+	                URLClassLoader sysLoader = new URLClassLoader(new URL[]{classUrl});
+	                sysLoader.getURLs();
+	                Class runClass = sysLoader.loadClass("Test.j");
+		            Class getArg[] = { (new String[1]).getClass() };
+		            Method m = runClass.getMethod("main", getArg);
+	                String[] my = { "" };
+	                Object myarg[] = { my };
+	                m.invoke(null, myarg);
+                }
+                catch(InvocationTargetException ex) {
+                	System.err.println("Could not run compiled file!");
+                	System.err.println(ex.getCause().getMessage());
+                	ex.getCause().printStackTrace();
+                }
             }
 
             if (options.contains(Option.AST)) {          // print the AST as string
@@ -132,9 +163,10 @@ public class Alia {
             System.err.println(e.getMessage());
             e.printStackTrace();
         }
-    }
+		
+	}
 
-    private static Option getOption(String text) throws IllegalArgumentException {
+	private static Option getOption(String text) throws IllegalArgumentException {
         if (!text.startsWith(OPTION_PREFIX)) {
             return null;
         }
@@ -165,7 +197,8 @@ public class Alia {
         AST,
         NO_CHECKER,
         NO_INTERPRETER,
-        CODE_GENERATOR;
+        CODE_GENERATOR,
+        RUN;
 
         private Option() {
             this.text = name().toLowerCase();
