@@ -45,7 +45,8 @@ statements returns [_Type type = new _Void()]
 	)*;
     
 statement returns [_Type type = new _Void()]
-    :   ^(WHILE stat=statements ^(DO statements))
+    :   ^(WHILE {symTab.openScope();} stat=statements {symTab.openScope();}
+    			^(DO statements) {symTab.closeScope();symTab.closeScope();}  )
     { checkBoolType($stat.type, $stat.tree); }
     |   t=expr
 	{ $type = $t.type; }

@@ -144,7 +144,7 @@ public class Alia {
 	                Object myarg[] = { my };
 	                m.invoke(null, myarg);
 	                m = null;
-	                sysLoader.close();
+	                sysLoader = null;
                 }
                 catch(InvocationTargetException ex) {
                 	System.out.println(count);

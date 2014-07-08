@@ -506,8 +506,15 @@ The tests have been constructed based on the requirements formulated in the comp
 \item BasicTest.java: Contains tests for the basic expression language.
   \begin{enumerate}
   \item providedBasicTest: Test with correct syntax which is checked for correct output.
-  \item constantTest (Context): Checks if constants cannot be redefined.
-  \item Semantics: Runtime errors such as division by zero should be adequately handeled by the compiler.
+  \item plustTest: Tests a basic arithmetic expression.
+  \item printTest: Tests print expressions.
+  \item readTest: Tests read expressions.
+  \item constantTest: Tests constants.
+  \item redefineConstant (Context): Checks if constants cannot be redefined.
+  \item syntaxError (Syntax): Checks if syntax errors are properly detected.
+  \item typeError (Context): Checks if type errors are properly detected.
+  \item intSize (Context): Check if use of numbers above the maximum integer size are detected.
+  \item scopeError (Context): Checks if references out of scope are valid.
   \end{enumerate}
 \end{enumerate}
 

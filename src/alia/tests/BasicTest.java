@@ -13,7 +13,6 @@ import static org.hamcrest.CoreMatchers.containsString;
 
 
 public class BasicTest extends TestHelpers {
-	// Tests all of the basic functionality of the Alia programming language.
     @Test
     public void providedBasicTest() {
     	equalLines("30\n-100\nfalse\ntrue\n998\ntrue\ntrue\na\nfalse\n1000\ntrue\nb\n",
@@ -24,7 +23,7 @@ public class BasicTest extends TestHelpers {
     }
     @Test
     public void constantTest() {
-    	equalLines("",
+    	equalLines("5\n6\na\ntrue\nfalse\n",
     			run("examples/basic/constant","")
     			);
     }
@@ -55,7 +54,7 @@ public class BasicTest extends TestHelpers {
     	assertThat(result, containsString("no viable alternative at input 'gebin'"));
     	assertThat(result, containsString("no viable alternative at input 'ned'"));
     	assertThat(result, containsString("no viable alternative at input 'repeat'"));
-    	assertThat(result, containsString("has not yet been declared"));
+    	assertThat(result, containsString("not yet been declared"));
     }
 
     @Test
@@ -71,11 +70,17 @@ public class BasicTest extends TestHelpers {
     	assertThat(result, containsString(Integer.MAX_VALUE+""));
     	assertThat(result, containsString(Integer.MIN_VALUE+""));
     }
-    
+
     @Test
     public void typeError() {
     	String result = run("examples/basic/incorrect/type","");
     	assertThat(result, containsString("Type char is not equal to int."));
+    }
+    
+    @Test
+    public void scopeError() {
+    	String result = run("examples/basic/incorrect/scope","");
+    	assertThat(result, containsString("x has not yet been declared"));
     }
     
 }
