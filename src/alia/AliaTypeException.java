@@ -12,8 +12,8 @@ public class AliaTypeException extends AliaException {
 
     // Ctor that takes a node of the AST tree (i.e. IDENTIFIER) and
     // the error message to build a more informative error message.
-    public AliaTypeException(Tree tree, String msg) {
-        super(tree,msg);
+    public AliaTypeException(String msg, Tree tree) {
+        super(msg, tree);
     }
 
 }

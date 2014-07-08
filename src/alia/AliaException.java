@@ -18,7 +18,7 @@ public class AliaException extends RecognitionException {
 
     // Ctor that takes a node of the AST tree (i.e. IDENTIFIER) and
     // the error message to build a more informative error message.
-    public AliaException(Tree tree, String msg) {
+    public AliaException(String msg, Tree tree) {
         super();
         this.msg = tree.getText() +
                 " (" + tree.getLine() +

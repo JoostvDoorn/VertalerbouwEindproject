@@ -21,9 +21,7 @@ import java.util.HashSet;
 // This disables ANTLR error handling: AliaExceptions are propagated upwards.
 @rulecatch { 
     catch (RecognitionException e) { 
-		System.out.println("Exception!:"+e.getMessage());
-        throw e; 
-        // TODO: Fix this
+		System.err.println("Exception!:"+e.getMessage());
     } 
 }
 
@@ -45,7 +43,7 @@ statements returns [_Type type = new _Void()]
     
 statement returns [_Type type = new _Void()]
     :   ^(WHILE stat=statements ^(DO statements))
-    { checkBoolType($stat.type); }
+    { checkBoolType($stat.type, $stat.tree); }
     |   t=expr
 	{ $type = $t.type; }
     ; 
@@ -61,8 +59,8 @@ expr returns [_Type type]
     |   ^(c=AND t1=expr t2=expr)
     |   ^(c=AND_ALT t1=expr t2=expr))
       {
-          checkEqualType($t1.type, $t2.type);
-          checkBoolType($t1.type);
+          checkEqualType($t1.type, $t2.type, $t1.tree);
+          checkBoolType($t1.type, $t1.tree);
           $type = new _Bool();
           String typename = String.valueOf($type);
       }
@@ -74,7 +72,7 @@ expr returns [_Type type]
    	|   ^(c=GT t1=expr t2=expr)
    	|   ^(c=LT t1=expr t2=expr))
 	   	{
-	   	    checkEqualType($t1.type, $t2.type);
+	   	    checkEqualType($t1.type, $t2.type, $t1.tree);
 	   	    $type = new _Bool();
         	String typename = String.valueOf($type);
 	   	}
@@ -85,7 +83,7 @@ expr returns [_Type type]
     |   ^(c=DIV te1=expr te2=expr)
     |   ^(c=MOD te1=expr te2=expr))
 	    { 
-	    	checkMathType($te1.type, $te2.type);
+	    	checkMathType($te1.type, $te2.type, $te1.tree);
 	    	$type = new _Int();
         	String typename = String.valueOf($type);
 	    }
@@ -106,14 +104,14 @@ expr returns [_Type type]
     	{
     		  $type = $to.type;
         	String typename = String.valueOf($type);
-        	checkBoolType($to.type);
+        	checkBoolType($to.type, $to.tree);
         }
 	   	-> ^($c operand TYPE[typename])
 	  | ^(c=( PLUS_OP | MINUS_OP ) o=operand)
 	    {
 	        $type = $o.type;
           String typename = String.valueOf($type);
-          checkEqualType($o.type, new _Int());
+          checkEqualType($o.type, new _Int(), $o.tree);
 	    }
 	    -> ^($c operand TYPE[typename])
    	|   ^(IF
@@ -127,35 +125,35 @@ expr returns [_Type type]
    			^(DO
    			ts=statements
 	   		{
-	   			checkBoolType($t.type);
+	   			checkBoolType($t.type, $ts.tree);
 	   			symTab.closeScope(); // Close scope for the first statement
 	   		}
    			)
    			texp=else_stmnt?
    			{
    				symTab.closeScope(); // Close scope for the conditional statements
-	   			checkBoolType($t.type);
+	   			checkBoolType($t.type, $t.tree);
 	   			$type = checkTypesIf($ts.type,$texp.type);
    			}
    		)
    	|   ^(COLON ^(BECOMES id=IDENTIFIER t1=expr) typ=type)
         {   
-        	_Type declType = checkEqualType($t1.type, $typ.type);
-        	declare($id.text, declType);
+        	_Type declType = checkEqualType($t1.type, $typ.type, $t1.tree);
+        	declare($id.text, declType, $id.tree);
     		$type = declType;
     		
         	String typename = String.valueOf($type);
-        	String identifier = String.valueOf(getIdentifier($id.text));
+        	String identifier = String.valueOf(getIdentifier($id.text, $id.tree));
         }
         -> ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) expr)
    	|   ^(BECOMES id=IDENTIFIER t1=expr)
         {   
-        	declare($id.text, $t1.type);
+        	declare($id.text, $t1.type, $id.tree);
     		$type = $t1.type;
-    		checkNotVoid($type);
+    		checkNotVoid($type, $t1.tree);
     		
         	String typename = String.valueOf($type);
-        	String identifier = String.valueOf(getIdentifier($id.text));
+        	String identifier = String.valueOf(getIdentifier($id.text, $id.tree));
         }
 	   	-> ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) expr)
    	|   ^(COMPOUND
@@ -171,11 +169,11 @@ expr returns [_Type type]
         }
 	   	-> ^(COMPOUND TYPE[typename] statements)
 	   |   ^(CONST id=IDENTIFIER BECOMES prim=primitive (COLON typ=type)?)
-          { _Type declType = checkEqualType($prim.type, $typ.type);
-            declareConst($id.text, declType, prim);
+          { _Type declType = checkEqualType($prim.type, $typ.type, $prim.tree);
+            declareConst($id.text, declType, prim, $id.tree);
             $type = declType;
             String typename = String.valueOf($type);
-            String identifier = String.valueOf(getIdentifier($id.text));
+            String identifier = String.valueOf(getIdentifier($id.text, $id.tree));
             
             }
       -> //^(CONST ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) primitive))
@@ -193,7 +191,7 @@ else_stmnt returns [_Type type]
 			)
 	   		te=else_stmnt?
 	   		{
-	   			checkBoolType($t.type);
+	   			checkBoolType($t.type, $t.tree);
 	   			$type = checkTypesIf($ts.type, $te.type);
 	   			symTab.closeScope();
 	   		}
@@ -214,8 +212,8 @@ else_stmnt returns [_Type type]
 operand returns [_Type type]
     :   id=identifier 
         { $type = $id.type; }
-    |   n=NUMBER // TODO: Check if number is out of bound
-    	{ $type = new _Int(); }
+    |   n=NUMBER
+    	{ $type = new _Int();checkInt(n);  }
     |   c=CHAR_EXPR
     	{ $type = new _Char(); }
     |   b=(TRUE | FALSE)
@@ -226,12 +224,12 @@ identifier returns [_Type type]
 	:
 	id=IDENTIFIER
 		{
-			$type = getType($id.text);
-      String typename = String.valueOf($type);
-      String identifier = String.valueOf(getIdentifier($id.text));
+			$type = getType($id.text, $id.tree);
+            String typename = String.valueOf($type);
+            String identifier = String.valueOf(getIdentifier($id.text, $id.tree));
         	// TODO: In functions type inference should also be included here. Example function test(x) x = x + 1
-      Boolean constant = retrieve($id.text).isConstant();
-      Token value = getConstant($id.text); //possibly only if constant?
+	        Boolean constant = retrieve($id.text, $id.tree).isConstant();
+	        Token value = getConstant($id.text); //possibly only if constant?
 		}
 	-> {constant && typename.equals("int") }? ^(NUMBER[value])
 	-> {constant && typename.equals("char") }? ^(CHAR_EXPR[value])
@@ -257,12 +255,12 @@ varlist returns [_Type type]
 exprlist returns [_Type type]
     : tl=exprentry
 		{
-			checkNotVoid($tl.type);
+			checkNotVoid($tl.type, $tl.tree);
 			$type = $tl.type;
 		}
 		(t=exprentry
 			{
-				checkNotVoid($t.type);
+				checkNotVoid($t.type, $t.tree);
 				$type = new _Void();
 			}
 		)*

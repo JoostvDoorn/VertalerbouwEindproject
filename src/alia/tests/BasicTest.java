@@ -72,7 +72,7 @@ public class BasicTest extends TestHelpers {
     @Test
     public void typeError() {
     	String result = run("examples/basic/incorrect/type","");
-    	assertThat(result, containsString("Attempting to redefine constant."));
+    	assertThat(result, containsString("Type char is not equal to int."));
     }
     
 }
