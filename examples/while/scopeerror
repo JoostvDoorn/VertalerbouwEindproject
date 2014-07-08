@@ -1,0 +1,6 @@
+x = 0
+
+while x < 3 do
+	y = 0
+end
+print(y)
