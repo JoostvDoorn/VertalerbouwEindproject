@@ -23,7 +23,7 @@ public class BasicTest extends TestHelpers {
     }
     @Test
     public void constantTest() {
-    	equalLines("5\n6\na\ntrue\nfalse\n",
+    	equalLines("",
     			run("examples/basic/constant","")
     			);
     }

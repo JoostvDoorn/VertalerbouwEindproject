@@ -491,12 +491,24 @@ For error handling AliaException and AliaTypeException are used. These exception
 After the checking fase has been completed a decorated AST is returned. The decorated AST stores the type information that was found in the corresponding nodes, such as for all binary expressions. We also store the identifying numbers for all applied usages of identifiers (except for constants which are replaced), these ascending numbers are gotten from the IdEntries using CheckerAux and are stored with the nodes, for later use in the code generation.
 
 \section{Tests}
-The Alia programming language has been thoroughly tested using a collection of test programs. These test programs have been designed to check the correct workings of parser, checker and compiler of the Alia programming language. Tests are located in the tests folder of the Alia project. Tests are divided in three categories.
+The Alia programming language has been thoroughly tested using a collection of test programs. These test programs have been designed to check the correct workings of parser, checker and compiler of the Alia programming language. Unit tests have been build using JUnit, and are located in the src/tests/ folder of the Alia project. There are three type of errors which the compiler should check for.
 
 \begin{enumerate}
-\item Syntax: Test correct syntax of the 
-\item Context
-\item Semantics: Tests which should trigger runtime errors.
+\item Syntax: Incorrect syntax and typos should be reported.
+\item Context: The context checker should type check the program, make sure all variables are declared before use, and enforce scoping rules.
+\item Semantics: Runtime errors such as division by zero should be adequately handeled by the compiler.
+\end{enumerate}
+
+\subsection{Tests}
+The tests have been constructed based on the requirements formulated in the compiler construction reader.
+
+\begin{enumerate}
+\item BasicTest.java: Contains tests for the basic expression language.
+  \begin{enumerate}
+  \item providedBasicTest: Test with correct syntax which is checked for correct output.
+  \item constantTest (Context): Checks if constants cannot be redefined.
+  \item Semantics: Runtime errors such as division by zero should be adequately handeled by the compiler.
+  \end{enumerate}
 \end{enumerate}
 
 \subsection{Basic functionality test}
