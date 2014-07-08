@@ -8,3 +8,5 @@ print(x,y,z)
 x1 = true
 read(x1)
 print(x1)
+read(x1)
+print(x1)

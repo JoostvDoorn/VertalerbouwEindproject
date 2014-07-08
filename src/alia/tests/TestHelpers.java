@@ -8,7 +8,7 @@ import java.io.PrintStream;
 import alia.Alia;
 
 public class TestHelpers {
-	private int run = 0;
+	private static int run = 0;
 	public String run(String filePath, String input) {
 		run++;
 	    // Save System.out
@@ -36,5 +36,9 @@ public class TestHelpers {
 	    // Show what happened
 	    String result = baos.toString();
 		return result;
+	}
+	protected void equalLines(String expected, String actual) {
+		org.junit.Assert.assertArrayEquals(expected.split("[\r\n]+"),
+											actual.split("[\r\n]+"));
 	}
 }

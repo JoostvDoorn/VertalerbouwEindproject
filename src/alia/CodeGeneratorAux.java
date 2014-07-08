@@ -83,7 +83,7 @@ public class CodeGeneratorAux extends TreeParser {
 	}
 	
 	public int getStackMax() {
-		return stackMax;
+		return stackMax+1;
 	}
 	
 	public void changeStack(int stackSize) {

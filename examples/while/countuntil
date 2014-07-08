@@ -1,6 +1,6 @@
 i = 0
-max = read()
-// read(max,min)
+max = 0
+read(max)
 while i<max do
 	print(i)
 	i += 1
