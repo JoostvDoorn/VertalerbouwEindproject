@@ -33,7 +33,7 @@ import java.util.HashSet;
 program
     :
       localSize=LOCALSIZE (s+=exprPop)+
-            ->  file(instructions={$s},stackMax={getStackMax()},localSize={$localSize},classname={"Test.j"})
+            ->  file(instructions={$s},stackMax={getStackMax()},localSize={$localSize},classname={getProgramClass()})
     ;
 
 statements @init { startExpression(); }
@@ -73,7 +73,7 @@ expr @init { }
     |   ^(MOD t1=expr t2=expr t=TYPE) {decStack();}   		-> binexpr(x={$t1.st}, y={$t2.st}, instr={"rem"})
     | ^(WHILE cond=statements {decStack();} ^(DO t2=statementsPop))  -> whilestmt(expr={$cond.st}, statement={$t2.st}, labelCond={newLabel()}, labelWhile={newLabel()})
     | ^(PRINT t=TYPE te=TYPE fexp=expr (exp+=exprPrint)*) {decStackIfVoid(getType($t.toString()));}                   -> printstmt(firststatement={$fexp.st},statements={$exp},type={getType($t.toString())},t={getType($te.toString()).T})
-    | ^(READ t=TYPE ^(id=IDENTIFIER t=TYPE a=ID) {incStack();} (v+=varRead)*) {decStackIfVoid(getType($t.toString()));}                     -> readstmt(statements={$v},addr={$a},type={getType($t.toString())},t={getType($t.toString()).T},void={$t.toString().equals("void")},classname={"Test.j"})
+    | ^(READ t=TYPE ^(id=IDENTIFIER t=TYPE a=ID) {incStack();} (v+=varRead)*) {decStackIfVoid(getType($t.toString()));}                     -> readstmt(statements={$v},addr={$a},type={getType($t.toString())},t={getType($t.toString()).T},void={$t.toString().equals("void")},classname={getProgramClass()})
     | ^(NOT o=operand t=TYPE)                    -> unarynot(x={$o.st}, instr={"not"})
     | ^(PLUS_OP o=operand t=TYPE)                  -> unaryplus(x={$o.st}, instr={"plus"})
     | ^(MINUS_OP o=operand t=TYPE)                 -> unarymin(x={$o.st}, instr={"neg"})
@@ -96,7 +96,7 @@ operand @init {incStack();}
     :   i=identifier			 -> statement(instruction={$i.st})
     |   n=NUMBER                 -> number(n={$n.toString()}, numberType={whatNumber(Integer.parseInt($n.toString()))})
     |   c=CHAR_EXPR              -> character(c={(int) c.toString().charAt(1)})
-    |   b=(TRUE | FALSE)         -> boolean(b={$b})
+    |   b=(TRUE | FALSE)        -> boolean(b={$b.toString().equals("true")})
     ;
     
 exprPrint @init {decStack();} :
@@ -104,7 +104,7 @@ exprPrint @init {decStack();} :
 	;
 	
 varRead @init {incStack();decStack();} :
-	^(id=IDENTIFIER t=TYPE a=ID) -> readvar(var={$id},addr={$a},type={getType($t.toString())},classname={"Test.j"})
+	^(id=IDENTIFIER t=TYPE a=ID) -> readvar(var={$id},addr={$a},type={getType($t.toString())},classname={getProgramClass()})
 	;
 
 identifier

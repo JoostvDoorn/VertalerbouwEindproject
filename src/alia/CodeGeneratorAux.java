@@ -14,6 +14,7 @@ public class CodeGeneratorAux extends TreeParser {
 	protected int stackMax = 0;
 	protected int stackPointer = 0;
 	protected Stack<Integer> stackScope = new Stack<Integer>();
+	private String className;
 	
 	public CodeGeneratorAux(TreeNodeStream input) {
 		super(input);
@@ -101,6 +102,14 @@ public class CodeGeneratorAux extends TreeParser {
 			result = new _Char();
 		}
 		return result;
+	}
+
+	public String getProgramClass() {
+		return className;
+	}
+	public void setProgramClass(String className) {
+		this.className  = className.equals("") ? "Test" : className;
+		
 	}
 
 

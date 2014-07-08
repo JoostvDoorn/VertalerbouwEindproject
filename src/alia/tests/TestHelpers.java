@@ -1,6 +1,5 @@
 package alia.tests;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -9,13 +8,15 @@ import java.io.PrintStream;
 import alia.Alia;
 
 public class TestHelpers {
+	private int run = 0;
 	public String run(String filePath, String input) {
+		run++;
 	    // Save System.out
 	    PrintStream oldOut = System.out;
 	    InputStream oldIn = System.in;
 
 	    System.setOut(new PrintStream(new ByteArrayOutputStream()));
-		String[] args = { "-ast", "-code_generator", filePath };
+		String[] args = { "-ast", "-code_generator", "-o","run"+run, filePath };
 		Alia.runCompiler(args);
 		System.setIn(new ByteArrayInputStream(input.getBytes()));
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -24,7 +25,7 @@ public class TestHelpers {
 	    System.setOut(ps);
 	    
 	    // Run file
-		String[] argsRun = { "-run", filePath };
+		String[] argsRun = { "-run", "-o","run"+run, filePath };
 		Alia.runCompiler(argsRun);
 
 	    // Put old System.out back

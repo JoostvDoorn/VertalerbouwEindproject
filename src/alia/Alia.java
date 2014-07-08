@@ -31,10 +31,13 @@ import jasmin.Main;
 public class Alia {
     private static final Set<Option> options = EnumSet.noneOf(Option.class);
     private static String inputFile;
+    private static String outputFile;
 
     public static void parseOptions(String[] args) {
     	options.clear();
     	inputFile = "";
+    	outputFile = "Test";
+    	boolean outputFileNext = false;
     	
         if (args.length == 0) {
             System.err.println(USAGE_MESSAGE);
@@ -44,14 +47,20 @@ public class Alia {
             try {
                 Option option = getOption(args[i]);
                 if (option == null) {
-                    if (i < args.length - 1) {
+                    if(outputFileNext) {
+                        outputFile = args[i];
+                    } else if (i < args.length - 1) {
                         System.err.println("Input file name '%s' should be last argument");
                         System.exit(1);
                     } else {
                         inputFile = args[i];
                     }
+                    outputFileNext = false;
+                } else if(option.equals(Option.O)) {
+                	outputFileNext = true;
                 } else {
                     options.add(option);
+                    outputFileNext = false;
                 }
             } catch (IllegalArgumentException exc) {
                 System.err.println(exc.getMessage());
@@ -104,6 +113,7 @@ public class Alia {
                 AliaCodeGeneratorStringTemplate codegenerator 
                     = new AliaCodeGeneratorStringTemplate(nodes);
                 codegenerator.setTemplateLib(templates);
+                codegenerator.setProgramClass(outputFile);
                 AliaCodeGeneratorStringTemplate.program_return r 
                     = codegenerator.program();
                 // 3. Get the stringtemplate output and print it.
@@ -119,18 +129,20 @@ public class Alia {
                 String[] arguments = new String[] {"bin/test.j","-d","bin"};
                 Main.main(arguments);
             }
+            System.out.println("test");
             if (options.contains(Option.RUN)) {
                 // Run the file by loading the class file dynamicly
                 try {
 	                URL classUrl = new URL(new URL("file:"), "bin/");
 	                URLClassLoader sysLoader = new URLClassLoader(new URL[]{classUrl});
 	                sysLoader.getURLs();
-	                Class runClass = sysLoader.loadClass("Test.j");
+	                Class runClass = sysLoader.loadClass(outputFile);
 		            Class getArg[] = { (new String[1]).getClass() };
 		            Method m = runClass.getMethod("main", getArg);
 	                String[] my = { "" };
 	                Object myarg[] = { my };
 	                m.invoke(null, myarg);
+	                sysLoader = null;
                 }
                 catch(InvocationTargetException ex) {
                 	System.err.println("Could not run compiled file!");
@@ -198,7 +210,8 @@ public class Alia {
         NO_CHECKER,
         NO_INTERPRETER,
         CODE_GENERATOR,
-        RUN;
+        RUN,
+        O;
 
         private Option() {
             this.text = name().toLowerCase();
