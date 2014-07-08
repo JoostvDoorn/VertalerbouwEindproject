@@ -13,6 +13,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 
 
 public class BasicTest extends TestHelpers {
+	// Tests all of the basic functionality of the Alia programming language.
     @Test
     public void providedBasicTest() {
     	equalLines("30\n-100\nfalse\ntrue\n998\ntrue\ntrue\na\nfalse\n1000\ntrue\nb\n",
