@@ -21,7 +21,10 @@ import java.util.HashSet;
 // This disables ANTLR error handling: AliaExceptions are propagated upwards.
 @rulecatch { 
     catch (RecognitionException e) { 
-		System.err.println("Exception!:"+e.getMessage());
+    	if(!e.getMessage().equals("")) {
+			System.err.println("Exception!:"+e.getMessage());
+		}
+		throw (new AliaException(""));
     } 
 }
 
@@ -139,7 +142,7 @@ expr returns [_Type type]
    	|   ^(COLON ^(BECOMES id=IDENTIFIER t1=expr) typ=type)
         {   
         	_Type declType = checkEqualType($t1.type, $typ.type, $t1.tree);
-        	declare($id.text, declType, $id.tree);
+        	declare($id.text, declType, $t1.tree);
     		$type = declType;
     		
         	String typename = String.valueOf($type);
@@ -148,7 +151,7 @@ expr returns [_Type type]
         -> ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) expr)
    	|   ^(BECOMES id=IDENTIFIER t1=expr)
         {   
-        	declare($id.text, $t1.type, $id.tree);
+        	declare($id.text, $t1.type, $t1.tree);
     		$type = $t1.type;
     		checkNotVoid($type, $t1.tree);
     		
@@ -170,10 +173,10 @@ expr returns [_Type type]
 	   	-> ^(COMPOUND TYPE[typename] statements)
 	   |   ^(CONST id=IDENTIFIER BECOMES prim=primitive (COLON typ=type)?)
           { _Type declType = checkEqualType($prim.type, $typ.type, $prim.tree);
-            declareConst($id.text, declType, prim, $id.tree);
+            declareConst($id.text, declType, prim, $prim.tree);
             $type = declType;
             String typename = String.valueOf($type);
-            String identifier = String.valueOf(getIdentifier($id.text, $id.tree));
+            String identifier = String.valueOf(getIdentifier($id.text, $prim.tree));
             
             }
       -> //^(CONST ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) primitive))
