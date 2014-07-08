@@ -97,7 +97,7 @@ public class SymbolTable<Entry extends IdEntry> {
     public Entry retrieve(String id) throws SymbolTableException {
     	Stack<Entry> resultStack = symtab.get(id);
     	if(resultStack == null || resultStack.empty()) {
-    		throw (new SymbolTableException("Not yet declared"));
+    		throw (new SymbolTableException(" " + id + " has not yet been declared"));
     	}
         return resultStack.peek();
     }

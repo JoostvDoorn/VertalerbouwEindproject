@@ -157,7 +157,12 @@ public abstract class CheckerAux extends TreeParser {
 			id = symTab.retrieve(name);
 		} catch (SymbolTableException e) {
 			System.out.println("6");
-			throw new AliaException(e.getMessage(), tree);
+			if(tree == null){
+				throw new AliaException(e.getMessage());
+			} else{
+				throw new AliaException(e.getMessage(), tree);
+			}
+			
 		}
 		return id.getType();
 	}
