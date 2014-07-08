@@ -23,6 +23,11 @@ public class CodeGeneratorAux extends TreeParser {
 		super(input, state);
 	}
 	
+	/**
+	 * Checks how big a number is and what the most efficient java instruction is that can be used to call it.
+	 * @param x - number to be checked.
+	 * @return array of booleans telling what the number fits into
+	 */
 	public NumberType whatNumber(long x){
 		
 		boolean lessthanfive, minusone, isbyte, isshort, isint;
@@ -43,10 +48,13 @@ public class CodeGeneratorAux extends TreeParser {
 		return numbool;
 	}
 
+	/**
+	 * Starts a new expression.
+	 */
 	public void startExpression() {
 		stackScope.push(stackPointer);
 	}
-	/*
+	/**
 	 * Returns the difference in stack height
 	 */
 	public int endExpression() {
@@ -54,6 +62,10 @@ public class CodeGeneratorAux extends TreeParser {
 		return result;
 	}
 	
+	/**
+	 * @param n - number of pops
+	 * @return String with n pop followed by a newline.
+	 */
 	public String pops(int n) {
 		String result = "";
 		for(int i = 0; i<n; i++) {
@@ -63,36 +75,57 @@ public class CodeGeneratorAux extends TreeParser {
 		return result;
 	}
 	
+	/**
+	 * @return new label for an identifier
+	 */
 	public int newLabel() {
 		return labelId++;
 	}
 
+	/**
+	 * Increments the stackpointer.
+	 */
 	public void incStack() {
 		stackPointer++;
 		stackMax = stackMax < stackPointer ? stackPointer : stackMax;
 	}
 
+	/**
+	 * Decrements the stackpointer.
+	 */
 	public void decStack() {
 		stackPointer--;
 	}
 	
+	/**
+	 * Only decrements the stackpointer if type is void
+	 */
 	public void decStackIfVoid(_Type type) {
 		if(type.equals(new _Void())) {
 			stackPointer--;
 		}
 	}
 	
+	/**
+	 * @return minimum height of stack needed.
+	 */
 	public int getStackMax() {
 		return stackMax+1;
 	}
-	
+	/**
+	 * @param stackSize - number to change stackpointer to
+	 */
 	public void changeStack(int stackSize) {
 		stackPointer+=stackSize;
 	}
-	
+	/**
+	 * Returns the _Type that a _type belongs to, otherwise returns _Void.
+	 * @param type - string to be checked against 
+	 * @return _type class
+	 */
 	public _Type getType(String type) {
 		_Type result = new _Void();
-		if(type == "bool") {
+		if(type == "bool") { //using the values of the actual classes would just make lots of code
 			result = new _Bool();
 		}
 		else if(type == "int") {
@@ -104,9 +137,17 @@ public class CodeGeneratorAux extends TreeParser {
 		return result;
 	}
 
+	/**
+	 * Return the class of the program.
+	 * @return
+	 */
 	public String getProgramClass() {
 		return className;
 	}
+	/**
+	 * Sets the class of the program.
+	 * @param className
+	 */
 	public void setProgramClass(String className) {
 		this.className  = className.equals("") ? "Test" : className;
 		

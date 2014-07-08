@@ -24,9 +24,9 @@ import jasmin.Main;
 
 
 /**
- * Program that creates and starts the Decluse lexer, parser, etc.
- * @author  Theo Ruys
- * @version 2009.05.01
+ * Program that creates and starts the Alia lexer, parser, checker, code generator and converts the generated code into a java class with jasmin.
+ * @author  Joost van Doorn
+ * @version 2014.07.08
  */
 public class Alia {
     private static final Set<Option> options = EnumSet.noneOf(Option.class);
@@ -144,7 +144,7 @@ public class Alia {
 	                Object myarg[] = { my };
 	                m.invoke(null, myarg);
 	                m = null;
-	                sysLoader = null;
+	                sysLoader.close();
                 }
                 catch(InvocationTargetException ex) {
                 	System.out.println(count);
@@ -165,10 +165,6 @@ public class Alia {
             }
 
         }
-//        catch (AliaException e) {
-//            System.err.print("ERROR: AliaException thrown by compiler: ");
-//            System.err.println(e.getMessage());
-//        }
         catch (RecognitionException e) {
             System.err.print("ERROR: recognition exception thrown by compiler: ");
             System.err.println(e.getMessage());

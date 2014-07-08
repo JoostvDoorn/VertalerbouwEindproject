@@ -1,0 +1,4 @@
+if true do
+	x = 5
+end
+print(x)

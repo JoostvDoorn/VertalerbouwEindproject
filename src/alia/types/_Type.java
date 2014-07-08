@@ -7,10 +7,18 @@ public abstract class _Type {
 		this.typename = "type";
 	}
 	
+	/**
+	 * @param type
+	 * @return true iff type is equal to internal type of class.
+	 * @override
+	 */
 	public boolean equals(_Type type) {
 		return typename.equals(type.typename);
 	}
 	
+	/**
+	 * Provides the name of the type.
+	 */
 	public String toString(){
 		return this.typename;
 	}

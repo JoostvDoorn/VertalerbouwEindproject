@@ -13,6 +13,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 
 
 public class BasicTest extends TestHelpers {
+	// Tests all of the basic functionality of the Alia programming language.
     @Test
     public void providedBasicTest() {
     	equalLines("30\n-100\nfalse\ntrue\n998\ntrue\ntrue\na\nfalse\n1000\ntrue\nb\n",
@@ -54,7 +55,7 @@ public class BasicTest extends TestHelpers {
     	assertThat(result, containsString("no viable alternative at input 'gebin'"));
     	assertThat(result, containsString("no viable alternative at input 'ned'"));
     	assertThat(result, containsString("no viable alternative at input 'repeat'"));
-    	assertThat(result, containsString("Not yet declared"));
+    	assertThat(result, containsString("has not yet been declared"));
     }
 
     @Test

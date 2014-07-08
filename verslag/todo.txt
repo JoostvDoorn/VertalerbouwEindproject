@@ -1,13 +1,14 @@
 1. Strings
 2. Concatonation with + (currently not allowed in checker)
 3. Functies
-4. Tests maken voor scope in if & while
+4. Tests maken voor scope in if & while // done
 
-3. Type hierarchy so that functions are better supported.
+3. Type hierarchy so that functions are better supported. //done
 4. Kijk of er iets staat in @members AliaChecker
-5. Meerzeggende exception handling
+5. Meerzeggende exception handling //done
 6. iload 0,1,2,3 zouden specifieke instructies kunnen krijgen net als bij ints
 7. lazy evaluation voor boolean expressies
+8. Add += to the language
 
 
 Voor verslag
@@ -23,16 +24,16 @@ Voor verslag
 9. Conclusies
 
 Minimum eisen:
-1. declarations (constant or variable)
-2. arithmetic expression (as in table A.3)
-3. assignment statement 
-4. read statement
-5. print statement
-6. compound expression
+1. declarations (constant or variable) // done
+2. arithmetic expression (as in table A.3) //done
+3. assignment statement  //done
+4. read statement //done
+5. print statement //done
+6. compound expression //ughdone
 
 Bonus:
-1. minimum eisen in JVM
-2. if & while
+1. minimum eisen in JVM //done
+2. if & while //done
 
 
 
