@@ -515,11 +515,43 @@ The tests have been constructed based on the requirements formulated in the comp
   \item typeError (Context): Checks if type errors are properly detected.
   \item intSize (Context): Check if use of numbers above the maximum integer size are detected.
   \item scopeError (Context): Checks if references out of scope are valid.
+  \item divideByZero (Semantics): Checks if divide by zero triggers a runtime error.
+  \end{enumerate}
+
+\item WhileTest.java: Contains tests for the while conditional statement.
+  \begin{enumerate}
+  \item providedBasicTest (Syntax): Test with correct syntax which is checked for correct output.
+  \item plustTest (Syntax): Tests a basic arithmetic expression.
+  \item printTest (Syntax): Tests print expressions.
+  \item readTest (Syntax): Tests read expressions.
+  \item constantTest (Syntax): Tests constants.
+  \item redefineConstant (Context): Checks if constants cannot be redefined.
+  \item syntaxError (Syntax): Checks if syntax errors are properly detected.
+  \item typeError (Context): Checks if type errors are properly detected.
+  \item intSize (Context): Check if use of numbers above the maximum integer size are detected.
+  \item scopeError (Context): Checks if references out of scope are valid.
+  \item divideByZero (Semantics): Checks if divide by zero triggers a runtime error.
+  \end{enumerate}
+
+\item IfTest.java: Contains test for the if conditional statement.
+  \begin{enumerate}
+  \item ifBasicTest (Syntax): Basic if statement test.
+  \item ifTypeVoidNoElseTest (Context): Tests if type is void when else statement is not present.
+  \item ifScopeErrorTest (Context): Tests the scope rules of the if statement.
+  \item ifScopeCondErrorTest (Context): Tests the scope rules of the condition of the if statement.
+  \item ifTypeEmptyVoidTest (Context): Tests if type is void when the if statement is empty.
+  \item ifDoubleElseTest (Syntax): Test with two many else statements, checks correct syntax error.
+  \end{enumerate}
+\item CompleteTest.java: Contains all language constructs of the Alia programming language.
+  \begin{enumerate}
+  \item providedCompleteTest (Syntax): Test program with all language constructs.
   \end{enumerate}
 \end{enumerate}
 
-\subsection{Basic functionality test}
-The following test is designed to test the basic functionalities of the programming language. The functionalities tested in this test set are the compound statements, the read and print statements and the assignment statement.
+\subsection{Test results}
+
+\subsection{Complete functionality test}
+The following test is designed to test the complete functionalities of the programming language.
 
 \begin{lstlisting}
 ivar = begin
@@ -550,6 +582,20 @@ cvar = begin
     'b';
   end;
 print(ivar, bvar, cvar);
+
+i = 0
+z = 0
+while x = 5; x > i do
+  print(i)
+  if z == 1 do
+    z = 0
+  elseif z == -1 do
+    z = 1
+  else
+    z = -1
+    i = i + 1
+  end
+end
 \end{lstlisting}
 
 \section{Conclusion}

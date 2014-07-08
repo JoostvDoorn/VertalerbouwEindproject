@@ -6,7 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 @RunWith(Suite.class)
-@SuiteClasses({BasicTest.class, WhileTest.class, IfTest.class})
+@SuiteClasses({CompleteTest.class, BasicTest.class, WhileTest.class, IfTest.class})
 public class TestAll {
 
 } 

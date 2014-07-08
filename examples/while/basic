@@ -1,6 +1,6 @@
 x = 0
 
-while x < 13 do
+while 13 > x do
 	x = x + 1
 	print(x)
 	

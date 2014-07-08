@@ -1,4 +1,4 @@
-if true do
-	x = 5
+if x = 5; true do
+	print(x)
 end
 print(x)

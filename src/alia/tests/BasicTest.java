@@ -82,5 +82,10 @@ public class BasicTest extends TestHelpers {
     	String result = run("examples/basic/incorrect/scope","");
     	assertThat(result, containsString("x has not yet been declared"));
     }
+    @Test
+    public void divideByZero() {
+    	String result = run("examples/basic/incorrect/divbyzero","");
+    	assertThat(result, containsString("/ by zero"));
+    }
     
 }

@@ -22,18 +22,18 @@ public class WhileTest extends TestHelpers {
 	}
 	
 	@Test
-	 public void whileCountErr1Test() {
+	 public void whileCountTypeErrorTest() {
 		String result = run("examples/while/counterr1","");
-		assertThat(result, containsString("Type int is not equal to bool."));
+		assertThat(result, containsString("expression is not a boolean."));
 	}
 	@Test
-	 public void whileCountonelineTest() {
+	 public void whileCountOneLineTest() {
 		equalLines("0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
   			run("examples/while/countoneline","")
   			);
 	}
 	@Test
-	 public void whileCounttypeTest() {
+	 public void whileCountTypeTest() {
 		equalLines("0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
   			run("examples/while/counttype","")
   			);
