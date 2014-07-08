@@ -10,8 +10,13 @@
 7. lazy evaluation voor boolean expressies
 8. Add += to the language
 
+Inleveren:
+Uitgeprint Verslag //Fedor
+Programmatuur als Zip
 
 Voor verslag
+-2. Evaluatieformulier vertalerbouw
+-1. Titelblad //Done
 0. Beknopte beschrijving // Joost
 1. syntax updaten? // Fedor
 2. context-beperkingen // Fedor
@@ -22,6 +27,15 @@ Voor verslag
 7. Explain lots of code in checker in report.
 8. Test plan & Test resultaten // Joost
 9. Conclusies
+
+Voor programmatuur, zip met:
+PDF verslag
+Een README-?le met daarin aanwijzingen voor de installatie en het opstarten van de vertaler, zoals de voor executie noodzakelijke directories en ?les en de manier waarop e.e.a. geinstalleerd en aangeroepen dient te worden. Bij het lezen van deze ?le moet een gebruiker in staat zijn de vertaler foutloos te genereren, te compileren en op te starten
+De volledige ANTLR speci?caties en de Java-?les die door ANTLR gegenereerd zijn;
+De Java-code van alle zelfgede?nieerde klassen, in e´en enkele directory-hi ´ erarchie
+Documentatie (door javadoc geproduceerd in html) van alle zelfgede?nieerde klassen, in een eigen directory-hierarchie (dus niet gecombineerd met de Java-files).
+Bytecode van eventuele gebruikte voorgedefinieerde klassen, voor zover het geen zelfgeprogrammeerde of standaard Java-klassen betreft.
+Resultaten van alle uitgevoerde tests.
 
 Minimum eisen:
 1. declarations (constant or variable) // done
