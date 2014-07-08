@@ -67,7 +67,9 @@ public class BasicTest extends TestHelpers {
     @Test
     public void intSize() {
     	String result = run("examples/basic/incorrect/intsize","");
-    	assertThat(result, containsString("Int values above 214748647 not allowed!"));
+    	assertThat(result, containsString("Illegal integer exception"));
+    	assertThat(result, containsString(Integer.MAX_VALUE+""));
+    	assertThat(result, containsString(Integer.MIN_VALUE+""));
     }
     
     @Test
