@@ -11,7 +11,7 @@
 \usepackage{xcolor} % to change color in code listings
 
 \usepackage{caption}
-\usepackage{cleveref}
+\u: sepackage{cleveref}
 
 %%% Equation and float numbering
 \numberwithin{equation}{section}		% Equationnumbering: section.eq#
@@ -29,7 +29,7 @@
   breaklines=true, % Enables wrapping in lstlisting environment.
   backgroundcolor=\color[HTML]{F8F8F8},
   frame=tlrb,
-  basicstyle=\ttfamily, % the size of the fonts that are used for the code
+  language=Ruby,
   keepspaces=true, 
   framextopmargin=5pt,
   framexleftmargin=5pt,
@@ -42,7 +42,7 @@
   identifierstyle=\color[HTML]{333333},
   morecomment=[l]{//},
   morecomment=[s]{/*}{*/},
-  keywords={print, read, if, else, elseif, do, end, while, const, def, begin, func},
+  keywords={if, else, elseif, do, end, while, const, def, begin, func, and, or, {||}, {&&}},
   keywordstyle=\color[HTML]{333333}\bfseries, 
   % numbers=left, %we need line numbers to make line wrapping obvious
   numberstyle=\color[HTML]{888888}, %we want line numbers to blend in
@@ -150,11 +150,11 @@ statement = (expr_assignment | const_assignment) (; type)?
 
 end_statement = \n | ";" | EOF;
 
-expr_assignment = (exprPrint "=") expr_assignment
+expr_assignment = (identifier "=") expr_assignment
 				| expr 
 				;
 
-const_assignment = CONST exprPrint "=" primitive;
+const_assignment = CONST identifier "=" primitive;
 
 expr = expr1 ((or | "||") expr1)*;
 expr1 = expr2 ((and | "&&") expr2)*;
@@ -170,14 +170,14 @@ operand = read |
 	   	  "(" expr ")" |
 	   	  compound_stmnt |
 	   	  primitive |
-	   	  func_exprPrint
+	   	  func_identifier
 		;
 		  
 compound_stmnt = begin statements end;
 
 primitive = number | character | boolean;
 
-func_exprPrint = exprPrint ( "(" exprlist? ")" )?;
+func_identifier = identifier ( "(" exprlist? ")" )?;
 
 while_stmnt = WHILE statements_cond DO statements END;
 
@@ -190,10 +190,10 @@ else_stmnt = ELSEIF statements_cond DO statements else_stmnt?
 print = PRINT "(" exprlist ") ;
 read = READ "(" varlist ") ;
 
-varlist = exprPrint ("," exprPrint)*;
+varlist = identifier ("," identifier)*;
 exprlist = expr ("," expr)*;
 
-func_def = DEF exprPrint "(" varlist ")";
+func_def = DEF identifier "(" varlist ")";
 \end{verbatim}
 
 
@@ -320,11 +320,15 @@ The operand 'B' evaluates to a boolean, either true or false. C is of type Bool.
 \section{Translation rules} %Vertaalregels, hoofdstuk 7 van Watt & Brown
 The translation rules for Alia to Java bytecode are shown here. Some details have been abstracted away in favor of readability, these details include specific label names, translation rules which are dependent on the type of the expression (such as print and read), and some specific rules where pop statements are included.
 
+\paragraph{Pop lines}
+A pop line is included after every statement that returns a value but has no higher expression using it. The amount of variables generated on the stack are counted by the compiler and after each complete statement the leftover expressions are popped.
+
+\paragraph{Translation rules}
 \begin{verbatim}
 execute [I = E]
     expr [E]
     istore a // address of variable I
-    exprPrint [I]
+    identifier [I]
 
 expr [while C do S end] =
     goto COND
@@ -422,6 +426,7 @@ execute [read(I)] =
     istore a ; address of variable I
     execute [S]
     iload_1
+
 execute [read(I, L)] =
     read []
     istore a ; address of variable I
@@ -444,18 +449,29 @@ execute [S ; S] =
     execute [S]
     execute [S]
 
-
 execute [S] =
     expr [S]
     
-exprPrint [I] =
-    iload a ; address of variable I
+identifier [I] =
+    iload a // address of variable I
+
+operand [I] =
+    identifier [I]
 
 operand [N] =
     number [N] // iconst n
+operand [C] =
+    bipush C
+
+operand [true] =
+    iconst_1
+
+operand [false] =
+    iconst_0
+
 
 program [S] =
-    .class public filename.j ; target file
+    .class public filename.j // target file
     .super java/lang/Object
     
     .method public \<init\>()V
@@ -465,8 +481,8 @@ program [S] =
     .end method
     
     .method public static main([Ljava/lang/String;)V
-       .limit stack stackMax ; stackMax = maximum size of the stack
-       .limit locals localSize ; localSize = amount of local variables required
+       .limit stack stackMax // stackMax = maximum size of the stack
+       .limit locals localSize // localSize = amount of local variables required
        
        execute [S]
     
@@ -475,7 +491,7 @@ program [S] =
 \end{verbatim}
 
 \section{Java-code}
-The checker uses an auxiliary class CheckerAux that handles a large portion of the logic of the checking, such as if two types are the same. This class also declares variables and constants into the symbol table. CheckerAux also has methods to access the symbolTable so that it throws AliaExceptions instead of more general exceptions. The symbol table has a HashMap of Names, IdEntries and a scopestack that has all exprPrints declared on a scope. Like every symbolTable it keeps track of what exprPrints have been declared on what levels. The IdEntries also store information about whether the exprPrint is a constant and what type it is.
+The checker uses an auxiliary class CheckerAux that handles a large portion of the logic of the checking, such as if two types are the same. This class also declares variables and constants into the symbol table. CheckerAux also has methods to access the symbolTable so that it throws AliaExceptions instead of more general exceptions. The symbol table has a HashMap of Names, IdEntries and a scopestack that has all identifiers declared on a scope. Like every symbolTable it keeps track of what identifiers have been declared on what levels. The IdEntries also store information about whether the identifier is a constant and what type it is.
 
 Most of the logic for type checking is implemented in CheckerAux, to do the type checking a set of type classes are used, such as \_Int and \_Bool. All of these classes inherit from \_Type and have a string with their typename. We chose to make all types into distinct classes instead of an enum because this will allow for extension of say the \_Int class with a \_Float class or of the \_Char class with a \_String class. In this way we can more easily add addtional types to Alia and a future \_Long and \_Float could be compared using inheritence.
 
@@ -483,8 +499,50 @@ The code generation makes use of CodeGeneratorAux. This seperates some of the lo
 
 For error handling AliaException and AliaTypeException are used. These exceptions are thrown in the checker when ever a type is violated. If there is a syntactical mistake then the classes generated by antlr will throw exceptions. For run time errors standard java exceptions are also used.
 
-After the checking fase has been completed a decorated AST is returned. The decorated AST stores the type information that was found in the corresponding nodes, such as for all binary expressions. We also store the identifying numbers for all applied usages of exprPrints (except for constants which are replaced), these ascending numbers are gotten from the IdEntries using CheckerAux and are stored with the nodes, for later use in the code generation.
+After the checking fase has been completed a decorated AST is returned. The decorated AST stores the type information that was found in the corresponding nodes, such as for all binary expressions. We also store the identifying numbers for all applied usages of identifiers (except for constants which are replaced), these ascending numbers are gotten from the IdEntries using CheckerAux and are stored with the nodes, for later use in the code generation.
+
 \section{Tests}
+The Alia programming language has been thoroughly tested using a collection of test programs. These test programs have been designed to check the correct workings of parser, checker and compiler of the Alia programming language. Tests are located in the tests folder of the Alia project. Tests are divided in three categories.
+
+\begin{enumerate}
+\item Syntax: Test correct syntax of the 
+\item Context
+\item Semantics: Tests which should trigger runtime errors.
+\end{enumerate}
+
+\subsection{Basic functionality test}
+The following test is designed to test the basic functionalities of the programming language. The functionalities tested in this test set are the compound statements, the read and print statements and the assignment statement.
+
+\begin{lstlisting}
+ivar = begin
+    ivar1 = ivar2 = 0
+    read(ivar1, ivar2);
+    print(ivar1, ivar2);
+    const iconst1 = 1;
+    const iconst2 = 2;
+    ivar2 = ivar1 = +16 + 2 * -8;
+    print(ivar1 < ivar2 && iconst1 <= iconst2,iconst1 * iconst2 > ivar2 - ivar1);
+    ivar1 < read(ivar2) && iconst1 <= iconst2;
+    ivar2 = print(ivar2) + 1;
+  end + 1
+bvar = begin
+    bvar = false
+    read(bvar);
+    print(bvar);
+    bvar = 12 / 5 * 5 + 12 % 5 == 12 && 6 >= 6;
+    const bconst = true;
+    print(!false && bvar == bconst || true != false);
+  end && true;
+cvar = begin
+    cvar1 = 'c'
+    read(cvar1);
+    const cconst = 'c';
+    cvar2 = 'z';
+    print('a', cvar1 == cconst && cvar2 != 'b' || !true);
+    'b';
+  end;
+print(ivar, bvar, cvar);
+\end{lstlisting}
 
 \section{Conclusion}
 \section{Appendices}
