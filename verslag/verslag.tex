@@ -136,7 +136,7 @@ We chose to put the optimalisation of replacing all constants by their actual re
 %uitleg over de wijze waarop je de problemen die je bent tegengekomen bij het maken van de opdracht hebt opgelost (maximaal twee A4-tjes)
 
 \section{Syntax, context-constraints and semantics}
-The concrete syntax of Alia is defined as follows, the abstract syntax follows afterwards:
+The syntax of Alia is defined as follows:
 
 \begin{verbatim}
 program = (func_def | (statement end_statement) | \n)*;
@@ -199,97 +199,111 @@ func_def = DEF identifier "(" varlist ")";
 
 \subsection{Semantics and context constraints:}
 The semantics and context constraints are defined using the abstract syntax of the Alia language.
+\paragraph{Program}
 \begin{verbatim}
-program = statement+;
+program = ((statement end_statement) | \n)*;
 \end{verbatim}
-The program 'C' is run by executing the command C.
+A program is run by executing a sequence of statements.
+\paragraph{Statement}
 \begin{verbatim}
-statements = statement*;
-\end{verbatim}
-\begin{verbatim}
-statement = 	WHILE statements DO statements END
-			|	expr
+statements = (statement (end_statement statements)? | \n statements)?;
+statements_conditional = (statement (end_statement statements)? | \n statements_cond )?;
+end_statement = \n | ";" | EOF;
+statement = while_stmnt 
+			| (expr_assignment | const_assignment) 
 			;
+while_stmnt = WHILE statements_cond DO statements END;
+if_stmnt = IF statements_cond DO statements else_stmnt? END;
+else_stmnt = ELSEIF statements_cond DO statements else_stmnt?
+			| (ELSE statements);
+compound_stmnt = begin statements end;
 \end{verbatim}
-The while statement 'while S1 do S2 end' is executed as follows. The statement S1 is evaluated, if its value is true then S2 is evaluated and the while statement is run again. If the value of S1 is false then the execution is completed. S1 must be of type boolean. This statement is of type void. Declarations made in S1 are valid in S1 and S2. The scope of declarations made in S2 is only S2.
-Any expression 'E' is executed.
+\begin{itemize}
+\item A statements is a set of statements separated by an end statement.
+\item A conditional statements is a statements that is ment for conditional expressions.
+\item A statement can be ended by any of the above separators.
+\item The while statement 'while S1 do S2 end' is executed as follows. The statement S1 is evaluated, if its value is true then S2 is evaluated and the while statement is run again. If the value of S1 is false then the execution is completed. S1 must be of type boolean. This statement is of type void. Declarations made in S1 are valid in S1 and S2. The scope of declarations made in S2 is only S2.
 
+\item If statements of the form 'if S1 do S2 (elseif S3 do S4)* (else S5)?' are executed as follows. S1 is executed. If S1 is true, then S2 is evaluated. If S1 is false and there is an S3, then S3 is evaluted and if true S4 is executed. If the evaluated S3 is false there is another elseif statement then it is evaluated, same as an if statement is. If S1, S3 and all other elseifs have evaluated to false, then S5 is executed. If there is no S5, execution has completed. The type os S1 and S3 must be boolean. If there is no else part, the type of the statement is void. If there is an else part, then if all S2, S4, S5 are the same type, that is the type of the conditional statement. If S2, S4, S5 are not of the same type then the type of the statement is void. Special scope rules apply, a declaration in S1 or any S3 is valid in S2, S4, S5 as long as the declaration precedes the use. 
+\item A compound statement is a closed set of statements. Any assignments made in the statements can not be used outside of the compound statement. The result and type of the compound statement are the same as the last statement in the compound statement.
+
+\end{itemize}
+\paragraph{Assignment}
 \begin{verbatim}
-expr = operand
-|   expr OR expr
-|   expr OR_ALT expr
-|   expr AND expr
-|   expr AND_ALT expr
-|   expr EQ expr
-|   expr NQ expr
-|   expr LE expr
-|   expr GE expr
-|   expr GT expr
-|   expr LT expr
-|   expr PLUS expr
-|   expr MINUS expr
-|   expr TIMES expr
-|   expr DIV expr
-|   expr MOD expr
-| 	NOT operand)
-|	(PLUS_OP | MINUS_OP) operand
-| 	PRINT exprlist
-| 	READ varlist
-|   IF	statements
-   	DO statements
-   	(ELSEIF statements
-		DO statements)*
-	ELSE statements
-|   COMPOUND statements
-|   IDENTIFIER BECOMES expr (COLON type)?
-|   CONST IDENTIFIER BECOMES primitive (COLON type)?
+expr_assignment = identifier "=" expr_assignment
+				| expr (; type)?
+				;
+
+const_assignment = CONST identifier "=" primitive;(; type)?
 \end{verbatim}
-The expressions 'or', '||', 'and', '\&\&' preceded by E1 and followed by E2 are evaluated by performing a logical or (True iff E1 or E2) in case of 'or' and '||'. In the case of 'and' and '\&\&' it is evaluated by performing a logical and on the two expressions (True iff E1 and E2). E1 and E2 must be of type boolean. The type of the expression is Boolean. These are the logical operators. \\
 
-The expression 'E1 == E2' is true iff E1 equals E2. 'E1 != E2' is true iff E1 is not equal to E2. 'E1 <= E2' true iff E1 is smaller than or equal to E2. 'E1 >= E2' is true iff E1 greater than or equal to E2. 'E1 > E2' is true iff E1 is greater than E2. 'E1 < E2' is true iff E1 is smaller than E2.
-Of all these comparative operators, E1 and E2 must be of the same type. The type of the expressions is Boolean. These are the comparitive operators. \\
+\begin{itemize}
+\item An expression assignment binds one or more identifiers to a value yielded by an expression E. If a type is included then the type and the type of the expression must match. The identifiers can thereafter be used in applied occurrences. The expression assignment yields the value of the expression.
+\item The expression 'const I = P (:T)?' is executed as follows. I is bound to the value P. If T was included, T and E must be of the same type. The expression is of type P. I can be used in applied occurrences. I can not be assigned a different value at a later time.
+\end{itemize}
 
-The expression 'E1 + E2' is executed as E1 plus E2. 'E1 - E2' is E1 minus E2. 'E1 * E2' is E1 times E2. 'E1 / E2' is E1 divided by E2, E2 is not allowed to be zero. '% E1 E2' is E1 modulo E2. The type of each of these E1 and E2 must be Int. The type of the expression is Int. These are the arithmetic operators.\\
-
-The operator O in '!O' is inverted. O must be of type boolean, the expression is of type boolean. The '+O' and '-O' are executed as follows. For '+O' nothing is done. For '-O' the operand is negated. O must be of type Int, the expression is of type Int. These are the unary operators.
-
-The previous expressions have the following priority, from highest to lowest. Unary operators (-, +, !), then *,/,%, then + and -. Then comes comparative operators (<, <=, >=, >, ==, <>) then comes the logical and (&& or 'and') then comes logical or \|\| or 'or'.
-
-The expression 'print EL' is executed as follows. The expression list EL is evaluated. All evaluated expressions are then written to the output. The type of the expression is the type of EL.
-The expression 'read VL' is executed as follows. The variable list evaluated. For every variable a line is read from the input, the first character of this line is assigned as value to the variable. The type of the expression is the type of VL.
-
-If statements of the form 'if S1 do S2 (elseif S3 do S4)* (else S5)?' are executed as follows. S1 is executed. If S1 is true, then S2 is evaluated. If S1 is false and there is an S3, then S3 is evaluted and if true S4 is executed. If the evaluated S3 is false there is another elseif statement then it is evaluated, same as an if statement is. If S1, S3 and all other elseifs have evaluated to false, then S5 is executed. If there is no S5, execution has completed. The type os S1 and S3 must be boolean. If there is no else part, the type of the statement is void. If there is an else part, then if all S2, S4, S5 are the same type, that is the type of the conditional statement. If S2, S4, S5 are not of the same type then the type of the statement is void. Special scope rules apply, a declaration in S1 or any S3 is valid in S2, S4, S5 as long as the declaration precedes the use. 
-The expression 'COMPOUND S1' is executed as follows. S1 is executed. This expression is of type S1.
-
-The assignment 'I = E (:T)?' is executed as follows. I is bound to the value yielded by the expression E. If T was included, T and E must be of the same type. The expression is of type E. I can thereafter be used in applied occurrences, as an assignment generates a result it can be used as a 'sub-expression' in another statement or expression.
-The expression 'const I = P (:T)?' is executed as follows. I is bound to the value P. If T was included, T and E must be of the same type. The expression is of type P. I can be used in applied occurrences. I can not be assigned a different value at a later time.
+\paragraph{Expressions}
 \begin{verbatim}
-operand = 	IDENTIFIER
-		|	primitive
+expr = expr1 ((or | "||") expr1)*;
+expr1 = expr2 ((and | "&&") expr2)*;
+expr2 = expr3 ((">" | ">=" | "<" | "<=" | "==" | "!=" )^ expr3)*;
+expr3 = expr4 (("+" | "-")^ expr4)*;
+expr4 = expr5 (("*" | "/" | "%")^ expr5)*;
+expr5 = "!" operand | operand | expr_minus | expr_plus;
+expr_minus = "-" operand;
+expr_plus = "+" operand;
+\end{verbatim}
+\begin{itemize}
+\item The expressions 'or', '||', 'and', '\&\&' preceded by E1 and followed by E2 are evaluated by performing a logical or (True iff E1 or E2) in case of 'or' and '||'. In the case of 'and' and '\&\&' it is evaluated by performing a logical and on the two expressions (True iff E1 and E2). E1 and E2 must be of type boolean. The type of the expression is Boolean. These are the logical operators. 
+\item The expression 'E1 == E2' is true iff E1 equals E2. 'E1 != E2' is true iff E1 is not equal to E2. 'E1 <= E2' true iff E1 is smaller than or equal to E2. 'E1 >= E2' is true iff E1 greater than or equal to E2. 'E1 > E2' is true iff E1 is greater than E2. 'E1 < E2' is true iff E1 is smaller than E2. Of all these comparative operators, E1 and E2 must be of the same type. The type of the expressions is Boolean. These are the comparitive operators. 
+\item The expression 'E1 + E2' is executed as E1 plus E2. 'E1 - E2' is E1 minus E2. 'E1 * E2' is E1 times E2. 'E1 / E2' is E1 divided by E2, E2 is not allowed to be zero. '% E1 E2' is E1 modulo E2. The type of each of these E1 and E2 must be Int. The type of the expression is Int. These are the arithmetic operators.
+\item The operator O in '!O' is inverted. O must be of type boolean, the expression is of type boolean. The '+O' and '-O' are executed as follows. For '+O' nothing is done. For '-O' the operand is negated. O must be of type Int, the expression is of type Int. These are the unary operators.
+\item The previous expressions have the following priority, from highest to lowest. Unary operators (-, +, !), then *,/,%, then + and -. Then comes comparative operators (<, <=, >=, >, ==, <>) then comes the logical and (&& or 'and') then comes logical or \|\| or 'or'.
+\end{itemize}
+
+\paragraph{Operands}
+\begin{verbatim}
+operand = READ "(" varlist ") |
+	   	  PRINT "(" exprlist ") |
+	   	  if_stmnt |
+	   	  "(" expr ")" |
+	   	  compound_stmnt |
+	   	  primitive |
+		  identifier
 		;
 \end{verbatim}
-The operand 'I' identifies a the value or variable bound to I. The operand I must have been previously declared. The type of the operand is the type of that value or variable.
-A primitive is one of the three primitive types NUMBER, CHAR\_EXPR and BOOLEAN. 
 
-\begin{verbatim}
-varlist = identifier (identifier)*;
-\end{verbatim}
-The list 'I I*' evaluates to a list of identifiers. If there is one identifier the type of the list is the type of that identifier, and the result is its value. If there are 2 or more, the type is void and there is no result.
-\begin{verbatim}
-exprlist = expr (expr)*;
-\end{verbatim}
-The list 'E E* evaluates to a list of expressions. None of the expressions may be void. If there is one expression, the list of the type of E, and the value is E. If there are 2 or more, the type is void, and thus there is no result.
+\begin{itemize}
+\item The expression 'read VL' is executed as follows. The variable list evaluated. For every variable a line is read from the input, the first character of this line is assigned as value to the variable. The type of the expression is the type of VL.
+\item The expression 'print EL' is executed as follows. The expression list EL is evaluated. All evaluated expressions are then written to the output. The type of the expression is the type of EL.
+\item If statements are explained under statements.
+\item An operand can carry another expression as long as that expression is surrounded by brackets. The type and result are the same as the expression.
+\item Compound statements are explained under statements.
+\item A primitive is one of the three primitive types NUMBER, CHARACTER and BOOLEAN.
+\item The identifier operand points to a the value or variable bound to I. The operand I must have been previously declared. The type of the operand is the type of that value or variable.
+\end{itemize}
 
+\paragraph{lists}
+\begin{verbatim}
+varlist = identifier ("," identifier)*;
+exprlist = expr ("," expr)*;
+\end{verbatim}
+\begin{itemize}
+\item The list 'I (,I)*' evaluates to a list of identifiers. If there is one identifier the type of the list is the type of that identifier, and the result is its value. If there are 2 or more, the type is void and there is no result.
+\item The list 'E (,E)* evaluates to a list of expressions. None of the expressions may be void. If there is one expression, the list of the type of E, and the value is E. If there are 2 or more, the type is void, and thus there is no result.
+\end{itemize}
+\paragraph{types}
 \begin{verbatim}
 primitive =	NUMBER
-		|	CHAR\_EXPR
+		|	CHARACTER
 		|	BOOLEAN
 		;
 \end{verbatim}
-The operand 'N' evaluates to a number. N can be no larger than 2147483647 and no smaller than -2147483648. N is of type Int.
-The operand 'C' evaluates to a character. C is of type Char.
-The operand 'B' evaluates to a boolean, either true or false. C is of type Bool.
-
+\begin{itemize}
+\item The operand 'N' evaluates to a number. N can be no larger than 2147483647 and no smaller than -2147483648. N is of type Int.
+\item The operand 'C' evaluates to a character. C is of type Char.
+\item The operand 'B' evaluates to a boolean, either true or false. C is of type Bool.
+\end{itemize}
 In Alia there are 4 types. 'int', 'char', 'boolean' and 'void'. If something is of type void it is an empty value that cannot be used.
 
 \section{Translation rules} %Vertaalregels, hoofdstuk 7 van Watt & Brown
