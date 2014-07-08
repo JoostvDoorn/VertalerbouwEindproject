@@ -1,4 +1,7 @@
 package alia.tests;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertThat;
+
 import org.junit.Test;
 
 public class WhileTest extends TestHelpers {
@@ -20,9 +23,8 @@ public class WhileTest extends TestHelpers {
 	
 	@Test
 	 public void whileCountErr1Test() {
-		equalLines("1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n",
-  			run("examples/while/counterr1","")
-  			);
+		String result = run("examples/while/counterr1","");
+		assertThat(result, containsString("Type int is not equal to bool."));
 	}
 	@Test
 	 public void whileCountonelineTest() {
@@ -32,7 +34,7 @@ public class WhileTest extends TestHelpers {
 	}
 	@Test
 	 public void whileCounttypeTest() {
-		equalLines("1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n",
+		equalLines("0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n",
   			run("examples/while/counttype","")
   			);
 	}
@@ -44,8 +46,7 @@ public class WhileTest extends TestHelpers {
 	}
 	@Test
 	 public void whileScopeErrorTest() {
-		equalLines("1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n",
-  			run("examples/while/scopeerror","")
-  			);
+		String result = run("examples/while/scopeerror","");
+		assertThat(result, containsString("has not yet been declared"));
 	}
 }

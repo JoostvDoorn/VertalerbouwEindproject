@@ -55,7 +55,7 @@ public class BasicTest extends TestHelpers {
     	assertThat(result, containsString("no viable alternative at input 'gebin'"));
     	assertThat(result, containsString("no viable alternative at input 'ned'"));
     	assertThat(result, containsString("no viable alternative at input 'repeat'"));
-    	assertThat(result, containsString("a has not yet been declared"));
+    	assertThat(result, containsString("has not yet been declared"));
     }
 
     @Test

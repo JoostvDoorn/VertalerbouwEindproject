@@ -8,6 +8,7 @@
 5. Meerzeggende exception handling //done
 6. iload 0,1,2,3 zouden specifieke instructies kunnen krijgen net als bij ints
 7. lazy evaluation voor boolean expressies
+8. Add += to the language
 
 
 Voor verslag
