@@ -16,20 +16,6 @@ import java.util.Set;
 import java.util.HashSet;
 }
 
-// Alter code generation so catch-clauses get replaced with this action. 
-// This disables ANTLR error handling: AliaExceptions are propagated upwards.
-@rulecatch { 
-    catch (RecognitionException e) { 
-    System.out.println("Exception!:"+e.getMessage());
-        throw e; 
-        // TODO: Fix this
-    } 
-}
-
-@members {
-
-}
-
 program
     :
       localSize=LOCALSIZE (s+=exprPop)+

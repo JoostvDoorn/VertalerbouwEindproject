@@ -68,6 +68,15 @@
   numbers=left, %we need line numbers to make line wrapping obvious
   numberstyle=\color[HTML]{888888} %we want line numbers to blend in
 }
+\lstdefinestyle{densecodenomargins}{
+  aboveskip=1cm,
+  belowskip=1cm,
+  xleftmargin=0.8cm, % Alters margin for listings to fit more code on a line.
+  xrightmargin=0.3cm, % Alters margin for listings to fit more code on a line.
+  basicstyle=\footnotesize\ttfamily,
+  numbers=left, %we need line numbers to make line wrapping obvious
+  numberstyle=\color[HTML]{888888} %we want line numbers to blend in
+}
 \lstdefinestyle{densecodecolumn}{
   aboveskip=0cm,
   belowskip=0cm,
@@ -120,16 +129,17 @@
 \maketitle
 \newpage
 \section*{Introduction}
-The Alia programming language was built for the final project of the compiler construction course at the University of Twente. In this final project a programming language is specified and implemented in antlr (ANother Tool for Language Recognition). A compiler is built to translate code into a type of machine instructions. The type of machine instructions can vary from language to language. Over the first half of compiler construction several small pieces of the process of building a compiler are individually learned and tested, brought to culmination in the final project where the entire track is gone through and a usable language is produced. 
+The Alia programming language was built for the final project of the compiler construction course at the University of Twente. In this final project a programming language is specified and implemented in antlr (ANother Tool for Language Recognition). A compiler is built to translate code into a type of machine instructions. The type of machine instructions can vary from language to language. Over the first half of compiler construction course several parts of the design process of building a compiler are individually learned and tested. In the final project this is brought to culmination by going through the entire process from the specification, to in the end a usable programming language. 
 
-This document serves as a specification of the Alia Programming Language (Alia for short) as well as an explanation of the inner workings of the Alia compiler. In it we will give a short description of the Alia Programming Language in the context of programming languages, explain some of the problems faced and solutions concoted during the construction of the Alia compiler,  give a specification of the Alia language with the help of the syntax, context-constraints and semantics. Also in this document are the transformations that show how the symbols of the language are turned into JVM instructions, a description of all the auxiliary java code made for the compiler, a set of tests is described to give confidence in the correctness of the compiler and lastly conclusions are drawn from the project.
+This document serves as a specification of the Alia Programming Language (Alia for short) as well as an explanation of the inner workings of the Alia compiler. In it we will give a short description of the Alia Programming Language in the context of programming languages, explain some of the problems faced during the construction of the Alia compiler,  and our solutions. Give a specification of the Alia language with the help of the syntax, context-constraints and semantics. Also in this document are the transformations that show how the symbols of the language are turned into JVM instructions, a description of all the auxiliary Java code made for the compiler. A set of tests is described to give confidence in the correctness of the compiler. Lastly conclusions are drawn from the project.
 
-The Alia source code repository is located at \url{https://github.com/JoostvDoorn/VertalerbouwEindproject}.
+The Alia source code repository is located at:
+\url{https://github.com/JoostvDoorn/VertalerbouwEindproject}
 
 \section{Alia Programming Language}
 %De programmeertaal
 %Maximaal een A4
-The Alia programming language is an expression language with type inference. Alia code is compiled to Java bytecode and can be run using the Java Virtual Machine (JVM). As an expression language every statement has a return type. Functional statements such as print, read and conditional statements all return values. For example the print function may return a value which can be used in an assignment statement.
+The Alia programming language is an expression language with type inference. Alia code is compiled to Java bytecode using Jasmin and can be run using the Java Virtual Machine (JVM). As an expression language every statement has a return type. Functional statements such as print, read and conditional statements all return values. For example the print function may return a value which can be used in an assignment statement.
 
 \begin{lstlisting}
 x = print(34) + 1 // x is assigned 35
@@ -161,13 +171,16 @@ x = 54 : int // x is assigned 54, and is explicitly declared as an int
 \section{Problems and solutions}
 During the construction of the Alia compiler we ran into some problems, as is to be expected during any first time construction of a compiler. In this section we will explain some of the bigger problems that we faced as well as the solutions that we applied.
 
-Scope definition: Because we do not have explicit declarations we cannot redefine a variable inside a new scope. There would be no way to distinguish between redefining a variable in a new scope and reassigning the value that was given to a variable to be used later. With a new variable that overwrites an old one for a temporary scope you would need to assign a new space in memory. We have decided that we want this in our programming language, this is because if you can redeclare a variable inside a new scope then you are only making it more confusing for yourself as a coder. On the other hand not being able to assign a new value to a variable in a new scope destroys a large part of the functionality of language. For these reasons we have chosen to leave it as is.
+\subsection{Scope definition}
+Because we do not have explicit declarations we cannot redefine a variable inside a new scope. There would be no way to distinguish between redefining a variable in a new scope and reassigning the value that was given to a variable to be used later. With a new variable that overwrites an old one for a temporary scope you would need to assign a new space in memory. We have decided that we want this in our programming language, this is because if you can redeclare a variable inside a new scope then you are only making it more confusing for yourself as a coder. On the other hand not being able to assign a new value to a variable in a new scope destroys a large part of the functionality of language. For these reasons we have chosen to leave it as is.
 
-String template expressions: StringTemplate does not allow you to evaluate an expression inside of a string template. This was purposefully implemented to stop you from putting a large part of the logic in the string template itself. The problem that we have with this is that there are issues that are specific to the creation of java bytecode that must now be evaluated in the antlr part of the program, and must be passed in the creation of any possible target platform. The first time this became a problem was what instructions to use for outputting any given number. A naive solution to this would be to always use the instruction for loading a large number like an integer. But java has special instructions for loading the numbers -1 through 5 and loading smaller numbers that fit on a byte or a short, so we wanted to use these. To solve this issue we created a function that calculated what type a number can fit into in the CodeGeneratorAux class which passes a number of booleans wrapped in a NumberType to the string template. We then use conditional templates to emit different instructions depending on the number to be put on the stack.
+\subsection{String template expressions}
+StringTemplate does not allow you to evaluate an expression inside of a string template. This was purposefully implemented to stop you from putting a large part of the logic in the string template itself. The problem that we have with this is that there are issues that are specific to the creation of java bytecode that must now be evaluated in the antlr part of the program, and must be passed in the creation of any possible target platform. The first time this became a problem was what instructions to use for outputting any given number. A naive solution to this would be to always use the instruction for loading a large number like an integer. But java has special instructions for loading the numbers -1 through 5 and loading smaller numbers that fit on a byte or a short, so we wanted to use these. To solve this issue we created a function that calculated what type a number can fit into in the CodeGeneratorAux class which passes a number of booleans wrapped in a NumberType to the string template. We then use conditional templates to emit different instructions depending on the number to be put on the stack.
 
 %todo: Andere nadelen aan String templates. Geeft geen duidelijke plaatst binnen ANTLR voor java code. Het is lastiger om code repetitie te voorkomen (Do not repeat yourself).
 
-We chose to put the optimalisation of replacing all constants by their actual reference in the checker stage. The choice was made because in the checker there is already a list of declared variables, and java functions to do this. This made it very easy to implement this feature in the checker, and much more ugly to implement in the code generation. In an ideal world there would be a seperate stage inbetween the checker and the code generation that optimises the abstract syntax tree, but this one feature was easily done in the checker. We have also chosen to not support constants that can vary, being defined by another identifier. In the Alia programming language a constant can only be defined by a single primitive type.
+\subsection{Constants}
+We chose to put the optimalisation of replacing all constants by their actual reference in the checker stage. The choice was made because in the checker there is already a list of declared variables, and Java functions to do this. This made it very easy to implement this feature in the checker, and much more ugly to implement in the code generation. In an ideal world there would be a separate stage in-between the checker and the code generation that optimizes the abstract syntax tree, but this one feature was easily done in the checker. We have also chosen to not support constants that can vary, being defined by another identifier. In the Alia programming language a constant can only be defined by a single primitive type.
 
 
 %uitleg over de wijze waarop je de problemen die je bent tegengekomen bij het maken van de opdracht hebt opgelost (maximaal twee A4-tjes)
@@ -586,7 +599,7 @@ The tests have been constructed based on the requirements formulated in the comp
 \end{enumerate}
 
 \subsection{Test results}
-The test program will output whether or not the tests have executed successfully. The tests results can be seen in the image below. All tests have been successfully run using JUnit. This gives a relatively high certainty that the programming language is correct.
+The test program will output whether or not the tests have executed successfully. The tests results can be seen in the image below. All tests have been successfully run using JUnit. This gives a relatively high certainty that the programming language is correct. See appendix~\ref{testprogram} for an example run of the test program.
 
 \begin{center}
 \includegraphics[scale=0.5]{images/testresults.png}
@@ -600,6 +613,8 @@ In this report we have described for you the Alia programming language, built fo
 The construction of the Alia compiler was a very interesting and learning experience. As everyone knows you put quite a lot of time into the final project of compiler engineering, but you get rewarded with a new level of understanding of how programming languages work. It is fun to be able to define your own programming language and have a thorough understanding of every stage it takes to go from the written code to actually executable instructions. Weighing all the gains against the time invested it was a very positive learning experience and definitely adds value to an education in computer science.
 
 \newpage
+\appendix
+\newgeometry{left=0.3cm,right=0.3cm,bottom=0.3cm,top=0.3cm}
 \section{Appendices}
 \paragraph{Responsibilities}
 The following table makes clear who was responsible for what parts of the report.
@@ -620,8 +635,25 @@ Conclusion & Fedor \\
 %ANTLR TREEPARSER
 %Een testprogramma (invoer/uitvoer)
 
+\subsection{Lexer and parser}
 
-\subsection{Complete functionality test}
+\lstinputlisting[style=densecodenomargins, language=Assembly]{../src/alia/Alia.g}
+
+\subsection{Checker}
+
+\lstinputlisting[style=densecodenomargins, language=Assembly]{../src/alia/AliaChecker.g}
+
+\subsection{Code Generator}
+
+\lstinputlisting[style=densecodenomargins, language=Assembly]{../src/alia/AliaCodeGeneratorStringTemplate.g}
+
+\subsection{String templates}
+
+\lstinputlisting[style=densecodenomargins, language=Assembly]{../src/alia/jbc.stg}
+\restoregeometry
+
+\subsection{Example test program}
+\label{testprogram}
 The following test is designed to test most of the programming language functionalities.
 
 \subsubsection{Alia code}
@@ -669,6 +701,46 @@ while x = 5; x > i do
   end
 end
 \end{lstlisting}
+
+\subsubsection{Test results}
+The test program was run using the following input:
+\begin{lstlisting}
+30
+-100
+998
+true
+z
+\end{lstlisting}
+
+\noindent It resulted in the following output:
+\begin{lstlisting}
+30
+-100
+false
+true
+998
+true
+true
+a
+false
+1000
+true
+b
+0
+1
+1
+1
+2
+2
+2
+3
+3
+3
+4
+4
+4
+\end{lstlisting}
+
 
 \newgeometry{left=0.3cm,right=0.3cm,bottom=0.3cm,top=0.3cm}
 \subsubsection{Jasmin bytecode}
