@@ -18,6 +18,7 @@ Example files are located in the examples directory. To run a basic test file ru
 ```java -jar Alia.jar -ast -code_generator -run examples/basic/plus```
 
 A more extensive example is available here:
+
 ```java -jar Alia.jar -ast -code_generator -run examples/complete/complete```
 
 
