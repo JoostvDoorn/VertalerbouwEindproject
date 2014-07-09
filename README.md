@@ -1,5 +1,7 @@
 ### The Alia compiler
+The Alia compiler can be run using:
 
+```java -cp Alia.jar filename```
 
 options:  
 **-o [outputfile]** States the output class name.  
