@@ -12,6 +12,15 @@ options:
 **-code_generator** Generates code.   
 **[filename]** The last argument should be the filename
 
+### Example files
+Example files are located in the examples directory. To run a basic test file run:
+
+```java -jar Alia.jar -ast -code_generator -run examples/basic/plus```
+
+A more extensive example is available here:
+```java -jar Alia.jar -ast -code_generator -run examples/complete/complete```
+
+
 ### Compiling and running from source
 
 Compiling: ```javac -classpath "lib/*" -d bin/ -sourcepath src/ src/alia/Alia.java```  
