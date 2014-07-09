@@ -102,7 +102,7 @@ public class Alia {
 //                interpreter.program();
 //            }
 
-            if (options.contains(Option.CODE_GENERATOR)) {
+            if (!options.contains(Option.NO_CODE_GENERATOR)) {
                 // generate TAM assembler code using string template
                 // 1. Read template file
                 FileReader groupFileR = new FileReader("src/alia/jbc.stg");
@@ -205,7 +205,7 @@ public class Alia {
         AST,
         NO_CHECKER,
         NO_INTERPRETER,
-        CODE_GENERATOR,
+        NO_CODE_GENERATOR,
         RUN,
         O;
 
