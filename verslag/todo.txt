@@ -31,7 +31,7 @@ TODO: Moest ik nog wat voor doen? // Joost
 
 Voor programmatuur, zip met:
 PDF verslag
-Een README-?le met daarin aanwijzingen voor de installatie en het opstarten van de vertaler, zoals de voor executie noodzakelijke directories en ?les en de manier waarop e.e.a. geinstalleerd en aangeroepen dient te worden. Bij het lezen van deze ?le moet een gebruiker in staat zijn de vertaler foutloos te genereren, te compileren en op te starten
+Een README file met daarin aanwijzingen voor de installatie en het opstarten van de vertaler, zoals de voor executie noodzakelijke directories en ?les en de manier waarop e.e.a. geinstalleerd en aangeroepen dient te worden. Bij het lezen van deze ?le moet een gebruiker in staat zijn de vertaler foutloos te genereren, te compileren en op te starten
 De volledige ANTLR speci?caties en de Java-?les die door ANTLR gegenereerd zijn;
 De Java-code van alle zelfgede?nieerde klassen, in e´en enkele directory-hi ´ erarchie
 Documentatie (door javadoc geproduceerd in html) van alle zelfgede?nieerde klassen, in een eigen directory-hierarchie (dus niet gecombineerd met de Java-files).
