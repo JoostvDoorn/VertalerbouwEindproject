@@ -1,5 +1,8 @@
 package alia.types;
 
+/**
+ * Abstract type class, it contains helper methods used to type checking
+ */
 public abstract class _Type {
 	protected String typename;
 	
@@ -21,6 +24,9 @@ public abstract class _Type {
 	public String toString(){
 		return this.typename;
 	}
+	/**
+	 * These variables are used in the string template for conditional statements.
+	 */
 	public boolean _void = true;
 	public boolean _char = false;
 	public boolean _int = false;

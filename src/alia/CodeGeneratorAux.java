@@ -8,6 +8,9 @@ import org.antlr.runtime.tree.TreeParser;
 
 import alia.types.*;
 
+/**
+ * Auxiliary class for the code generator. It has helper functions for the Alia code generator.
+ */
 public class CodeGeneratorAux extends TreeParser {
 	
 	protected int labelId = 0;

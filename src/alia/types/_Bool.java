@@ -1,5 +1,8 @@
 package alia.types;
 
+/**
+ * Boolean type class, used for Type checking and code generation
+ */
 public class _Bool extends _Type {
 	public _Bool() {
 		this.typename = "bool";

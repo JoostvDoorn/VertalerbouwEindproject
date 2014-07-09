@@ -3,6 +3,9 @@ package alia.symtab;
 import alia.types._Type;
 
 
+/**
+ * Entry for the symboltable. An IdEntry stores the type of an entry, if it is a constant and the level on which the variable is declared.
+ */
 public class IdEntry {
     private int  level = -1;
     private _Type type  = null;

@@ -2,6 +2,7 @@ package alia;
 
 import org.antlr.runtime.tree.Tree;
 
+/** Exception class to signal type errors in the Alia compiler */
 public class AliaTypeException extends AliaException {
 
 	private static final long serialVersionUID = 1L;

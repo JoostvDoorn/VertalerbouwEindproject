@@ -3,6 +3,7 @@ package alia;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.Tree;
 
+/** Exception class to signal problems within the Alia compiler */
 public class AliaException extends RecognitionException {
 
 	/**

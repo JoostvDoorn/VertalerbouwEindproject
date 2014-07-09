@@ -10,7 +10,9 @@ import org.antlr.runtime.tree.*;
 
 import alia.symtab.*;
 
-
+/**
+ * Auxiliary class for the type checker. It has helper functions for the Alia checker.
+ */
 public abstract class CheckerAux extends TreeParser {
 	
     protected SymbolTable<IdEntry> symTab = new SymbolTable<IdEntry>(); //Symbol table that keeps track of entered symbols

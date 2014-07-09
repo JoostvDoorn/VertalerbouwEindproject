@@ -1,5 +1,5 @@
 package alia;
-
+/** Class with boolean attributes to indicate the type of the number. Used in the code generator to pass to the stringtemplates. */
 public class NumberType {
     public boolean lessthanfive;
 	public boolean minusone;
