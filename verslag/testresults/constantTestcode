@@ -1,0 +1,10 @@
+const x = 5
+const a = 'a'
+const b = true
+const c = false
+y = x + 1
+print(x)
+print(y)
+print(a)
+print(b)
+print(c)

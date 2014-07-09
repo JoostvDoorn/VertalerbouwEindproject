@@ -1,0 +1,12 @@
+x = 5
+
+y = if x < 3 do
+	x = 50
+elseif x <= 5 do
+	4
+	5
+	5
+	x = 4
+end
+
+print(x)

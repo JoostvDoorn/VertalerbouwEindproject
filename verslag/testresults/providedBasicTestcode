@@ -1,0 +1,28 @@
+ivar = begin
+		ivar1 = ivar2 = 0
+		read(ivar1, ivar2);
+		print(ivar1, ivar2);
+		const iconst1 = 1;
+		const iconst2 = 2;
+		ivar2 = ivar1 = +16 + 2 * -8;
+		print(ivar1 < ivar2 && iconst1 <= iconst2,iconst1 * iconst2 > ivar2 - ivar1);
+		ivar1 < read(ivar2) && iconst1 <= iconst2;
+		ivar2 = print(ivar2) + 1;
+	end + 1
+bvar = begin
+		bvar = false
+		read(bvar);
+		print(bvar);
+		bvar = 12 / 5 * 5 + 12 % 5 == 12 && 6 >= 6;
+		const bconst = true;
+		print(!false && bvar == bconst || true != false);
+	end && true;
+cvar = begin
+		cvar1 = 'c'
+		read(cvar1);
+		const cconst = 'c';
+		cvar2 = 'z';
+		print('a', cvar1 == cconst && cvar2 != 'b' || !true);
+		'b';
+	end;
+print(ivar, bvar, cvar);

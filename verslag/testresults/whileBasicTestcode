@@ -1,0 +1,8 @@
+x = 0
+
+while 13 > x do
+	x = x + 1
+	print(x)
+	
+	
+end

@@ -122,12 +122,12 @@ public class Alia {
                 System.out.println(output.toString());
                 
                 // Write to file
-                PrintWriter writer = new PrintWriter("bin/test.j", "UTF-8");
+                PrintWriter writer = new PrintWriter("bin/"+outputFile+"compiled.j", "UTF-8");
                 writer.println(output.toString());
                 writer.close();
                 
                 // Run Jasmin
-                String[] arguments = new String[] {"bin/test.j","-d","bin"};
+                String[] arguments = new String[] {"bin/"+outputFile+"compiled.j","-d","bin"};
                 Main.main(arguments);
 
             }

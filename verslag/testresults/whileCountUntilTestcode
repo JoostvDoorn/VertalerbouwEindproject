@@ -1,0 +1,7 @@
+i = 0
+max = 0
+read(max)
+while i<max do
+	print(i)
+	i = i + 1
+end

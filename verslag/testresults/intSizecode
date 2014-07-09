@@ -1,0 +1,8 @@
+a = 214748647 : int
+print(a)
+b = -2147483648 : int
+print(b)
+c = 2147483648 : int
+print(c)
+d = -2147483647 : int
+print(d)

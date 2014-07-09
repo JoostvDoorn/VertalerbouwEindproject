@@ -1,0 +1,6 @@
+// an error in an expression:
+a + * b;
+// non-existing and misspelled keywords:
+for gebin ned repeat;
+// hurray, finally something good:
+a + b;

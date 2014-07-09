@@ -1,0 +1,10 @@
+begin
+	x = 5
+	x + 5
+end
+print(x)
+begin
+	x = 5
+	x + 5
+end
+print(x)
