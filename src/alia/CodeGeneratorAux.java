@@ -138,8 +138,7 @@ public class CodeGeneratorAux extends TreeParser {
 	}
 
 	/**
-	 * Return the class of the program.
-	 * @return
+	 * @return class of the program.
 	 */
 	public String getProgramClass() {
 		return className;
