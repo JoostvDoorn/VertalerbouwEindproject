@@ -21,6 +21,12 @@ A more extensive example is available here:
 
 ```java -jar Alia.jar -ast -code_generator -run examples/complete/complete```
 
+A specific output class can be defined with ```-o```, compiled files can be found in the bin directory:
+
+```
+java -jar Alia.jar -ast -code_generator -o Complete examples/complete/complete
+java -cp bin Complete
+```
 
 ### Compiling and running from source
 
