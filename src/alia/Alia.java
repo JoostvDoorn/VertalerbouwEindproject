@@ -137,8 +137,8 @@ public class Alia {
 	                URL classUrl = new URL(new URL("file:"), "bin/");
 	                URLClassLoader sysLoader = new URLClassLoader(new URL[]{classUrl});
 	                sysLoader.getURLs();
-	                Class runClass = sysLoader.loadClass(outputFile);
-		            Class getArg[] = { (new String[1]).getClass() };
+	                Class<?> runClass = sysLoader.loadClass(outputFile);
+		            Class<?> getArg[] = { (new String[1]).getClass() };
 		            Method m = runClass.getMethod("main", getArg);
 	                String[] my = { "" };
 	                Object myarg[] = { my };

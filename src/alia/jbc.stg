@@ -70,11 +70,11 @@ getstatic java/lang/System/out Ljava/io/PrintStream;
 <firststatement; separator="\n">
 <if(type._void)>
 <else>
-istore_1 ; TODO: bepaal welke lokale variabele we gebruiken voor dit doeleinde
-iload_1 ; Deze lokale variabele is niet goed, want die kan hergebruikt worden door een andere print...
+istore_1
+iload_1
 <endif>
 
-invokevirtual java/io/PrintStream/println(<t>)V ; add right constant pool reference bytes for println
+invokevirtual java/io/PrintStream/println(<t>)V
 
 <statements; separator="\n">
 
@@ -167,7 +167,7 @@ iconst_<if(b)>1<else>0<endif> ; Bool
 assign(var, addr, expr) ::= <<
 <expr>
 istore <addr>                  ; store value into <var>
-iload <addr>				   ; put value on the stack TODO: decide if this is good enough
+iload <addr>				   ; put value on the stack
 >>
 
 binexpr(x, y, instr) ::= <<

@@ -7,7 +7,8 @@
 \usepackage{amsmath,amsfonts,amsthm} % Math packages
 \usepackage[pdftex]{graphicx}	
 \usepackage{url}
-\usepackage{listings} % listings to include code samples
+\usepackage{geometry}
+\usepackage{listings,multicol} % listings to include code samples
 \usepackage{xcolor} % to change color in code listings
 
 \usepackage{caption}
@@ -54,7 +55,41 @@
 }
 \renewcommand{\lstlistingname}{Code}
 
+\lstdefinestyle{muchcode}{
+  numbers=left, %we need line numbers to make line wrapping obvious
+  numberstyle=\color[HTML]{888888} %we want line numbers to blend in
+}
+\lstdefinestyle{densecode}{
+  aboveskip=1cm,
+  belowskip=1cm,
+  xleftmargin=-1.85cm, % Alters margin for listings to fit more code on a line.
+  xrightmargin=-1.85cm, % Alters margin for listings to fit more code on a line.
+  basicstyle=\small\ttfamily,
+  numbers=left, %we need line numbers to make line wrapping obvious
+  numberstyle=\color[HTML]{888888} %we want line numbers to blend in
+}
+\lstdefinestyle{densecodecolumn}{
+  aboveskip=0cm,
+  belowskip=0cm,
+  xleftmargin=0.8cm, % Alters margin for listings to fit more code on a line.
+  xrightmargin=0.3cm, % Alters margin for listings to fit more code on a line.
+  basicstyle=\footnotesize\ttfamily,
+  numbers=left, %we need line numbers to make line wrapping obvious
+  numberstyle=\color[HTML]{888888} %we want line numbers to blend in
+}
 
+\lstdefinelanguage{Assembly}{
+  keywords={getstatic, loadvirtual, loadstatic, invokestatic, invokespecial, invokevirtual},
+  keywordstyle=\color[HTML]{333333}\bfseries, 
+  sensitive=false,
+  comment=[l]{//},
+  tabsize=2,
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
 
 %%% Maketitle metadata
 \newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
@@ -88,6 +123,8 @@
 The Alia programming language was built for the final project of the compiler construction course at the University of Twente. In this final project a programming language is specified and implemented in antlr (ANother Tool for Language Recognition). A compiler is built to translate code into a type of machine instructions. The type of machine instructions can vary from language to language. Over the first half of compiler construction several small pieces of the process of building a compiler are individually learned and tested, brought to culmination in the final project where the entire track is gone through and a usable language is produced. 
 
 This document serves as a specification of the Alia Programming Language (Alia for short) as well as an explanation of the inner workings of the Alia compiler. In it we will give a short description of the Alia Programming Language in the context of programming languages, explain some of the problems faced and solutions concoted during the construction of the Alia compiler,  give a specification of the Alia language with the help of the syntax, context-constraints and semantics. Also in this document are the transformations that show how the symbols of the language are turned into JVM instructions, a description of all the auxiliary java code made for the compiler, a set of tests is described to give confidence in the correctness of the compiler and lastly conclusions are drawn from the project.
+
+The Alia source code repository is located at \url{https://github.com/JoostvDoorn/VertalerbouwEindproject}.
 
 \section{Alia Programming Language}
 %De programmeertaal
@@ -549,11 +586,27 @@ The tests have been constructed based on the requirements formulated in the comp
 \end{enumerate}
 
 \subsection{Test results}
+The test program will output whether or not the tests have executed successfully. The tests results can be seen in the image below. All tests have been successfully run using JUnit. This gives a relatively high certainty that the programming language is correct.
+
+\begin{center}
+\includegraphics[scale=0.5]{images/testresults.png}
+\end{center}
+
+
+
+\section{Conclusion}
+\section{Appendices}
+%ANTLR LEXER
+%ANTLR PARSER
+%ANTLR TREEPARSER
+%Een testprogramma (invoer/uitvoer)
+
 
 \subsection{Complete functionality test}
-The following test is designed to test the complete functionalities of the programming language.
+The following test is designed to test most of the programming language functionalities.
 
-\begin{lstlisting}
+\subsubsection{Alia code}
+\begin{lstlisting}[style=muchcode]
 ivar = begin
     ivar1 = ivar2 = 0
     read(ivar1, ivar2);
@@ -598,12 +651,12 @@ while x = 5; x > i do
 end
 \end{lstlisting}
 
-\section{Conclusion}
-\section{Appendices}
-%ANTLR LEXER
-%ANTLR PARSER
-%ANTLR TREEPARSER
-%Een testprogramma (invoer/uitvoer)
+\newgeometry{left=0.3cm,right=0.3cm,bottom=0.3cm,top=0.3cm}
+\subsubsection{Jasmin bytecode}
+\lstinputlisting[style=densecodecolumn, language=Assembly, multicols=2]{code/Complete.j}
+
+
+
 % 
 %%% End document
 \end{document}
