@@ -27,7 +27,7 @@ public class TestHelpers {
 
 	    System.setOut(new PrintStream(new ByteArrayOutputStream()));
 	    System.setErr(new PrintStream(new ByteArrayOutputStream()));
-		String[] args = { "-ast", "-code_generator", "-o",callerClassName, filePath };
+		String[] args = { "-ast", "-o",callerClassName, filePath };
 		Alia.runCompiler(args);
 		System.setIn(new ByteArrayInputStream(input.getBytes()));
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -37,7 +37,7 @@ public class TestHelpers {
 	    System.setErr(ps);
 	    
 	    // Run file
-		String[] argsRun = { "-run", "-o",callerClassName, filePath };
+		String[] argsRun = { "-no_code_generator", "-run", "-o",callerClassName, filePath };
 		Alia.runCompiler(argsRun);
 
 	    // Put old System.out back
