@@ -180,8 +180,7 @@ expr returns [_Type type]
             String identifier = String.valueOf(getIdentifier($id.text, $prim.tree));
             
             }
-      -> //^(CONST ^(BECOMES ^(IDENTIFIER TYPE[typename] ID[identifier]) primitive))
-         // constants are not used after checking fase, thus they are removed
+      -> // constants are not used after checking fase, thus they are removed
     ;
    
 else_stmnt returns [_Type type]
@@ -231,9 +230,8 @@ identifier returns [_Type type]
 			$type = getType($id.text, $id.tree);
             String typename = String.valueOf($type);
             String identifier = String.valueOf(getIdentifier($id.text, $id.tree));
-        	// TODO: In functions type inference should also be included here. Example function test(x) x = x + 1
-	        Boolean constant = retrieve($id.text, $id.tree).isConstant();
-	        Token value = getConstant($id.text); //possibly only if constant?
+        	Boolean constant = retrieve($id.text, $id.tree).isConstant();
+	        Token value = getConstant($id.text);
 		}
 	-> {constant && typename.equals("int") }? ^(NUMBER[value])
 	-> {constant && typename.equals("char") }? ^(CHAR_EXPR[value])

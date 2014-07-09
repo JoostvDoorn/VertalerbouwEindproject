@@ -68,6 +68,15 @@
   numbers=left, %we need line numbers to make line wrapping obvious
   numberstyle=\color[HTML]{888888} %we want line numbers to blend in
 }
+\lstdefinestyle{densecodenomargins}{
+  aboveskip=1cm,
+  belowskip=1cm,
+  xleftmargin=0.8cm, % Alters margin for listings to fit more code on a line.
+  xrightmargin=0.3cm, % Alters margin for listings to fit more code on a line.
+  basicstyle=\footnotesize\ttfamily,
+  numbers=left, %we need line numbers to make line wrapping obvious
+  numberstyle=\color[HTML]{888888} %we want line numbers to blend in
+}
 \lstdefinestyle{densecodecolumn}{
   aboveskip=0cm,
   belowskip=0cm,
@@ -124,7 +133,8 @@ The Alia programming language was built for the final project of the compiler co
 
 This document serves as a specification of the Alia Programming Language (Alia for short) as well as an explanation of the inner workings of the Alia compiler. In it we will give a short description of the Alia Programming Language in the context of programming languages, explain some of the problems faced during the construction of the Alia compiler,  and our solutions. Give a specification of the Alia language with the help of the syntax, context-constraints and semantics. Also in this document are the transformations that show how the symbols of the language are turned into JVM instructions, a description of all the auxiliary Java code made for the compiler. A set of tests is described to give confidence in the correctness of the compiler. Lastly conclusions are drawn from the project.
 
-The Alia source code repository is located at \url{https://github.com/JoostvDoorn/VertalerbouwEindproject}.
+The Alia source code repository is located at:
+\url{https://github.com/JoostvDoorn/VertalerbouwEindproject}
 
 \section{Alia Programming Language}
 %De programmeertaal
@@ -589,7 +599,7 @@ The tests have been constructed based on the requirements formulated in the comp
 \end{enumerate}
 
 \subsection{Test results}
-The test program will output whether or not the tests have executed successfully. The tests results can be seen in the image below. All tests have been successfully run using JUnit. This gives a relatively high certainty that the programming language is correct.
+The test program will output whether or not the tests have executed successfully. The tests results can be seen in the image below. All tests have been successfully run using JUnit. This gives a relatively high certainty that the programming language is correct. See appendix~\ref{testprogram} for an example run of the test program.
 
 \begin{center}
 \includegraphics[scale=0.5]{images/testresults.png}
@@ -600,14 +610,33 @@ The test program will output whether or not the tests have executed successfully
 \section{Conclusion}
 
 \newpage
-\section{Appendices}
+\appendix
+\newgeometry{left=0.3cm,right=0.3cm,bottom=0.3cm,top=0.3cm}
+\section{Apendices}
 %ANTLR LEXER
 %ANTLR PARSER
 %ANTLR TREEPARSER
 %Een testprogramma (invoer/uitvoer)
 
+\subsection{Lexer and parser}
 
-\subsection{Complete functionality test}
+\lstinputlisting[style=densecodenomargins, language=Assembly]{../src/alia/Alia.g}
+
+\subsection{Checker}
+
+\lstinputlisting[style=densecodenomargins, language=Assembly]{../src/alia/AliaChecker.g}
+
+\subsection{Code Generator}
+
+\lstinputlisting[style=densecodenomargins, language=Assembly]{../src/alia/AliaCodeGeneratorStringTemplate.g}
+
+\subsection{String templates}
+
+\lstinputlisting[style=densecodenomargins, language=Assembly]{../src/alia/jbc.stg}
+\restoregeometry
+
+\subsection{Example test program}
+\label{testprogram}
 The following test is designed to test most of the programming language functionalities.
 
 \subsubsection{Alia code}
@@ -655,6 +684,46 @@ while x = 5; x > i do
   end
 end
 \end{lstlisting}
+
+\subsubsection{Test results}
+The test program was run using the following input:
+\begin{lstlisting}
+30
+-100
+998
+true
+z
+\end{lstlisting}
+
+\noindent It resulted in the following output:
+\begin{lstlisting}
+30
+-100
+false
+true
+998
+true
+true
+a
+false
+1000
+true
+b
+0
+1
+1
+1
+2
+2
+2
+3
+3
+3
+4
+4
+4
+\end{lstlisting}
+
 
 \newgeometry{left=0.3cm,right=0.3cm,bottom=0.3cm,top=0.3cm}
 \subsubsection{Jasmin bytecode}
