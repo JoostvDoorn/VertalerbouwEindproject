@@ -1,4 +1,15 @@
-### Running from source
+### The Alia compiler
+
+
+options:
+ * -o [outputfile]
+ * -run
+ * -ast
+ * -dot
+ * -no_checker
+ * -code_generator
+
+### Compiling and running from source
 
 Compiling: ```javac -classpath "lib/*" -d bin/ -sourcepath src/ src/alia/Alia.java```  
 Running the Alia compiler: ```java -classpath "lib/*;bin/" alia.Alia```  
