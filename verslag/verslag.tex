@@ -180,7 +180,7 @@ StringTemplate does not allow you to evaluate an expression inside of a string t
 %todo: Andere nadelen aan String templates. Geeft geen duidelijke plaatst binnen ANTLR voor java code. Het is lastiger om code repetitie te voorkomen (Do not repeat yourself).
 
 \subsection{Constants}
-We chose to put the optimalisation of replacing all constants by their actual reference in the checker stage. The choice was made because in the checker there is already a list of declared variables, and Java functions to do this. This made it very easy to implement this feature in the checker, and much more ugly to implement in the code generation. In an ideal world there would be a separate stage in-between the checker and the code generation that optimizes the abstract syntax tree, but this one feature was easily done in the checker. We have also chosen to not support constants that can vary, being defined by another identifier. In the Alia programming language a constant can only be defined by a single primitive type.
+We chose to put the optimization of replacing all constants by their actual reference in the checker stage. The choice was made because in the checker there is already a list of declared variables, and Java functions to do this. This made it very easy to implement this feature in the checker, and much more ugly to implement in the code generation. In an ideal world there would be a separate stage in-between the checker and the code generation that optimizes the abstract syntax tree, but this one feature was easily done in the checker. We have also chosen to not support constants that can vary, being defined by another identifier. In the Alia programming language a constant can only be defined by a single primitive type.
 
 
 %uitleg over de wijze waarop je de problemen die je bent tegengekomen bij het maken van de opdracht hebt opgelost (maximaal twee A4-tjes)
@@ -247,7 +247,7 @@ func_def = DEF identifier "(" varlist ")";
 \end{verbatim}
 
 
-\subsection{Semantics and context constraints:}
+\subsection*{Semantics and context constraints:}
 The semantics and context constraints are defined using the abstract syntax of the Alia language.
 \paragraph{Program}
 \begin{verbatim}
@@ -270,11 +270,11 @@ compound_stmnt = begin statements end;
 \end{verbatim}
 \begin{itemize}
 \item A statements is a set of statements separated by an end statement.
-\item A conditional statements is a statements that is ment for conditional expressions.
-\item A statement can be ended by any of the above separators.
+\item A conditional statements is a statements that is meant for conditional expressions.
+\item A statement can be ended by any of the above separators ($\textbackslash n$, $;$, $EOF$).
 \item The while statement 'while S1 do S2 end' is executed as follows. The statement S1 is evaluated, if its value is true then S2 is evaluated and the while statement is run again. If the value of S1 is false then the execution is completed. S1 must be of type boolean. This statement is of type void. Declarations made in S1 are valid in S1 and S2. The scope of declarations made in S2 is only S2.
 
-\item If statements of the form 'if S1 do S2 (elseif S3 do S4)* (else S5)?' are executed as follows. S1 is executed. If S1 is true, then S2 is evaluated. If S1 is false and there is an S3, then S3 is evaluted and if true S4 is executed. If the evaluated S3 is false there is another elseif statement then it is evaluated, same as an if statement is. If S1, S3 and all other elseifs have evaluated to false, then S5 is executed. If there is no S5, execution has completed. The type os S1 and S3 must be boolean. If there is no else part, the type of the statement is void. If there is an else part, then if all S2, S4, S5 are the same type, that is the type of the conditional statement. If S2, S4, S5 are not of the same type then the type of the statement is void. Special scope rules apply, a declaration in S1 or any S3 is valid in S2, S4, S5 as long as the declaration precedes the use. 
+\item If statements of the form 'if S1 do S2 (elseif S3 do S4)* (else S5)?' are executed as follows. S1 is executed. If S1 is true, then S2 is evaluated. If S1 is false and there is an S3, then S3 is evaluted and if true S4 is executed. If the evaluated S3 is false there is another elseif statement then it is evaluated, same as an if statement is. If S1, S3 and all other elseifs have evaluated to false, then S5 is executed. If there is no S5, execution has completed. The type os S1 and S3 must be boolean. If there is no else part, the type of the statement is void. If there is an else part, then if all S2, S4, S5 are the same type, then that is the type of the conditional statement. If S2, S4, S5 are not of the same type then the type of the statement is void. Special scope rules apply, a declaration in S1 or any S3 is valid in S2, S4, S5 as long as the declaration precedes the use. 
 \item A compound statement is a closed set of statements. Any assignments made in the statements can not be used outside of the compound statement. The result and type of the compound statement are the same as the last statement in the compound statement.
 
 \end{itemize}
@@ -454,8 +454,8 @@ executePrint [S]
     print [S]
     
 read [] =
-    invokestatic java/lang/System/console()Ljava/io/Console;
-    invokevirtual java/io/Console/readLine()Ljava/lang/String;
+    getstatic ClassName/in Ljava/io/BufferedReader;
+    invokevirtual java/io/BufferedReader/readLine()Ljava/lang/String;
     invokestatic java/lang/Type/parseType(Ljava/lang/String;)T
 
 execute [read(I)] =
