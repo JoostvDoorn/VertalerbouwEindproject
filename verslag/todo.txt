@@ -22,7 +22,6 @@ Voor verslag
 2. context-beperkingen // Fedor
 3. semantiek // Fedor
 4. problemen en oplossingen // Fedor
-TODO: Moest ik nog wat voor doen? // Joost
 5. vertaalregels // Joost
 6. beschrijving java-programmatuur // Fedor
 7. Explain lots of code in checker in report.
