@@ -279,10 +279,10 @@ compound_stmnt = begin statements end;
 \paragraph{Assignment}
 \begin{verbatim}
 expr_assignment = identifier "=" expr_assignment
-				| expr (; type)?
+				| expr (: type)?
 				;
 
-const_assignment = CONST identifier "=" primitive;(; type)?
+const_assignment = CONST identifier "=" primitive (: type)?
 \end{verbatim}
 
 \begin{itemize}
@@ -306,7 +306,7 @@ expr_plus = "+" operand;
 \item The expression 'E1 == E2' is true iff E1 equals E2. 'E1 != E2' is true iff E1 is not equal to E2. 'E1 <= E2' true iff E1 is smaller than or equal to E2. 'E1 >= E2' is true iff E1 greater than or equal to E2. 'E1 > E2' is true iff E1 is greater than E2. 'E1 < E2' is true iff E1 is smaller than E2. Of all these comparative operators, E1 and E2 must be of the same type. The type of the expressions is Boolean. These are the comparitive operators. 
 \item The expression 'E1 + E2' is executed as E1 plus E2. 'E1 - E2' is E1 minus E2. 'E1 * E2' is E1 times E2. 'E1 / E2' is E1 divided by E2, E2 is not allowed to be zero. '% E1 E2' is E1 modulo E2. The type of each of these E1 and E2 must be Int. The type of the expression is Int. These are the arithmetic operators.
 \item The operator O in '!O' is inverted. O must be of type boolean, the expression is of type boolean. The '+O' and '-O' are executed as follows. For '+O' nothing is done. For '-O' the operand is negated. O must be of type Int, the expression is of type Int. These are the unary operators.
-\item The previous expressions have the following priority, from highest to lowest. Unary operators (-, +, !), then *,/,%, then + and -. Then comes comparative operators (<, <=, >=, >, ==, <>) then comes the logical and (&& or 'and') then comes logical or \|\| or 'or'.
+\item The previous expressions have the following priority, from highest to lowest. Unary operators (-, +, !), then * , / , \%  after those + and - . Then comes comparative operators (<, <=, >=, >, ==, <>) then comes the logical and (\&\& or 'and') then comes logical or || or 'or'.
 \end{itemize}
 
 \paragraph{Operands}
@@ -331,7 +331,7 @@ operand = READ "(" varlist ") |
 \item The identifier operand points to a the value or variable bound to I. The operand I must have been previously declared. The type of the operand is the type of that value or variable.
 \end{itemize}
 
-\paragraph{lists}
+\paragraph{Lists}
 \begin{verbatim}
 varlist = identifier ("," identifier)*;
 exprlist = expr ("," expr)*;
@@ -340,12 +340,12 @@ exprlist = expr ("," expr)*;
 \item The list 'I (,I)*' evaluates to a list of identifiers. If there is one identifier the type of the list is the type of that identifier, and the result is its value. If there are 2 or more, the type is void and there is no result.
 \item The list 'E (,E)* evaluates to a list of expressions. None of the expressions may be void. If there is one expression, the list of the type of E, and the value is E. If there are 2 or more, the type is void, and thus there is no result.
 \end{itemize}
-\paragraph{types}
+\paragraph{Types}
 \begin{verbatim}
 primitive =	NUMBER
 		|	CHARACTER
 		|	BOOLEAN
-		;
+	;
 \end{verbatim}
 \begin{itemize}
 \item The operand 'N' evaluates to a number. N can be no larger than 2147483647 and no smaller than -2147483648. N is of type Int.
@@ -630,10 +630,9 @@ The construction of the Alia compiler was a very interesting learning experience
 \newpage
 \appendix
 \section{Appendices}
+
 \subsection{Responsibilities}
 The following table makes clear who was responsible for what parts of the report.
-
-
 \begin{tabular}{l | l}
 Part & Person \\ \hline
 Title page & Joost \\
