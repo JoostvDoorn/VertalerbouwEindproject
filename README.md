@@ -1,13 +1,14 @@
 ### The Alia compiler
 
 
-options:
- * -o [outputfile]
- * -run
- * -ast
- * -dot
- * -no_checker
- * -code_generator
+options:  
+**-o [outputfile]** States the output class name.  
+**-run** Runs the program after compilation.  
+**-ast** Prints an ast.  
+**-dot** Prints a dot representation of the ast.  
+**-no_checker** Used to skip the checker.  
+**-code_generator** Generates code.   
+**[filename]** The last argument should be the filename
 
 ### Compiling and running from source
 
