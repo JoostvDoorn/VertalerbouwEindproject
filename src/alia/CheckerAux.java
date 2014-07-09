@@ -30,7 +30,7 @@ public abstract class CheckerAux extends TreeParser {
 	 * Checks if a is of type bool
 	 * @throws AliaTypeException
 	 */
-	protected void checkBoolType (_Type a, CommonTree tree) throws AliaTypeException{
+	public void checkBoolType (_Type a, CommonTree tree) throws AliaTypeException{
 		if (!a.equals(new _Bool())){
 			System.out.println("1");
 			throw new AliaTypeException("Type exception, expression is not a boolean.", tree);
@@ -41,7 +41,7 @@ public abstract class CheckerAux extends TreeParser {
 	 * Checks if a and b are of same type, then returns that type, else returns void.
 	 * @throws AliaException
 	 */
-	protected _Type checkTypesIf(_Type a, _Type b) {
+	public _Type checkTypesIf(_Type a, _Type b) {
 		_Type t = new _Void();
 		if(b != null) { // This is done for those functions that have an optional value b.
 			if(!a.equals(b)){
@@ -58,7 +58,7 @@ public abstract class CheckerAux extends TreeParser {
 	 * Checks if a and b are of the same type. If so, returns that type. Else throws exception.
 	 * @throws AliaTypeException
 	 */
-	protected _Type checkEqualType(_Type a, _Type b, CommonTree tree) throws AliaTypeException{
+	public _Type checkEqualType(_Type a, _Type b, CommonTree tree) throws AliaTypeException{
 		if(b != null) { // This is done for those functions that have an optional value b.
 			if(!a.equals(b)){
 				throw new AliaTypeException("Type " + a.toString() + " is not equal to " + b.toString() + ".", tree);
@@ -71,7 +71,7 @@ public abstract class CheckerAux extends TreeParser {
 	 * Checks if a and b are of type int, else throws exception.
 	 * @throws AliaTypeException
 	 */
-	protected void checkMathType(_Type a, _Type b, CommonTree tree) throws AliaTypeException{
+	public void checkMathType(_Type a, _Type b, CommonTree tree) throws AliaTypeException{
 		if(!a.equals(new _Int()) || !b.equals(new _Int())){
 			throw new AliaTypeException("Math expressions require type Int", tree);
 		}
@@ -81,7 +81,7 @@ public abstract class CheckerAux extends TreeParser {
 	 * Checks if a is not of type void, else throws exception.
 	 * @throws AliaTypeException
 	 */
-	protected void checkNotVoid(_Type a, CommonTree tree) throws AliaTypeException{
+	public void checkNotVoid(_Type a, CommonTree tree) throws AliaTypeException{
 		if(a == null || a.equals(new _Void())){
 			throw new AliaTypeException("Type is void.", tree);
 		}
@@ -95,7 +95,7 @@ public abstract class CheckerAux extends TreeParser {
 	 * @return declared IdEntry
 	 * @throws AliaException - if already declared.
 	 */
-	protected IdEntry declare(String name, _Type t, CommonTree tree) throws AliaException{
+	public IdEntry declare(String name, _Type t, CommonTree tree) throws AliaException{
 		IdEntry entry = new IdEntry();
 		entry.setType(t);
 		try {
@@ -122,7 +122,7 @@ public abstract class CheckerAux extends TreeParser {
 	 * @param value - value of the constant
 	 * @throws AliaException
 	 */
-	protected void declareConst(String name, _Type t, TreeRuleReturnScope value, CommonTree tree) throws AliaException{
+	public void declareConst(String name, _Type t, TreeRuleReturnScope value, CommonTree tree) throws AliaException{
 		IdEntry entry = declare(name, t, tree);
 		entry.setConstant();
 		constants.put(name, value);
@@ -133,7 +133,7 @@ public abstract class CheckerAux extends TreeParser {
 	 * @param name - identifier of the constant
 	 * @return token - token originally put as value of constant
 	 */
-	protected Token getConstant(String name){
+	public Token getConstant(String name){
 		TreeRuleReturnScope nodes = null;
 		Token token = null;
 		if(constants.containsKey(name)){
@@ -151,7 +151,7 @@ public abstract class CheckerAux extends TreeParser {
 	 * Wrapper for symboltable retrieve that throws aliaexceptions.
 	 * @throws AliaException
 	 */
-	protected _Type getType(String name, CommonTree tree) throws AliaException {
+	public _Type getType(String name, CommonTree tree) throws AliaException {
 		IdEntry id;
 		try {
 			id = symTab.retrieve(name);
@@ -172,7 +172,7 @@ public abstract class CheckerAux extends TreeParser {
 	 * @return identifier of the given identifier, e.g. 0 or 1 or higher.
 	 * @throws AliaException
 	 */
-	protected int getIdentifier(String name, CommonTree tree) throws AliaException {
+	public int getIdentifier(String name, CommonTree tree) throws AliaException {
 		IdEntry id;
 		try {
 			id = symTab.retrieve(name);
@@ -187,7 +187,7 @@ public abstract class CheckerAux extends TreeParser {
 	 * Wrapper for symbolTable retrieve that throws aliaexceptions.
 	 * @throws AliaException
 	 */
-	protected IdEntry retrieve(String name, CommonTree tree) throws AliaException{
+	public IdEntry retrieve(String name, CommonTree tree) throws AliaException{
 		try {
 			return symTab.retrieve(name);
 		} catch (SymbolTableException e) {
@@ -199,7 +199,7 @@ public abstract class CheckerAux extends TreeParser {
 	 * Returns the required size of the local variables for the JVM
 	 * @return Local size for the method
 	 */
-	protected String getLocalSize() {
+	public String getLocalSize() {
 		return symTab.maxIdentifier()+"";
 	}
 	
@@ -207,7 +207,7 @@ public abstract class CheckerAux extends TreeParser {
 	 * Used to check for correctly formed integers
 	 * @throws AliaException if the number is out of bound
 	 */
-	protected void checkInt(CommonTree n) throws AliaException {
+	public void checkInt(CommonTree n) throws AliaException {
 		try {
 			Integer.parseInt(n.toString());
 		}
